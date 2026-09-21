@@ -1,0 +1,24 @@
+{
+  "name": "caesar-site",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=frontend\" \"npm run dev --workspace=backend\"",
+    "build": "npm run build --workspace=frontend && npm run build --workspace=backend",
+    "start": "node backend/dist/index.js",
+    "check:homepage": "node scripts/check-homepage.mjs",
+    "check:rocket": "node scripts/check-rocket.mjs",
+    "check:avionics": "node scripts/check-avionics.mjs",
+    "check:propulsion": "node scripts/check-propulsion.mjs",
+    "check:structures": "node scripts/check-structures.mjs",
+    "check:marketing": "node scripts/check-marketing.mjs",
+    "check:scroll-motion": "node scripts/check-scroll-motion.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "playwright": "^1.63.0"
+  }
+}

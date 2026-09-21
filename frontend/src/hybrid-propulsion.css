@@ -1,0 +1,136 @@
+.propulsion-scene { display: contents; }
+.hybrid-propulsion { position: absolute; z-index: 5; top: 27%; left: calc(50% + clamp(112px, 9vw, 150px)); right: max(166px, calc((100vw - 1500px) / 2)); max-width: 460px; font: 11px/1.6 var(--technical-font); color: #d5e0e9; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .25s, visibility .25s; }
+.hybrid-propulsion.is-visible { opacity: 1; visibility: visible; pointer-events: auto; }
+.hybrid-heading { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .1em; color: #eef2f6; }
+.hybrid-heading i { width: 4px; height: 4px; background: var(--rocket-orange); }
+.hybrid-heading > span { color: #8196a9; }
+.hybrid-drawing { position: relative; height: clamp(270px, 34svh, 350px); margin-top: 22px; }
+.hybrid-engine { position: absolute; left: 18px; top: 0; width: 120px; height: 100%; overflow: visible; stroke: #91aabe; stroke-width: 1; }
+.hybrid-engine path, .hybrid-engine rect { vector-effect: non-scaling-stroke; }
+.hybrid-axis { stroke: #65839a45; stroke-dasharray: 2 7; }
+.hybrid-part { transition: opacity .3s, stroke .3s; }
+.hybrid-part.is-selected { stroke: #d5e6f1; }
+.hybrid-propulsion[data-selected] .hybrid-part:not(.is-selected) { opacity: .55; }
+.hybrid-liquid { fill: #829fb51c; stroke: none; }
+.hybrid-level { stroke: #839fb786; }
+.hybrid-extra-plumbing { opacity: 0; transition: opacity .3s; }
+.hybrid-propulsion[data-selected='fluid'] .hybrid-extra-plumbing { opacity: 1; }
+.hybrid-warmth { fill: url(#hybrid-heat); stroke: none; }
+.hybrid-fuel-grain { opacity: 0; transition: opacity .3s; }
+.hybrid-fuel-grain > path:first-child { fill: url(#hybrid-fuel-hatch); stroke: #a88e77; }
+.hybrid-fuel-port { stroke: #e5a271; stroke-dasharray: 2 5; }
+.hybrid-propulsion[data-selected='combustion'] .hybrid-fuel-grain { opacity: 1; }
+.hybrid-gas { stroke: #dda476; stroke-dasharray: .06 .94; stroke-dashoffset: 1; opacity: 0; }
+.hybrid-flow-pulse { stroke: #d4e5ee; stroke-dasharray: .04 .96; stroke-dashoffset: 1; opacity: 0; }
+.hybrid-vectors { stroke: #c2926d; opacity: .65; }
+.hybrid-n2o { position: absolute; top: 6.5%; left: 78px; transform: translateX(-50%); font-size: 14px; letter-spacing: .05em; }
+.hybrid-node { position: absolute; left: 156px; right: 0; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 4px 0; border: 0; background: none; color: #d5e0e9; font: 12px/1.5 var(--technical-font); letter-spacing: .04em; text-align: left; transform: translateY(-50%); transition: color .25s, opacity .25s; }
+.hybrid-node::before { content: ''; position: absolute; right: calc(100% + 10px); width: 26px; height: 1px; background: #819db664; }
+.hybrid-node > i { width: 5px; height: 5px; flex: 0 0 5px; border: 1px solid #9ab3c6; border-radius: 50%; }
+.hybrid-node small { display: block; margin-top: 3px; color: #8ba0b2; font-size: 8px; letter-spacing: .08em; }
+.hybrid-node--oxidizer { top: 16%; }
+.hybrid-node--fluid { top: 41%; }
+.hybrid-node--combustion { top: 70%; }
+.hybrid-node--performance { top: 94%; }
+.hybrid-node.is-selected { color: #fff0e3; }
+.hybrid-node.is-selected > i { border-color: var(--rocket-orange); background: var(--rocket-orange); }
+.hybrid-propulsion[data-selected] .hybrid-node:not(.is-selected) { opacity: .6; }
+.hybrid-node:focus-visible { outline: 1px solid #afc7d9; outline-offset: 4px; }
+.hybrid-nozzle-label { position: absolute; top: 84%; left: 108px; font-size: 8px; letter-spacing: .06em; color: #a9bbca; white-space: nowrap; pointer-events: none; }
+.hybrid-nozzle-label > span { color: #e0a06c; padding-inline: 4px; }
+.hybrid-flow-label { position: absolute; top: 42%; left: 0; font-size: 8px; color: #8399ad; writing-mode: vertical-rl; letter-spacing: .12em; }
+.hybrid-inspector { min-height: 158px; padding-top: 24px; }
+.hybrid-detail-title { font-size: 10px; letter-spacing: .06em; color: #bccfdf; margin-bottom: 11px; }
+.hybrid-mixture { font-size: 21px; letter-spacing: .04em; }
+.hybrid-mixture span { color: #8399ad; }
+.hybrid-explanation { font: 12px/1.6 var(--technical-font); color: #b8c8d4; max-width: 370px; margin-top: 10px; }
+.hybrid-chain, .hybrid-principle { margin: 0; padding: 0; list-style: none; }
+.hybrid-chain { display: flex; flex-wrap: wrap; gap: 7px 12px; font-size: 10px; }
+.hybrid-chain li:not(:last-child)::after { content: ' →'; color: #d29a71; margin-left: 8px; }
+.hybrid-secondary { display: flex; flex-wrap: wrap; gap: 5px 15px; font-size: 8px; color: #9badbc; margin-top: 16px; }
+.hybrid-principle { display: grid; gap: 5px; font-size: 11px; }
+.hybrid-principle li:nth-child(2) { color: #e4b088; }
+.hybrid-principle span { color: #a0b6c8; }
+.hybrid-parameters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px 12px; margin: 0; }
+.hybrid-parameters dt { font-size: 8px; color: #a2b6c7; }
+.hybrid-parameters dd { font-size: 19px; color: #eef2f6; margin: 2px 0 0; letter-spacing: .02em; }
+.hybrid-footer { display: flex; justify-content: space-between; gap: 8px; margin-top: 15px; color: #8194a5; font-size: 8px; letter-spacing: .06em; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hybrid-propulsion.is-visible .hybrid-heading { animation: hybrid-appear .3s both; }
+  .hybrid-propulsion.is-visible .hybrid-outline { animation: hybrid-draw .6s .15s backwards; }
+  .hybrid-propulsion.is-visible .hybrid-feed { animation-delay: .4s; }
+  .hybrid-propulsion.is-visible .hybrid-node, .hybrid-propulsion.is-visible .hybrid-n2o { animation: hybrid-appear .4s .55s backwards; }
+  .hybrid-propulsion.is-visible .hybrid-nozzle, .hybrid-propulsion.is-visible .hybrid-nozzle-label { animation: hybrid-appear .4s 1s backwards; }
+  .hybrid-propulsion.is-visible .hybrid-warmth { animation: hybrid-warmth 6s 1s infinite; }
+  .hybrid-propulsion.is-visible .hybrid-flow-pulse { animation: hybrid-flow 8s .6s infinite; }
+  .hybrid-propulsion.is-visible[data-selected='fluid'] .hybrid-flow-pulse,
+  .hybrid-propulsion.is-visible[data-selected='oxidizer'] .hybrid-flow-pulse,
+  .hybrid-propulsion.is-visible[data-selected='combustion'] .hybrid-flow-pulse { animation-duration: 3s; }
+  .hybrid-propulsion.is-visible[data-selected='combustion'] .hybrid-gas { animation: hybrid-flow 3s .7s infinite; }
+  .hybrid-propulsion.is-visible[data-selected='combustion'] .hybrid-vectors { animation: hybrid-warmth 3s 1s infinite; }
+  .hybrid-propulsion.is-visible .hybrid-detail:not([hidden]) { animation: hybrid-detail-in .25s both; }
+  .hybrid-propulsion[data-selected='performance'] .hybrid-flow-pulse,
+  .hybrid-propulsion[data-selected='performance'] .hybrid-warmth { animation: none; }
+}
+@keyframes hybrid-appear { from { opacity: 0; } to { opacity: 1; } }
+@keyframes hybrid-draw { from { stroke-dasharray: 1; stroke-dashoffset: 1; } to { stroke-dasharray: 1; stroke-dashoffset: 0; } }
+@keyframes hybrid-flow { 0% { stroke-dashoffset: 1; opacity: 0; } 4% { opacity: .9; } 35% { stroke-dashoffset: 0; opacity: 0; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes hybrid-warmth { 0%, 100% { opacity: .35; } 50% { opacity: .85; } }
+@keyframes hybrid-detail-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  .hybrid-propulsion { left: calc(50% + 100px); right: 70px; }
+  .hybrid-node { left: 133px; font-size: 10px; }
+  .hybrid-heading { font-size: 10px; gap: 6px; }
+  .hybrid-parameters dd { font-size: 17px; }
+}
+@media (max-width: 900px) {
+  .hybrid-propulsion { top: 101px; left: auto; right: 12px; width: calc(50% - 48px); max-width: 200px; }
+  .hybrid-heading { display: block; font-size: 9px; line-height: 1.5; letter-spacing: 0; }
+  .hybrid-heading i { display: none; }
+  .hybrid-heading > span { padding-inline: 3px; }
+  .hybrid-drawing { height: 235px; margin-top: 6px; }
+  .hybrid-engine { left: 0; width: 36px; }
+  .hybrid-n2o { top: 7%; left: 18px; font-size: 9px; }
+  .hybrid-node { left: 43px; right: -2px; font-size: 9px; letter-spacing: 0; gap: 5px; line-height: 1.4; }
+  .hybrid-node > i { width: 3px; height: 3px; flex-basis: 3px; }
+  .hybrid-node::before, .hybrid-node small, .hybrid-flow-label, .hybrid-footer { display: none; }
+  .hybrid-nozzle-label { left: 42px; font-size: 7px; top: 83%; line-height: 1.5; letter-spacing: 0; }
+  .hybrid-nozzle-label > span { padding-inline: 1px; }
+  .hybrid-inspector { position: fixed; top: 133px; left: 16px; width: calc(50vw - 64px); max-width: 210px; min-height: 0; padding: 0; }
+  .hybrid-detail-title { font-size: 9px; line-height: 1.5; margin-bottom: 9px; letter-spacing: 0; }
+  .hybrid-mixture { font-size: 18px; }
+  .hybrid-explanation { font-size: 10px; line-height: 1.5; }
+  .hybrid-chain { display: grid; gap: 4px; font-size: 9px; line-height: 1.4; }
+  .hybrid-chain li:not(:last-child)::after { content: '↓'; display: block; margin-left: 0; }
+  .hybrid-secondary { display: grid; gap: 3px; font-size: 8px; line-height: 1.4; margin-top: 9px; }
+  .hybrid-principle { font-size: 10px; gap: 9px; line-height: 1.4; }
+  .hybrid-principle span { display: block; }
+  .hybrid-principle + .hybrid-explanation { display: none; }
+  .hybrid-parameters { grid-template-columns: 1fr; gap: 5px; }
+  .hybrid-parameters dt { font-size: 8px; line-height: 1.35; }
+  .hybrid-parameters dd { font-size: 14px; line-height: 1.4; margin-top: 0; }
+}
+@media (max-width: 900px) and (max-height: 780px) {
+  .hybrid-propulsion { top: 90px; }
+  .hybrid-drawing { height: 208px; }
+  .hybrid-inspector { top: 123px; }
+  .hybrid-parameters { gap: 2px; }
+  .hybrid-parameters dd { line-height: 1.25; }
+  #hybrid-detail-performance .hybrid-detail-title { margin-bottom: 7px; }
+}
+@media (prefers-reduced-motion: reduce), (max-height: 600px), (max-width: 900px) and (max-height: 720px) {
+  .propulsion-scene { display: grid; grid-template-columns: 1fr 1fr; gap: 7%; align-items: start; }
+  .hybrid-propulsion { position: relative; inset: auto; width: 100%; margin: 55px auto 35px; }
+  .hybrid-inspector { position: static; width: auto; max-width: none; padding-top: 24px; min-height: 158px; }
+}
+@media (max-width: 900px) and (prefers-reduced-motion: reduce), (max-width: 900px) and (max-height: 720px) {
+  .propulsion-scene { display: block; }
+  .hybrid-propulsion { max-width: 380px; margin-block: 0 45px; display: grid; grid-template-columns: 120px 1fr; gap: 0 18px; }
+  .hybrid-heading { grid-column: 1 / -1; font-size: 11px; }
+  .hybrid-inspector { padding-top: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hybrid-propulsion, .hybrid-propulsion * { animation: none !important; transition: none !important; }
+}

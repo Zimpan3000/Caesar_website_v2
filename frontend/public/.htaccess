@@ -1,0 +1,15 @@
+# Upload this file to httpdocs/new/. Never replace WordPress's root .htaccess.
+Options -MultiViews
+DirectoryIndex index.html
+
+RewriteEngine On
+RewriteBase /new/
+
+# Serve real files/directories normally; missing assets must remain 404s.
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [END]
+RewriteRule ^(?:assets|data)(?:/|$) - [END]
+
+# Let the React app resolve navigation and refreshed routes inside /new/.
+RewriteRule ^ index.html [END]

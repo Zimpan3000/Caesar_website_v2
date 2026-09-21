@@ -1,0 +1,126 @@
+/* Marketing faces outward: an asymmetric communication network beside Phobos. */
+.marketing-scene { display: contents; }
+.marketing-outreach { position: absolute; z-index: 5; top: 23%; left: max(56px, 6vw); width: calc(44vw - 145px); max-width: 500px; color: #b9c9d6; font: 10px/1.5 var(--technical-font); letter-spacing: .05em; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .3s, visibility .3s; }
+.marketing-outreach.is-visible { opacity: 1; visibility: visible; pointer-events: auto; }
+.outreach-heading { color: #e4ebf1; font-size: 13px; letter-spacing: .12em; }
+.outreach-heading > span { color: var(--rocket-orange); }
+.outreach-subheading { margin-top: 6px; color: #879aaa; font-size: 8px; letter-spacing: .12em; }
+.outreach-network { position: relative; height: 330px; margin-top: 15px; }
+.outreach-orbits, .outreach-wires { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.outreach-orbits { stroke: #93aebe; stroke-width: 1; opacity: .07; }
+.outreach-orbits text { fill: #93aebe; stroke: none; font: 7px var(--technical-font); }
+.outreach-wires--compact { display: none; }
+.outreach-wires path { stroke-width: 1; vector-effect: non-scaling-stroke; }
+.outreach-connection { stroke: #7899b075; transition: stroke .25s; }
+.outreach-branch { transition: opacity .25s; }
+.outreach-branch.is-selected .outreach-connection { stroke: #c3d4df; }
+.outreach-packet { fill: #b5cad8; opacity: 0; offset-distance: 0%; offset-rotate: 0deg; }
+.outreach-branch[data-destination='partners'] .outreach-packet, .outreach-branch.is-selected .outreach-packet { fill: var(--rocket-orange); }
+.outreach-source { position: absolute; left: 50%; top: 48.485%; width: 35%; height: 33.333%; transform: translate(-50%, -50%); }
+.outreach-source svg { width: 100%; height: 100%; overflow: visible; stroke: #a6bdce; stroke-width: 1; }
+.outreach-source path, .outreach-source ellipse { vector-effect: non-scaling-stroke; }
+.outreach-source-orbit { opacity: .18; }
+.outreach-source-brackets { stroke: #c2d0da; }
+.outreach-source text { fill: #c1d1dd; stroke: none; font: 8px var(--technical-font); letter-spacing: .14em; }
+.outreach-source-status { fill: var(--rocket-orange); stroke: none; }
+.outreach-node { position: absolute; left: var(--node-x); top: var(--node-y); display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 82px; min-height: 58px; transform: translate(-50%, -16px); padding: 0 4px 6px; border: 0; background: none; color: #c9d4dd; font: 11px/1.5 var(--technical-font); letter-spacing: .04em; transition: color .25s, opacity .25s; }
+.outreach-node > * { pointer-events: none; }
+.outreach-symbol { width: 40px; height: 32px; stroke: #9cb5c7; stroke-width: 1; overflow: visible; }
+.outreach-terminal { fill: #bdcedb; stroke: none; }
+.outreach-response { opacity: 0; stroke: #a8c3d5; transform-box: fill-box; transform-origin: center; }
+.outreach-community, .outreach-waves { opacity: .45; }
+.outreach-waves path { transform-box: fill-box; transform-origin: left center; }
+.outreach-node.is-selected { color: #fff3e9; }
+.outreach-node.is-selected .outreach-symbol { stroke: #e1eaf1; }
+.outreach-node.is-selected .outreach-terminal { fill: var(--rocket-orange); }
+.outreach-node:focus-visible { outline: 1px solid #b6cbdc; outline-offset: 4px; }
+.marketing-outreach[data-selected] .outreach-branch:not(.is-selected), .marketing-outreach[data-selected] .outreach-node:not(.is-selected) { opacity: .45; }
+.outreach-label-compact { display: none; }
+.outreach-inspector { min-height: 156px; padding-top: 14px; }
+.outreach-detail-title { color: #c0d0de; font-size: 10px; margin-bottom: 10px; }
+.outreach-detail-title > span { color: #8299ab; }
+.outreach-detail ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 5px; }
+.outreach-detail li { color: #e1e8ee; font-size: 12px; letter-spacing: .03em; }
+.outreach-detail li::before { content: ''; display: inline-block; width: 3px; height: 3px; margin: 0 9px 2px 0; background: #9fb5c7; }
+.outreach-story { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 15px; color: #93a9ba; font-size: 8px; letter-spacing: .04em; }
+.outreach-story > span { color: var(--rocket-orange); }
+.outreach-footer { display: flex; justify-content: space-between; gap: 12px; font-size: 8px; color: #7f93a4; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .marketing-outreach.is-visible .outreach-heading, .marketing-outreach.is-visible .outreach-subheading { animation: outreach-appear .35s backwards; }
+  .marketing-outreach.is-visible .outreach-source { animation: outreach-appear .4s .15s backwards; }
+  .marketing-outreach.is-visible .outreach-connection { animation: outreach-draw .6s .3s backwards; }
+  .marketing-outreach.is-visible .outreach-node { animation: outreach-appear .3s calc(.65s + var(--node-order) * .08s) backwards; }
+  .marketing-outreach.is-visible .outreach-footer { animation: outreach-appear .3s 1s backwards; }
+  .marketing-outreach.is-visible .outreach-packet { animation: outreach-idle-packet 20s var(--signal-delay) infinite linear; }
+  .marketing-outreach.is-visible .outreach-response { animation: outreach-idle-response 20s var(--signal-delay) infinite ease-out; }
+  .marketing-outreach.is-visible .outreach-branch.is-selected .outreach-packet { animation: outreach-selected-packet 1.6s linear both; }
+  .marketing-outreach.is-visible .outreach-node.is-selected .outreach-response { animation: outreach-selected-response 1.6s ease-out both; }
+  .marketing-outreach.is-visible .outreach-node.is-selected .outreach-terminal { animation: outreach-arrival 1.6s both; }
+  .marketing-outreach.is-visible .outreach-node.is-selected .outreach-community, .marketing-outreach.is-visible .outreach-node.is-selected .outreach-waves { animation: outreach-audience 1.8s ease-out both; }
+  .marketing-outreach.is-visible .outreach-node.is-selected .outreach-waves path { animation: outreach-broadcast 1.8s ease-out both; }
+  .marketing-outreach.is-visible .outreach-node.is-selected .outreach-waves path:last-child { animation-delay: .15s; }
+  .marketing-outreach.is-visible .outreach-branch.is-selected .outreach-packet--follow { animation-delay: .22s; }
+  .marketing-outreach.is-visible .outreach-detail:not([hidden]) { animation: outreach-detail-in .25s both; }
+}
+.outreach-packet--follow { display: none; }
+.outreach-branch.is-selected .outreach-packet--follow { display: block; }
+@keyframes outreach-appear { from { opacity: 0; } to { opacity: 1; } }
+@keyframes outreach-draw { from { stroke-dasharray: 1; stroke-dashoffset: 1; } to { stroke-dasharray: 1; stroke-dashoffset: 0; } }
+@keyframes outreach-detail-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes outreach-idle-packet { 0% { opacity: 0; offset-distance: 0%; } 1% { opacity: .8; } 6% { opacity: .8; offset-distance: 100%; } 6.5%, 100% { opacity: 0; offset-distance: 100%; } }
+@keyframes outreach-idle-response { 0%, 5%, 11%, 100% { opacity: 0; transform: scale(.6); } 6% { opacity: .6; transform: scale(.6); } 10% { opacity: 0; transform: scale(1.7); } }
+@keyframes outreach-selected-packet { 0% { opacity: 0; offset-distance: 0%; } 8% { opacity: .9; } 65% { opacity: .9; offset-distance: 100%; } 70%, 100% { opacity: 0; offset-distance: 100%; } }
+@keyframes outreach-selected-response { 0%, 60% { opacity: 0; transform: scale(.6); } 65% { opacity: .8; transform: scale(.6); } 100% { opacity: 0; transform: scale(1.8); } }
+@keyframes outreach-arrival { 0%, 55%, 100% { opacity: .55; } 65%, 80% { opacity: 1; } }
+@keyframes outreach-audience { 0%, 55% { opacity: .35; } 70% { opacity: 1; } 100% { opacity: .65; } }
+@keyframes outreach-broadcast { 0%, 55% { opacity: .2; transform: scale(.7); } 70% { opacity: 1; } 100% { opacity: .4; transform: scale(1.15); } }
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  .marketing-outreach { left: 36px; width: calc(50vw - 170px); top: 22%; }
+  .outreach-network { height: 300px; }
+  .outreach-node { font-size: 10px; min-width: 70px; }
+  .outreach-orbits text { display: none; }
+  .outreach-footer { font-size: 7px; letter-spacing: 0; }
+}
+@media (max-width: 900px) {
+  .marketing-outreach { top: 104px; left: 14px; width: calc(50% - 62px); max-width: 200px; }
+  .outreach-heading { font-size: clamp(8px, 2.2vw, 10px); letter-spacing: 0; white-space: nowrap; }
+  .outreach-subheading, .outreach-orbits, .outreach-wires--full, .outreach-node--industry, .outreach-label-full, .outreach-footer { display: none; }
+  .outreach-label-compact, .outreach-wires--compact { display: block; }
+  .outreach-network { height: 270px; margin-top: 9px; }
+  .outreach-source { left: 50%; top: 48.148%; width: 84px; height: 66px; }
+  .outreach-node { left: 8%; width: 92%; top: var(--compact-y); min-width: 0; min-height: 36px; padding: 0; transform: translateY(-50%); flex-direction: row; justify-content: flex-start; gap: 5px; font-size: 10px; letter-spacing: 0; }
+  .outreach-symbol { flex: 0 0 22px; width: 22px; height: 22px; }
+  .outreach-node--partners { --compact-y: 8.148%; }
+  .outreach-node--students { --compact-y: 23.704%; }
+  .outreach-node--public { --compact-y: 72.593%; }
+  .outreach-node--digital { --compact-y: 88.889%; }
+  .outreach-inspector { position: fixed; top: 150px; right: 16px; width: calc(50vw - 76px); max-width: 200px; min-height: 0; padding: 0; }
+  .outreach-detail-title { font-size: 9px; letter-spacing: 0; }
+  .outreach-detail-title > span { display: none; }
+  .outreach-detail li { font-size: 11px; line-height: 1.6; letter-spacing: 0; overflow-wrap: anywhere; }
+  .outreach-detail li::before { display: none; }
+  .outreach-story { font-size: 8px; gap: 4px; line-height: 1.5; }
+}
+@media (max-width: 900px) and (max-height: 780px) {
+  .marketing-outreach { top: 92px; }
+  .outreach-network { height: 220px; }
+  .outreach-node { min-height: 30px; font-size: 9px; gap: 3px; }
+  .outreach-source { width: 76px; height: 60px; }
+  .outreach-inspector { top: 128px; }
+}
+@media (prefers-reduced-motion: reduce), (max-height: 600px), (max-width: 900px) and (max-height: 720px) {
+  .marketing-scene { display: grid; grid-template-columns: 1fr 1fr; gap: 7%; align-items: start; }
+  .marketing-outreach { position: relative; inset: auto; width: 100%; max-width: 500px; margin: 55px auto 35px; }
+  .outreach-inspector { position: static; width: auto; max-width: none; min-height: 156px; padding-top: 14px; }
+}
+@media (max-width: 900px) and (prefers-reduced-motion: reduce), (max-width: 900px) and (max-height: 720px) {
+  .marketing-scene { display: block; }
+  .marketing-outreach { max-width: 340px; margin: 0 auto 45px; display: grid; grid-template-columns: 120px 1fr; column-gap: 20px; }
+  .outreach-heading { grid-column: 1 / -1; font-size: 11px; }
+  .outreach-inspector { padding-top: 25px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marketing-outreach, .marketing-outreach * { animation: none !important; transition: none !important; }
+}

@@ -1,0 +1,172 @@
+﻿/* Hardware geometry floats in the existing negative space; no enclosing UI card. */
+.electronics-scene { display: contents; }
+.avionics { --cycle: 12s; position: absolute; z-index: 5; top: 22%; left: calc(50% + clamp(112px, 9vw, 150px)); right: max(166px, calc((100vw - 1500px) / 2)); max-width: 500px; color: #c4d0db; font: 10px/1.6 var(--technical-font); letter-spacing: .06em; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .3s, visibility .3s; }
+.avionics.is-visible { opacity: 1; visibility: visible; pointer-events: auto; }
+.avionics-heading { display: flex; align-items: center; justify-content: center; gap: 9px; color: #edf1f5; font-size: 12px; letter-spacing: .13em; }
+.avionics-heading > span:first-child { width: 4px; height: 4px; background: var(--rocket-orange); }
+.avionics-slash { color: #8c9eb1; }
+.avionics-diagram { position: relative; height: 370px; margin-top: 25px; }
+.avionics-board-texture, .avionics-wires { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.avionics-board-texture { opacity: .05; stroke: #b8cfe0; stroke-width: 1; }
+.avionics-board-texture text { fill: #b8cfe0; stroke: none; font: 8px var(--technical-font); letter-spacing: .1em; }
+.avionics-wires--compact { display: none; }
+.avionics-wires path { vector-effect: non-scaling-stroke; stroke-width: 1; }
+.avionics-trace { stroke: #789ab389; }
+.avionics-branch { transition: opacity .25s; }
+.avionics-branch.is-selected .avionics-trace { stroke: #c1d7e7; }
+.avionics-packet, .avionics-ground-packet { fill: #d0e1ed; stroke: none; opacity: 0; offset-distance: 0%; offset-rotate: 0deg; }
+.avionics-wireless-trace { stroke: #789ab33d; stroke-dasharray: 2 5; }
+.avionics-core { position: absolute; left: 47.5%; top: 46.58%; width: 28%; height: 31.05%; transform: translate(-50%, -50%); text-align: center; }
+.avionics-pcb { width: 100%; height: 100%; overflow: visible; stroke: #9cb5c8; stroke-width: 1; }
+.avionics-pcb path, .avionics-pcb rect, .avionics-pcb circle { vector-effect: non-scaling-stroke; }
+.pcb-outline { fill: #05090c; stroke: #bccbd5; }
+.pcb-mounts { stroke: #7890a3; }
+.pcb-traces { stroke: #7798b078; }
+.pcb-pins { stroke: #a6bfce; }
+.pcb-chip { fill: #0a1117; stroke: #c2d1dc; }
+.pcb-chip-key { fill: #c2d1dc; stroke: none; }
+.pcb-processor { fill: #ecf2f6; stroke: none; font: 9px var(--technical-font); letter-spacing: .01em; }
+.pcb-brand { fill: #d8e3eb; stroke: none; font: 8px var(--technical-font); letter-spacing: .04em; }
+.pcb-contacts { stroke: #b6a088; stroke-width: 2; }
+.pcb-components { stroke: #7892a5; }
+.pcb-leds { stroke: none; fill: #acc8d8; opacity: .8; }
+.pcb-led-event { fill: #ef8a45; opacity: .3; }
+.avionics-core-caption { position: absolute; top: calc(100% + 8px); left: -16px; right: -16px; font-size: 9px; letter-spacing: .04em; color: #a7bdce; background: #030507; white-space: nowrap; }
+.avionics-node { position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 80px; min-height: 64px; padding: 0; border: 0; background: transparent; color: #d5e0e9; font: 11px/1.4 var(--technical-font); letter-spacing: .04em; transform: translate(-50%, -50%); transition: color .25s, opacity .25s; }
+.avionics-node > * { pointer-events: none; }
+.avionics-hardware { display: block; width: 54px; height: 44px; overflow: visible; stroke: #b8cbd9; stroke-width: 1; }
+.avionics-hardware path, .avionics-hardware circle, .avionics-hardware rect, .avionics-sd-card path, .avionics-ground-hardware path { vector-effect: non-scaling-stroke; }
+.avionics-sensor-hardware { width: 86px; height: 46px; }
+.avionics-hardware text { fill: #8eabbf; stroke: none; font: 6px var(--technical-font); }
+.avionics-hardware .hardware-lora { fill: #d0dde7; font-size: 8px; }
+.hardware-secondary { stroke: #7996ad80; }
+.hardware-active-mark { fill: #9ab6c8; stroke: none; }
+.avionics-node-label { position: absolute; top: calc(50% + 25px); white-space: nowrap; }
+.avionics-node--sensing { left: 47.5%; top: 10.79%; }
+.avionics-node--sensing .avionics-node-label { top: auto; bottom: calc(50% + 31px); }
+.avionics-node--recovery { left: 9%; top: 46.32%; }
+.avionics-node--telemetry { left: 76.5%; top: 46.32%; }
+.avionics-node--control { left: 47.5%; top: 81.58%; }
+.avionics-hardware-label { position: absolute; top: calc(50% + 43px); font-size: 8px; color: #9cb8cb; white-space: nowrap; opacity: 0; transform: translateY(3px); transition: opacity .25s, transform .25s; pointer-events: none; }
+.avionics-node--sensing .avionics-hardware-label { top: calc(50% + 26px); }
+.avionics-node.is-selected { color: #fff0e4; }
+.avionics-node.is-selected .avionics-hardware { stroke: #dce7ef; }
+.avionics-node.is-selected .avionics-hardware-label { opacity: 1; transform: translateY(0); }
+.avionics-node.is-selected .hardware-active-mark { fill: var(--rocket-orange); }
+.avionics-node:focus-visible { outline: 1px solid #abbed0; outline-offset: 5px; }
+.avionics[data-selected] .avionics-node:not(.is-selected), .avionics[data-selected] .avionics-branch:not(.is-selected) { opacity: .55; }
+.avionics-storage { position: absolute; left: 70.5%; top: 79%; display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: .02em; color: #bccbd7; }
+.avionics-sd-card { width: 28px; height: 36px; flex: 0 0 28px; stroke: #97b1c5; stroke-width: 1; }
+.avionics-storage small { display: block; font-size: 8px; letter-spacing: .02em; color: #91a8ba; white-space: nowrap; }
+.avionics-ground-visual { position: absolute; right: 0; top: 54%; display: flex; flex-direction: column; align-items: center; width: 76px; color: #a1b7c8; font-size: 7px; letter-spacing: 0; }
+.avionics-ground-hardware { width: 38px; height: 42px; stroke: #8ca8bc; stroke-width: 1; }
+.avionics-ground-visual > span { white-space: nowrap; }
+.avionics-radio-arcs { stroke: #a8c1d4; }
+.avionics-radio-arcs path { opacity: .12; transform-box: fill-box; transform-origin: left center; }
+.avionics-receiver-flash { fill: #adcadc; stroke: none; opacity: .2; }
+.avionics-servo-arm { transform-box: fill-box; transform-origin: 25% 75%; }
+.avionics-valve-actuator { transform-box: fill-box; transform-origin: center bottom; }
+.avionics-signal-label { position: absolute; left: 3px; bottom: 0; color: #536575; font-size: 7px; letter-spacing: .12em; }
+.avionics-inspector { min-height: 120px; padding-top: 24px; }
+.avionics-detail-heading { font-size: 11px; color: #bccfdf; letter-spacing: .1em; margin-bottom: 12px; }
+.avionics-detail ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.avionics-detail li { display: flex; align-items: center; gap: 10px; font-size: 13px; letter-spacing: .02em; color: #e1e9ef; }
+.avionics-terminal { flex: 0 0 5px; width: 5px; height: 5px; border: 1px solid #abc6da; }
+.avionics-detail--recovery .avionics-terminal, .avionics-detail--control .avionics-terminal { border-color: var(--rocket-orange); }
+.avionics-footnote { display: flex; justify-content: space-between; gap: 10px; margin-top: 12px; color: #8194a5; font-size: 8px; letter-spacing: .1em; }
+.avionics-branch.is-selected, .avionics-node.is-selected, .avionics-ground-branch.is-selected, .avionics-ground-visual.is-selected { --cycle: 6s; --event-delay: 0s !important; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .avionics.is-visible .avionics-heading { animation: avionics-appear .5s backwards; }
+  .avionics.is-visible .avionics-core { animation: avionics-appear .6s .2s backwards; }
+  .avionics.is-visible .avionics-trace { animation: avionics-draw .8s .5s backwards; }
+  .avionics.is-visible .avionics-node { animation: avionics-appear .4s calc(.9s + var(--node-order) * .12s) backwards; }
+  .avionics.is-visible .avionics-storage, .avionics.is-visible .avionics-footnote { animation: avionics-appear .5s 1.3s backwards; }
+  .avionics.is-visible .avionics-ground-visual { animation: avionics-appear .3s backwards; }
+  .avionics.is-visible .avionics-packet { animation: avionics-packet var(--cycle) var(--event-delay) infinite linear; }
+  .avionics.is-visible .avionics-ground-packet { animation: avionics-ground-packet var(--cycle) var(--event-delay) infinite linear; }
+  .avionics.is-visible .avionics-radio-arcs path { animation: avionics-radio var(--cycle) var(--event-delay) infinite; }
+  .avionics.is-visible .avionics-radio-arcs path:nth-child(2) { animation-name: avionics-radio-middle; }
+  .avionics.is-visible .avionics-radio-arcs path:nth-child(3) { animation-name: avionics-radio-outer; }
+  .avionics.is-visible .avionics-receiver-flash { animation: avionics-received var(--cycle) var(--event-delay) infinite; }
+  .avionics.is-visible .pcb-led-event { animation: avionics-led 12s 2.8s infinite; }
+  .avionics.is-visible .avionics-node.is-selected .avionics-valve-actuator,
+  .avionics.is-visible .avionics-node.is-selected .avionics-servo-arm { animation: avionics-command var(--cycle) var(--event-delay) infinite; }
+  .avionics.is-visible .avionics-detail:not([hidden]) { animation: avionics-detail-in .3s both; }
+}
+@keyframes avionics-appear { from { opacity: 0; } to { opacity: 1; } }
+@keyframes avionics-draw { from { stroke-dasharray: 1; stroke-dashoffset: 1; } to { stroke-dasharray: 1; stroke-dashoffset: 0; } }
+@keyframes avionics-detail-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes avionics-packet { 0% { offset-distance: 0%; opacity: 0; } 1% { opacity: .9; } 9% { offset-distance: 100%; opacity: .9; } 10%, 100% { offset-distance: 100%; opacity: 0; } }
+@keyframes avionics-ground-packet { 0%, 13% { offset-distance: 0%; opacity: 0; } 14% { opacity: .65; } 22% { offset-distance: 100%; opacity: .65; } 23%, 100% { offset-distance: 100%; opacity: 0; } }
+@keyframes avionics-radio { 0%, 9%, 23%, 100% { opacity: .12; transform: scale(.9); } 13% { opacity: .7; transform: scale(1); } }
+@keyframes avionics-radio-middle { 0%, 11%, 25%, 100% { opacity: .12; transform: scale(.9); } 16% { opacity: .6; transform: scale(1); } }
+@keyframes avionics-radio-outer { 0%, 14%, 27%, 100% { opacity: .12; transform: scale(.9); } 19% { opacity: .5; transform: scale(1); } }
+@keyframes avionics-received { 0%, 21%, 30%, 100% { opacity: .2; } 23%, 26% { opacity: 1; } }
+@keyframes avionics-led { 0%, 6%, 100% { opacity: .3; } 2%, 4% { opacity: .85; } }
+@keyframes avionics-command { 0%, 9%, 28%, 100% { transform: rotate(0); } 13%, 22% { transform: rotate(18deg); } }
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  .avionics { left: calc(50% + 100px); right: 70px; }
+  .avionics-node { font-size: 10px; min-width: 70px; }
+  .avionics-ground-visual { right: -4px; width: 62px; font-size: 6px; }
+  .avionics-storage { gap: 4px; font-size: 9px; }
+  .avionics-storage small { font-size: 7px; }
+  .avionics-core-caption { font-size: 8px; }
+}
+/* Preserve the mobile rocket and copy. Symbols replace the old identical dots;
+   details still open in the opposite margin, with a compact PCB above the bus. */
+@media (max-width: 900px) {
+  .avionics { top: 104px; left: auto; right: 14px; width: calc(50% - 62px); max-width: 200px; }
+  .avionics-heading { gap: 4px; font-size: clamp(8px, 2.25vw, 10px); letter-spacing: 0; white-space: nowrap; }
+  .avionics-heading > span:first-child { display: none; }
+  .avionics-diagram { height: 270px; margin-top: 9px; }
+  .avionics-board-texture { display: none; }
+  .avionics-wires--full { display: none; }
+  .avionics-wires--compact { display: block; }
+  .avionics-core { left: 50%; top: 12%; width: 68px; height: 66px; }
+  .avionics-core-caption { top: 100%; font-size: 7px; left: -12px; right: -12px; }
+  .avionics-node { left: 10%; width: 90%; min-width: 0; min-height: 36px; flex-direction: row; justify-content: flex-start; gap: 4px; font-size: 10px; letter-spacing: 0; transform: translateY(-50%); }
+  .avionics-hardware, .avionics-sensor-hardware { flex: 0 0 24px; width: 24px; height: 24px; }
+  .avionics-node-label, .avionics-node--sensing .avionics-node-label { position: static; }
+  .avionics-hardware-label { display: none; }
+  .avionics-node--sensing { top: 34.815%; }
+  .avionics-node--recovery { top: 50.37%; }
+  .avionics-node--telemetry { top: 66.296%; }
+  .avionics-node--control { top: 82.222%; }
+  .avionics-storage { left: 10%; top: 90.5%; gap: 6px; font-size: 9px; }
+  .avionics-sd-card { width: 24px; height: 27px; flex-basis: 24px; }
+  .avionics-storage small { font-size: 7px; letter-spacing: 0; }
+  .avionics-signal-label, .avionics-footnote { display: none; }
+  .avionics-inspector { position: fixed; top: 156px; left: 20px; width: calc(50vw - 76px); max-width: 200px; padding: 0; min-height: 0; }
+  .avionics-detail-heading { font-size: 10px; letter-spacing: .02em; line-height: 1.7; }
+  .avionics-detail li { align-items: baseline; font-size: 11px; line-height: 1.75; letter-spacing: 0; gap: 6px; }
+  .avionics-ground-visual { display: none; position: fixed; top: 270px; left: 20px; right: auto; width: calc(50vw - 76px); max-width: 200px; font-size: 8px; align-items: flex-start; }
+  .avionics[data-selected='telemetry'] .avionics-ground-visual { display: flex; }
+  .avionics-ground-hardware { width: 32px; height: 36px; }
+}
+@media (max-width: 900px) and (max-height: 780px) {
+  .avionics { top: 91px; }
+  .avionics-diagram { height: 208px; }
+  .avionics-core { width: 58px; height: 54px; }
+  .avionics-core-caption { font-size: 6px; }
+  .avionics-node { min-height: 30px; font-size: 9px; gap: 3px; }
+  .avionics-hardware, .avionics-sensor-hardware { width: 22px; height: 22px; flex-basis: 22px; }
+  .avionics-inspector { top: 135px; }
+  .avionics-ground-visual { top: 242px; }
+}
+@media (prefers-reduced-motion: reduce), (max-height: 600px), (max-width: 900px) and (max-height: 720px) {
+  .electronics-scene { display: grid; grid-template-columns: 1fr 1fr; gap: 7%; align-items: start; }
+  .avionics { position: relative; inset: auto; width: 100%; max-width: 500px; margin: 55px auto 35px; pointer-events: auto; }
+  .avionics-inspector { position: static; width: auto; max-width: none; padding-top: 20px; min-height: 120px; }
+}
+@media (max-width: 900px) and (prefers-reduced-motion: reduce), (max-width: 900px) and (max-height: 720px) {
+  .electronics-scene { display: block; }
+  .avionics { max-width: 340px; margin-block: 0 45px; display: grid; grid-template-columns: 120px 1fr; column-gap: 20px; }
+  .avionics-heading { grid-column: 1 / -1; justify-content: flex-start; font-size: 10px; }
+  .avionics-inspector { padding-top: 30px; }
+  .avionics-ground-visual { position: absolute; top: 165px; left: 140px; width: calc(100% - 140px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .avionics, .avionics * { animation: none !important; transition: none !important; }
+}
