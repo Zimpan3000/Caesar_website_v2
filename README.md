@@ -1,4 +1,4 @@
-# CAESAR Modern Website (Vite + React + Node)
+# Caesar_website_v2 — CAESAR Modern Website (Vite + React + Node)
 
 This workspace contains a lightweight scaffold for a modern CAESAR site.
 
