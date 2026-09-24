@@ -1,7 +1,7 @@
 /* Native scrolling drives the camera and every team transition. */
 .rocket-experience {
-  /* 1600svh rocket + 180svh Earth + 600svh people + the sticky viewport. */
-  height: 2480svh;
+  /* About 20% less scrolling, preserving the relative lengths of every scene. */
+  height: 2000svh;
   position: relative;
   background: #030507;
   --rocket-orange: #ef8a45;
@@ -47,6 +47,8 @@
 .subteam-description { margin-top: 24px; font-size: 15px; line-height: 1.85; color: #ced5df; }
 .subteam-keywords { display: flex; flex-wrap: wrap; gap: 12px 19px; margin: 28px 0 0; padding: 0; list-style: none; }
 .subteam-keywords li { font: 9px/1.6 var(--technical-font); letter-spacing: .07em; color: #a7bbce; }
+.technical-callout .subteam-cta { margin-top: 20px; pointer-events: auto; min-height: 44px; padding: 10px 16px; gap: 20px; font-size: 12px; }
+.technical-callout[aria-hidden="true"] .subteam-cta { pointer-events: none; }
 .callout-line { position: absolute; top: 85px; left: 100%; width: calc(43vw - 100%); height: 1px; background: linear-gradient(90deg, #76baff35, #76baffcc); box-shadow: 0 0 9px #62a9ed35; transform-origin: right; }
 .callout-line i { position: absolute; right: 0; top: -2px; width: 5px; height: 5px; border: 1px solid var(--rocket-orange); background: var(--rocket-orange); box-shadow: 0 0 10px #ef8a45a0; border-radius: 50%; }
 .callout-right .callout-line { left: auto; right: calc(100% + 15px); width: 60px; transform-origin: left; background: linear-gradient(90deg, #ef8a45cc, #ef8a4535); }
@@ -93,7 +95,7 @@
 .mission-continue span { padding-left: 16px; }
 
 /* Earth shares the rocket's pinned viewport and uninterrupted star canvas. */
-.about-anchor { position: absolute; top: 2104svh; left: 0; width: 1px; height: 1px; pointer-events: none; }
+.about-anchor { position: absolute; left: 0; width: 1px; height: 1px; pointer-events: none; }
 .scene-anchor { position: absolute; left: 0; width: 1px; height: 1px; pointer-events: none; }
 .earth-story { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
 .earth-visual { position: absolute; top: 39svh; left: 50%; width: max(100vw, 110svh); margin-left: min(-50vw, -55svh); transform-origin: center top; opacity: 0; visibility: hidden; will-change: transform, opacity; }
@@ -189,6 +191,7 @@
   .scroll-prompt-caption { font-size: 8px; }
   .skip-experience { left: 20px; }
   .technical-callout, .callout-right { left: 20px; right: 20px; bottom: 140px; }
+  .callout-electronics, .callout-propulsion, .callout-structures, .callout-marketing { bottom: 120px; }
   .technical-callout h2 { font-size: 29px; }
   .subteam-description { font-size: 13px; line-height: 1.65; }
   .subteam-keywords { gap: 7px 12px; margin-top: 17px; }
@@ -198,6 +201,19 @@
   .mission-title { top: 100px; left: 20px; right: 20px; }
   .mission-details { left: 20px; right: 20px; }
   .mission-statement { font-size: 12px; }
+}
+
+@media (max-width: 900px) {
+  .technical-callout h2 { margin-top: 8px; }
+  .technical-callout .subteam-description { margin-top: 14px; }
+  .technical-callout .subteam-keywords { margin-top: 10px; }
+  .technical-callout .subteam-cta { margin-top: 10px; }
+}
+
+/* Keep the lower team CTAs clear of both the diagrams and scene navigation. */
+@media (max-width: 380px) {
+  .callout-structures .subteam-description, .callout-marketing .subteam-description { font-size: 12px; line-height: 1.55; margin-top: 12px; }
+  .callout-structures .subteam-cta, .callout-marketing .subteam-cta { min-height: 40px; margin-top: 8px; }
 }
 
 /* The accessible static version keeps every team description in reading order. */

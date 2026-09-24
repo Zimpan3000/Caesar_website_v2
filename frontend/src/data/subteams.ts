@@ -1,7 +1,7 @@
 // Team descriptions and keywords supplied by CAESAR for the scroll presentation.
-// A 100-unit timeline spans 1600svh of native scroll: 16svh per unit.
+// Scene timings scale with the native scroll distance in rocket-experience.css.
 // Each team gets 5 units to appear, 12 to hold, and 3 to disappear.
-// The complete copy and camera stay still for 192svh per team.
+// The complete copy and camera stay still throughout each team's hold interval.
 export const subteamTiming = { reveal: 5, hold: 12, exit: 3, cameraTravel: 8 } as const
 
 export const subteams = [

@@ -30,6 +30,8 @@ Vite uses `/new/` for builds and preview, and `/` for the development server.
 `src/paths.ts` uses `import.meta.env.BASE_URL` for local links and public images,
 including SVG images and responsive `srcSet` images. It also strips the deployment
 prefix before the existing pathname checks. React Router is not installed.
+Internal navigation between the local pages uses the History API with React
+state, including browser back/forward, without a full document reload.
 
 Vite rewrites the stylesheet's font URL and generated CSS/JavaScript URLs at build
 time. The HTML font preload uses `%BASE_URL%`. Same-page `#section` links continue
@@ -39,6 +41,7 @@ The existing routes are:
 
 - `/new/`: homepage.
 - `/new/ga-med-i-caesar/`: membership page (also works without the final slash).
+- `/new/electronics`: Phobos Electronics page (also works with a final slash).
 - `/new/projects/deimos`: redirects to the original WordPress Deimos page.
 
 There is currently **no separate React Phobos page**. `/new/projekt/phobos` will

@@ -56,20 +56,12 @@ a:hover > .arrow, .news-link:hover .news-read .arrow { transform: translateX(3px
 /* Transparent over the hero, with a quiet glass surface after scrolling. */
 .site-header { position: fixed; inset: 0 0 auto; z-index: 30; border-bottom: 1px solid #ffffff17; transition: background .25s, border-color .25s, backdrop-filter .25s; }
 .site-header.is-scrolled, .site-header.menu-open { background: #080e16ed; backdrop-filter: blur(18px); border-color: var(--line); }
-.header-inner { min-height: 94px; display: flex; justify-content: space-between; align-items: center; gap: 32px; }
+.header-inner { min-height: 76px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.header-inner > .brand { width: 140px; }
 .brand { width: 158px; flex-shrink: 0; display: block; }
 .brand img { width: 100%; height: auto; }
-.main-navigation { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.main-navigation { display: flex; align-items: center; }
 .nav-main-links { display: flex; align-items: center; gap: 25px; }
-.nav-subteams { display: flex; align-items: center; gap: 23px; }
-.nav-subteams-label { flex-shrink: 0; color: var(--accent); font: 11px/1.5 'Courier New', monospace; letter-spacing: .06em; white-space: nowrap; }
-.nav-subteams-label > span { color: #b58969; letter-spacing: 0; }
-.mission-links { position: relative; display: flex; align-items: center; gap: 21px; border-bottom: 1px solid #8196af1a; --mission-visible: 0; }
-.main-navigation .nav-subteams a { position: relative; display: inline-flex; align-items: center; min-height: 40px; padding: 7px 6px 9px; color: #b0bac7; font: 14px/1.5 'Courier New', monospace; letter-spacing: .02em; text-transform: uppercase; white-space: nowrap; }
-.main-navigation .nav-subteams a:hover, .main-navigation .nav-subteams a:focus-visible, .main-navigation .nav-subteams a[aria-current] { color: #f2f3f5; }
-.mission-links a::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 220ms ease-out; }
-.mission-links a:hover::after, .mission-links a:focus-visible::after { transform: scaleX(1); }
-.mission-active-line { position: absolute; top: 0; left: 0; width: 1px; height: 2px; background: var(--accent); opacity: var(--mission-visible); transform: translate3d(var(--mission-x, 0px), var(--mission-y, 0px), 0) scaleX(var(--mission-width, 0)); transform-origin: left; transition: transform 220ms ease-out, opacity 180ms ease-out; pointer-events: none; }
 .main-navigation a { padding-block: 8px; color: #c5cad3; font-size: 12px; transition: color 220ms ease-out; }
 .main-navigation a:hover, .main-navigation a[aria-current] { color: #fff; }
 .main-navigation .nav-support { border: 1px solid #ffffff26; padding: 6px 12px; display: flex; gap: 14px; align-items: center; color: #d5dae1; transition: background 220ms ease-out, border-color 220ms ease-out, color 220ms ease-out; }
@@ -78,6 +70,27 @@ a:hover > .arrow, .news-link:hover .news-read .arrow { transform: translateX(3px
 .nav-support:hover > span, .nav-support:focus-visible > span { transform: translate(2px, -2px); color: var(--accent); }
 .main-navigation .language-link { font-size: 11px; display: flex; gap: 8px; }
 .menu-toggle { display: none; }
+
+/* One compact header row; navigation disclosures float above the flight scene. */
+.navigation-disclosure { position: relative; }
+.navigation-toggle { display: flex; align-items: center; gap: 7px; min-height: 44px; padding: 8px 0; border: 0; background: transparent; color: #c5cad3; font-size: 12px; transition: color 180ms ease-out; }
+.navigation-toggle.is-active, .navigation-toggle:hover, .navigation-toggle:focus-visible, .navigation-disclosure.is-open .navigation-toggle { color: var(--accent); }
+.navigation-chevron { stroke: currentColor; stroke-width: 1.2; transition: transform 180ms ease-out; }
+.navigation-disclosure.is-open .navigation-chevron { transform: rotate(180deg); }
+.navigation-dropdown { position: absolute; z-index: 2; top: 100%; left: -24px; width: 306px; padding-top: 16px; }
+.navigation-dropdown[hidden] { display: none; }
+.navigation-dropdown-inner { background: #080e16fa; border: 1px solid #ffffff24; border-top-color: #e9975c88; box-shadow: 0 18px 45px #0007; padding: 22px; max-height: calc(100svh - 100px); overflow-y: auto; overscroll-behavior: contain; animation: navigation-menu-in 180ms ease-out both; }
+.main-navigation .navigation-heading { display: flex; flex-direction: column; gap: 7px; padding: 0 0 19px; border-bottom: 1px solid var(--line); }
+.navigation-heading > span:first-child { color: var(--accent); font: 12px/1.5 'Courier New', monospace; letter-spacing: .12em; }
+.navigation-heading > span:first-child > span { color: #9ca7b7; margin-left: 12px; }
+.navigation-heading > span:last-child { color: var(--muted); font-size: 11px; }
+.navigation-heading:hover > span:last-child { color: var(--text); }
+.navigation-destinations { display: grid; padding-top: 10px; }
+.main-navigation .navigation-destinations a { display: flex; justify-content: space-between; align-items: center; gap: 20px; min-height: 44px; padding: 10px 9px; border-left: 1px solid transparent; font-size: 13px; }
+.navigation-destinations .arrow { width: 15px; height: 15px; color: #7d8b9d; }
+.main-navigation .navigation-destinations a:hover, .main-navigation .navigation-destinations a:focus-visible, .main-navigation .navigation-destinations a[aria-current] { color: var(--accent); background: #e9975c09; border-left-color: var(--accent); }
+.navigation-destinations a:hover .arrow, .navigation-destinations a:focus-visible .arrow, .navigation-destinations a[aria-current] .arrow { color: var(--accent); }
+@keyframes navigation-menu-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
 .intro-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; }
 .intro-grid h2 { font-size: clamp(2.4rem, 3.6vw, 3.8rem); }
@@ -155,7 +168,7 @@ a:hover > .arrow, .news-link:hover .news-read .arrow { transform: translateX(3px
 .footer-main nav a span { font-size: 10px; margin-left: 6px; }
 .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-block: 26px; border-top: 1px solid var(--line); color: #939eaf; font-size: 10px; }
 .footer-bottom a { display: flex; gap: 20px; }
-[data-reveal] { transition: opacity .8s cubic-bezier(.22, 1, .36, 1), transform .8s cubic-bezier(.22, 1, .36, 1); }
+[data-reveal] { transition: opacity .5s cubic-bezier(.22, 1, .36, 1), transform .5s cubic-bezier(.22, 1, .36, 1); }
 .reveal-pending { opacity: 0; transform: translateY(20px); }
 .reveal-pending:focus-within { opacity: 1; transform: none; }
 
@@ -163,10 +176,6 @@ a:hover > .arrow, .news-link:hover .news-read .arrow { transform: translateX(3px
 @media (max-width: 1100px) {
   .container { width: calc(100% - 72px); }
   .nav-main-links { gap: 17px; }
-  .nav-subteams { gap: 12px; }
-  .nav-subteams-label { font-size: 10.5px; }
-  .mission-links { gap: 7px; }
-  .main-navigation .nav-subteams a { padding-inline: 2px; font-size: 13px; }
   .intro-grid { gap: 45px; grid-template-columns: 1.1fr 1fr; }
   .intro-grid h2 { font-size: 38px; }
   .project-feature { gap: 45px; }
@@ -186,10 +195,12 @@ a:hover > .arrow, .news-link:hover .news-read .arrow { transform: translateX(3px
   .main-navigation { display: none; position: absolute; inset: 78px 0 auto; background: #080e1afa; padding: 22px 36px 30px; border-bottom: 1px solid var(--line); max-height: calc(100svh - 78px); overflow-y: auto; }
   .menu-open .main-navigation { display: flex; flex-direction: column; gap: 0; align-items: stretch; }
   .nav-main-links { display: contents; }
-  .nav-subteams { order: -1; display: flex; flex-direction: column; align-items: stretch; gap: 9px; padding-bottom: 18px; margin-bottom: 12px; border-bottom: 1px solid var(--line); }
-  .nav-subteams-label { font-size: 10px; }
-  .mission-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; border-bottom: 0; }
-  .main-navigation .nav-subteams a { display: flex; align-items: center; min-height: 44px; width: fit-content; padding-inline: 4px; font-size: 13px; }
+  .navigation-toggle { width: 100%; min-height: 55px; justify-content: space-between; padding-block: 12px; font-size: 19px; text-align: left; }
+  .navigation-chevron { width: 14px; height: 14px; }
+  .navigation-dropdown { position: static; width: auto; padding: 0 0 12px; }
+  .navigation-dropdown-inner { padding: 12px 0 10px 17px; border: 0; border-left: 1px solid #e9975c66; box-shadow: none; background: transparent; max-height: none; overflow: visible; }
+  .main-navigation .navigation-heading { padding-bottom: 12px; }
+  .main-navigation .navigation-destinations a { font-size: 15px; }
   .main-navigation a { padding-block: 12px; font-size: 19px; }
   .main-navigation .nav-support { margin-block: 14px 10px; align-self: flex-start; font-size: 15px; }
   .main-navigation .language-link { min-height: 44px; align-items: center; }
@@ -220,6 +231,7 @@ a:hover > .arrow, .news-link:hover .news-read .arrow { transform: translateX(3px
   .section-space { padding-block: 70px; }
   .eyebrow { font-size: 9px; margin-bottom: 22px; }
   .header-inner { min-height: 72px; }
+  .header-inner > .brand { width: 128px; }
   .brand { width: 128px; }
   .main-navigation { top: 72px; padding-inline: 24px; max-height: calc(100svh - 72px); }
   .intro-grid h2 { font-size: clamp(29px, 7.5vw, 44px); }

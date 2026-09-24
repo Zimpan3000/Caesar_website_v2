@@ -10,11 +10,16 @@
     "build": "npm run build --workspace=frontend && npm run build --workspace=backend",
     "start": "node backend/dist/index.js",
     "check:homepage": "node scripts/check-homepage.mjs",
+    "check:navigation": "node scripts/check-navigation.mjs",
     "check:rocket": "node scripts/check-rocket.mjs",
     "check:avionics": "node scripts/check-avionics.mjs",
+    "check:electronics": "node scripts/check-electronics.mjs",
     "check:propulsion": "node scripts/check-propulsion.mjs",
+    "check:propulsion-page": "node scripts/check-propulsion-page.mjs",
     "check:structures": "node scripts/check-structures.mjs",
+    "check:structures-page": "node scripts/check-structures-page.mjs",
     "check:marketing": "node scripts/check-marketing.mjs",
+    "check:marketing-page": "node scripts/check-marketing-page.mjs",
     "check:scroll-motion": "node scripts/check-scroll-motion.mjs"
   },
   "devDependencies": {

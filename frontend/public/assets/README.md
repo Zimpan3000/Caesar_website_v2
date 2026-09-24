@@ -1,5 +1,11 @@
 # Homepage assets
 
+`caesar-website.jpg` is a local browser capture of the CAESAR homepage at
+1440 × 1000 with reduced motion enabled, created for the Marketing page’s digital
+presence section. It shows the website, not a photograph of flight hardware.
+The Marketing page uses the existing team photographs, unchanged CAESAR logo,
+and original Phobos render; it does not depict unrecorded events or tests.
+
 The supplied CAESAR logos are kept unmodified as `caesar-full.png` and `caesar-mark.png`.
 
 `caesar-rocket.png` is the user's supplied 1024 × 1536 PNG, copied unchanged from

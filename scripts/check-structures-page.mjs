@@ -1,0 +1,110 @@
+import assert from 'node:assert/strict'
+import { mkdir } from 'node:fs/promises'
+import { chromium } from 'playwright'
+
+const base = (process.env.CHECK_URL || 'http://localhost:5173/').replace(/\/?$/, '/')
+const browser = await chromium.launch({ executablePath: process.env.BROWSER_PATH || undefined, headless: true })
+const errors = []
+await mkdir('artifacts', { recursive: true })
+try {
+  for (const [width, height] of [[1440, 1000], [1024, 768], [768, 1024], [390, 844], [320, 740], [844, 390]]) {
+    const page = await browser.newPage({ viewport: { width, height }, reducedMotion: 'reduce' })
+    page.on('pageerror', error => errors.push(error.message))
+    await page.goto(`${base}structures/`, { waitUntil: 'networkidle' })
+    assert.equal(await page.title(), 'Structures · Phobos | CAESAR')
+    assert.equal(await page.locator('h1').count(), 1)
+    assert.match(await page.locator('h1').innerText(), /Engineered for/)
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Overflow at ${width}px`)
+    assert.deepEqual(await page.locator('a[href^="#"]').evaluateAll(links => links.filter(link => !document.getElementById(link.hash.slice(1))).map(link => link.hash)), [])
+    for (const figure of await page.locator('.structures-page figure').all()) {
+      const box = await figure.boundingBox()
+      assert.ok(box.x >= 0 && box.x + box.width <= width, `Clipped figure at ${width}px`)
+    }
+    for (const arrow of await page.locator('.structures-page .arrow').all()) {
+      const box = await arrow.boundingBox()
+      assert.ok(box.width <= 24 && box.height <= 24, 'Diagram styles enlarged a navigation icon')
+    }
+    const steps = page.locator('.structures-deployment-steps button')
+    assert.equal(await steps.count(), 6)
+    for (let i = 0; i < 6; i++) {
+      await steps.nth(i).focus()
+      await page.keyboard.press('Enter')
+      assert.equal(await steps.nth(i).getAttribute('aria-pressed'), 'true')
+      assert.equal(await page.locator('.structures-deployment-steps [aria-pressed="true"]').count(), 1)
+      assert.match(await page.locator('.structures-recovery-visual .structures-plate-heading').innerText(), new RegExp(`0${i + 1} / 06`))
+    }
+    assert.match(await page.locator('.structures-recovery-visual figcaption').innerText(), /longer line extract/)
+    const details = page.locator('.structures-calculations')
+    await details.locator('summary').focus()
+    await page.keyboard.press('Enter')
+    assert.equal(await details.getAttribute('open'), '')
+    assert.equal(await details.getByRole('math').count(), 3)
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Expanded equations overflow at ${width}px`)
+    const clippedEquations = await page.getByRole('math').evaluateAll(nodes => nodes.filter(node => node.scrollWidth > node.clientWidth + 1).map(node => node.textContent))
+    assert.deepEqual(clippedEquations, [], `Clipped equations at ${width}px`)
+    await page.evaluate(() => document.activeElement?.blur())
+    await page.screenshot({ path: `artifacts/structures-page-${width}.png`, fullPage: true })
+    await details.locator('summary').press('Enter')
+    if (width === 1440 || width === 390) {
+      await page.evaluate(() => { document.activeElement?.blur(); window.scrollTo(0, 0) })
+      await page.screenshot({ path: `artifacts/structures-page-hero-${width}.png` })
+      await page.locator('#recovery').screenshot({ path: `artifacts/structures-page-recovery-${width}.png`, style: '.site-header, .skip-link { visibility: hidden !important; }' })
+      await page.locator('#descent').screenshot({ path: `artifacts/structures-page-descent-${width}.png`, style: '.site-header, .skip-link { visibility: hidden !important; }' })
+    }
+    await page.evaluate(() => { window.__structuresMarker = true })
+    await page.locator('#electronics-bay').getByRole('link', { name: 'Explore Electronics', exact: true }).click()
+    await page.waitForURL(`${base}electronics`)
+    if (width <= 900) await page.locator('.menu-toggle').click()
+    await page.locator('.project-toggle').focus()
+    await page.keyboard.press('ArrowDown')
+    await page.locator('.project-destinations').getByRole('link', { name: 'Structures', exact: true }).click()
+    await page.waitForURL(`${base}structures`)
+    assert.equal(await page.evaluate(() => window.__structuresMarker), true, 'SPA link reloaded the page')
+    assert.equal(await page.locator('.project-destinations [aria-current="page"]').innerText(), 'Structures')
+    assert.equal(await page.locator('.home-destinations [aria-current]').count(), 0)
+    await page.reload({ waitUntil: 'networkidle' })
+    assert.equal(await page.title(), 'Structures · Phobos | CAESAR')
+    await page.locator('.structures-closing').getByRole('link', { name: 'Meet the Team', exact: true }).click()
+    await page.waitForURL(`${base}#om-oss`)
+    await page.waitForFunction(() => Math.abs(document.getElementById('om-oss').getBoundingClientRect().top) < 200)
+    await page.getByRole('link', { name: 'Explore Structures', exact: true }).click()
+    await page.waitForURL(`${base}structures`)
+    await page.goBack()
+    await page.locator('.rocket-experience').waitFor()
+    await page.goForward()
+    await page.locator('.structures-page').waitFor()
+    assert.equal(await page.locator('.structures-page').evaluate(el => el.getAnimations({ subtree: true }).length), 0)
+    console.log(`PASS ${width} × ${height}: diagrams, keyboard sequence, equations, layout, navigation, refresh, history and reduced motion`)
+    await page.close()
+  }
+  for (const [width, height] of [[1440, 1000], [1024, 768], [390, 844], [320, 740]]) {
+    const page = await browser.newPage({ viewport: { width, height } })
+    page.on('pageerror', error => errors.push(error.message))
+    await page.goto(base, { waitUntil: 'networkidle' })
+    const cta = page.locator('.structures-cta')
+    assert.equal(await cta.getAttribute('tabindex'), '-1')
+    await page.getByRole('button', { name: 'Visa STRUCTURES', exact: true }).click()
+    await page.waitForTimeout(1800)
+    assert.equal(await cta.getAttribute('tabindex'), '0')
+    const bounds = await cta.boundingBox()
+    assert.ok(bounds.y >= 75 && bounds.y + bounds.height < height - 60, `CTA clipped at ${width}px`)
+    if (width <= 900) {
+      const navigation = await page.locator('.rocket-progress').boundingBox()
+      assert.ok(bounds.y + bounds.height < navigation.y, `CTA overlaps scene navigation at ${width}px`)
+      const copy = await page.locator('.callout-structures').boundingBox()
+      const drawing = await page.locator('.vehicle-architecture').boundingBox()
+      assert.ok(drawing.y + drawing.height < copy.y, `Cutaway overlaps copy at ${width}px: ${drawing.y + drawing.height} / ${copy.y}`)
+    }
+    await page.screenshot({ path: `artifacts/structures-cta-${width}.png` })
+    await cta.click()
+    await page.locator('.structures-page').waitFor()
+    await page.waitForFunction(() => scrollY === 0)
+    await page.locator('.structures-closing').scrollIntoViewIfNeeded()
+    await page.waitForFunction(() => getComputedStyle(document.querySelector('.structures-closing [data-reveal]')).opacity === '1')
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    assert.equal(await page.locator('.structures-page').evaluate(el => el.getAnimations({ subtree: true }).length), 0)
+    console.log(`PASS ${width}px: landing CTA, cutaway clearance, scroll reveals and motion preference`)
+    await page.close()
+  }
+  assert.deepEqual(errors, [], 'Browser runtime errors')
+} finally { await browser.close() }

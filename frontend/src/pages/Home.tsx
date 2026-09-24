@@ -1,3 +1,4 @@
+import { useScrollReveal } from '../useScrollReveal'
 import { useEffect } from 'react'
 import RocketScrollExperience from '../components/RocketScrollExperience'
 import ProjectFeature from '../components/ProjectFeature'
@@ -23,30 +24,7 @@ export default function Home() {
     return () => { cancelled = true; cancelAnimationFrame(frame) }
   }, [])
 
-  useEffect(() => {
-    if (!('IntersectionObserver' in window)) return
-    const preference = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const elements = document.querySelectorAll<HTMLElement>('[data-reveal]')
-    let observer: IntersectionObserver | undefined
-    const configure = () => {
-      observer?.disconnect()
-      elements.forEach(element => element.classList.remove('reveal-pending'))
-      if (preference.matches) return
-      // One observer for ordinary sections. GSAP exclusively owns the pinned
-      // rocket/About scene; those elements never receive data-reveal.
-      observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) { entry.target.classList.remove('reveal-pending'); observer?.unobserve(entry.target) }
-        })
-      }, { threshold: .04 })
-      elements.forEach(element => {
-        if (element.getBoundingClientRect().top > window.innerHeight) { element.classList.add('reveal-pending'); observer!.observe(element) }
-      })
-    }
-    configure()
-    preference.addEventListener('change', configure)
-    return () => { observer?.disconnect(); preference.removeEventListener('change', configure); elements.forEach(element => element.classList.remove('reveal-pending')) }
-  }, [])
+  useScrollReveal()
 
   return <>
     <RocketScrollExperience />

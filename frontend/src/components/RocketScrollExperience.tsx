@@ -18,11 +18,12 @@ import '../rocket-experience.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Preserve rocket/Earth travel; give the About scene 600svh instead of 200svh.
+// Preserve the relative scene timing and the longer reading interval for About.
 const rocketDuration = 100
 const aboutStart = 111.25
 const aboutScrollScale = 3
 const storyDuration = aboutStart + 12.5 * aboutScrollScale
+const aboutAnchorPercent = (aboutStart + (118 - aboutStart) * aboutScrollScale) / storyDuration * 100
 const sceneLinks = [
   ...subteams.map(team => ({ id: team.id, selector: `.callout-${team.id}`, time: team.progress * rocketDuration })),
   { id: 'vision', selector: '.rocket-mission', time: 99 },
@@ -90,7 +91,10 @@ export default function RocketScrollExperience() {
         introLinks.forEach(link => link.removeAttribute('tabindex'))
         mission.setAttribute('aria-hidden', 'true')
         missionLinks.forEach(link => link.setAttribute('tabindex', '-1'))
-        panels.forEach(panel => panel.setAttribute('aria-hidden', 'true'))
+        panels.forEach(panel => {
+          panel.setAttribute('aria-hidden', 'true')
+          panel.querySelectorAll<HTMLAnchorElement>('a').forEach(link => link.tabIndex = -1)
+        })
         navigation.removeAttribute('aria-hidden')
         buttons.forEach(button => { button.removeAttribute('aria-current'); button.removeAttribute('tabindex') })
         about.removeAttribute('aria-hidden')
@@ -108,12 +112,15 @@ export default function RocketScrollExperience() {
         setMarketingVisible(true)
         mission.removeAttribute('aria-hidden')
         missionLinks.forEach(link => link.removeAttribute('tabindex'))
-        panels.forEach(panel => panel.removeAttribute('aria-hidden'))
+        panels.forEach(panel => {
+          panel.removeAttribute('aria-hidden')
+          panel.querySelectorAll<HTMLAnchorElement>('a').forEach(link => link.tabIndex = 0)
+        })
         // Short viewports use normal document flow. One trigger owns both halves
         // of the About composition; reduced motion keeps them immediately visible.
         if (!reduced) {
           gsap.fromTo(select('.about-copy, .about-portrait'), { autoAlpha: 0, y: 20 }, {
-            autoAlpha: 1, y: 0, duration: .8, ease: 'power2.out',
+            autoAlpha: 1, y: 0, duration: .5, ease: 'power2.out',
             scrollTrigger: { trigger: about, start: 'top 85%', toggleActions: 'play none none reverse' },
           })
         }
@@ -144,7 +151,7 @@ export default function RocketScrollExperience() {
       // A single real-time reveal starts text and image on the same animation
       // frame. It reverses from its current progress when scrolling back up.
       const aboutReveal = gsap.to(select('.about-copy, .about-portrait'), {
-        autoAlpha: 1, y: 0, duration: .8, ease: 'power2.out', paused: true,
+        autoAlpha: 1, y: 0, duration: .5, ease: 'power2.out', paused: true,
         onComplete: () => { if (aboutVisible) aboutLink.tabIndex = 0 },
       })
       const effectPositions = subteams.map(team => ({
@@ -157,12 +164,11 @@ export default function RocketScrollExperience() {
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          // 2480svh - 100svh viewport = 1600svh rocket + 180svh Earth + 600svh team.
-          // The longer physical end distance slows all scrubbed movement.
+          // Follow the section height so scenes and links share the faster pacing.
           end: () => `+=${section.offsetHeight - viewport.offsetHeight}`,
           // Interpolate the artwork only; wheel, touch, keyboard and scrollbar
           // movement stay native, without snapping or scroll interception.
-          scrub: .25,
+          scrub: .12,
           invalidateOnRefresh: true,
         },
         onUpdate() {
@@ -185,7 +191,10 @@ export default function RocketScrollExperience() {
               if (index === activeIndex) button.setAttribute('aria-current', 'step')
               else button.removeAttribute('aria-current')
             })
-            panels.forEach((panel, index) => panel.setAttribute('aria-hidden', String(index !== activeIndex)))
+            panels.forEach((panel, index) => {
+              panel.setAttribute('aria-hidden', String(index !== activeIndex))
+              panel.querySelectorAll<HTMLAnchorElement>('a').forEach(link => link.tabIndex = index === activeIndex ? 0 : -1)
+            })
           }
           // Keep hidden panels and navigation out of the keyboard/screen-reader path.
           const showMission = time >= 94 && time < 101
@@ -233,7 +242,7 @@ export default function RocketScrollExperience() {
         if (index === 0) timeline.fromTo(rocket, { x: initialX, y: initialY, scale: 1 }, camera, 4)
         else timeline.to(rocket, camera, team.start + subteamTiming.reveal - subteamTiming.cameraTravel)
 
-        // Camera and complete copy hold still for 12 units = 192svh of scrolling.
+        // Camera and complete copy hold still for 12 timeline units.
         // These are scroll landmarks, not timed pauses or extra tween duration.
         timeline.addLabel(`${team.id}-hold`, team.start + subteamTiming.reveal)
         timeline.addLabel(`${team.id}-depart`, team.start + subteamTiming.reveal + subteamTiming.hold)
@@ -292,13 +301,13 @@ export default function RocketScrollExperience() {
 
   return (
     <section ref={root} className="rocket-experience" aria-label="Lär känna CAESAR och våra fyra subteam" data-stage="intro">
-      <span className="about-anchor" aria-hidden="true" />
+      <span className="about-anchor" aria-hidden="true" style={{ top: `calc(${aboutAnchorPercent}% - ${aboutAnchorPercent}svh)` }} />
       {sceneLinks.map(scene => <span key={scene.id} className="scene-anchor" data-scene-anchor={scene.id} aria-hidden="true" style={{ top: `calc(${scene.time / storyDuration * 100}% - ${scene.time / storyDuration * 100}svh)` }} />)}
       <div className="rocket-viewport">
         <RocketStarfield />
         <div className="rocket-grid" aria-hidden="true" />
         <div className="rocket-camera">
-          <img className="rocket-image" src={sitePath('assets/caesar-rocket.png')} alt="CAESARs svarta raket med silverfärgad noskon och föreningens logotyp" width="1024" height="1536" fetchPriority="high" />
+          <img className="rocket-image" src={sitePath('assets/caesar-rocket.png')} alt="CAESARs svarta raket med silverfärgad noskon och föreningens logotyp" width="1024" height="1536" {...{ fetchpriority: 'high' }} />
         </div>
         <div className="rocket-intro">
           <div className="rocket-intro-copy">

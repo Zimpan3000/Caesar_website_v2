@@ -52,7 +52,7 @@ try {
     assert.equal(initial.overflow, false)
     assert.equal(initial.scale, 1)
     assert.ok(Math.abs(initial.ratio - 2 / 3) < .001)
-    assert.ok(Math.abs(initial.sectionHeight / height - 24.8) < .02, 'Expected unchanged rocket/Earth + 600svh About reveal + viewport')
+    assert.ok(Math.abs(initial.sectionHeight / height - 20) < .02, 'Expected the shorter 2000svh scroll journey')
     assert.deepEqual(await page.locator('.technical-callout h2').allTextContents(), ['ELECTRONICS', 'PROPULSION', 'STRUCTURES', 'MARKETING'])
     assert.equal(await page.locator('.rocket-mission a').first().getAttribute('tabindex'), '-1')
     await page.screenshot({ path: `artifacts/rocket-intro-${width}.png` })

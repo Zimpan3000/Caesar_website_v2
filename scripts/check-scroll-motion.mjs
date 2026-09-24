@@ -59,7 +59,7 @@ try {
     const completed = reveal.find(frame => frame.copy === 1)
     assert.ok(completed, 'Composition failed to finish')
     const entranceDuration = completed.time - reveal[firstCopy].time
-    assert.ok(entranceDuration > 600 && entranceDuration < 1000, `Entrance duration ${entranceDuration}ms`)
+    assert.ok(entranceDuration > 350 && entranceDuration < 700, `Entrance duration ${entranceDuration}ms`)
     const retreat = await sample(1.11, 1300)
     assert.equal(retreat.at(-1).copy, 0)
     assert.equal(retreat.at(-1).image, 0)
@@ -76,7 +76,7 @@ try {
     const resumed = await sample(1.13, 1300)
     assert.equal(resumed.at(-1).copy, 1)
     assert.equal(resumed.at(-1).image, 1)
-    console.log(`PASS ${width} × ${height}: native/interpolated scroll, same-frame About start, 800ms reveal, reverse, live reduced motion`)
+    console.log(`PASS ${width} × ${height}: native/interpolated scroll, same-frame About start, 500ms reveal, reverse, live reduced motion`)
     await page.close()
   }
   assert.deepEqual(errors, [])

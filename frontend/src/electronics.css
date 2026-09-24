@@ -1,0 +1,112 @@
+.electronics-page { --engineering-font: 'Courier New', monospace; }
+.electronics-page .eyebrow { color: var(--accent); }
+.electronics-page section { scroll-margin-top: 30px; }
+.electronics-page .engineering-label { color: var(--muted); font: 10px/1.6 var(--engineering-font); letter-spacing: .1em; }
+.electronics-hero { padding-top: 135px; overflow: hidden; background: radial-gradient(ellipse at 82% 45%, #25344645, transparent 55%); }
+.electronics-back { color: var(--muted); gap: 14px; margin-bottom: 38px; }
+.electronics-hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 65px; align-items: center; padding-bottom: 65px; }
+.electronics-hero h1 { font-size: clamp(3.8rem, 6.8vw, 6.8rem); line-height: 1.02; letter-spacing: -.065em; }
+.electronics-hero h1 > span { color: var(--accent); }
+.electronics-lead { margin-top: 30px; font-size: 20px; line-height: 1.6; letter-spacing: -.025em; }
+.electronics-hero-copy { color: var(--muted); font-size: 15px; max-width: 480px; margin-block: 20px; }
+.electronics-hero-art { min-width: 0; border-block: 1px solid var(--line); }
+.electronics-art-label, .electronics-hero-art figcaption { display: flex; justify-content: space-between; gap: 16px; font: 9px/1.6 var(--engineering-font); color: var(--muted); padding-block: 17px; }
+.electronics-art-label > span:first-child { color: var(--accent); }
+.electronics-circuit { position: relative; aspect-ratio: 1; background-image: linear-gradient(#91b5d009 1px, transparent 1px), linear-gradient(90deg, #91b5d009 1px, transparent 1px); background-size: 30px 30px; }
+.electronics-traces { position: absolute; inset: 0; width: 100%; height: 100%; stroke: #a8c5de60; stroke-width: 1; }
+.electronics-traces > circle { stroke: #a8c5de20; stroke-dasharray: 3 8; }
+.electronics-traces g { fill: var(--accent); stroke: none; }
+.electronics-page .avionics-pcb { position: static; display: block; width: 170px; height: auto; max-width: 100%; filter: drop-shadow(0 0 28px #86b7dd16); }
+.electronics-circuit .avionics-pcb { position: absolute; top: 50%; left: 50%; width: 39%; transform: translate(-50%, -50%); }
+.electronics-page .pcb-outline { fill: #101c26; stroke: #97b5c5; }
+.electronics-page .pcb-chip { fill: #080d12; stroke: #c1cdd7; }
+.electronics-page .pcb-traces, .electronics-page .pcb-pins, .electronics-page .pcb-contacts { stroke: #86b2ce; stroke-width: .8; }
+.electronics-page .pcb-mounts, .electronics-page .pcb-components { stroke: #7293a7; fill: #0b1119; }
+.electronics-page .pcb-processor { font: 7px var(--engineering-font); fill: #e3e9ee; }
+.electronics-page .pcb-brand { font: 5px var(--engineering-font); fill: #93aab8; }
+.electronics-page .pcb-chip-key, .electronics-page .pcb-leds { fill: var(--accent); }
+.circuit-label { position: absolute; left: 0; right: 0; text-align: center; font: 9px var(--engineering-font); letter-spacing: .12em; color: #a9becd; }
+.circuit-label-top { top: 13%; }.circuit-label-bottom { bottom: 13%; }
+.electronics-hero-strip { display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid var(--line); padding-block: 24px; font: 10px/1.6 var(--engineering-font); letter-spacing: .08em; color: var(--muted); }
+.electronics-editorial { display: grid; grid-template-columns: 1.1fr 1fr; gap: 100px; align-items: end; margin-bottom: 65px; }
+.electronics-copy { font-size: 16px; line-height: 1.9; color: var(--muted); }
+.electronics-section-intro { max-width: 680px; color: var(--muted); margin: -24px 0 48px; font-size: 16px; }
+.electronics-band { background: var(--surface); border-block: 1px solid var(--line); }
+.electronics-symbol { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 42px; flex-shrink: 0; color: #abc6d9; }
+.electronics-page .electronics-symbol svg { position: static; display: block; width: 100%; height: 100%; max-height: 42px; stroke: currentColor; stroke-width: 1; fill: none; overflow: visible; }
+.electronics-symbol text { fill: currentColor; stroke: none; font: 6px var(--engineering-font); }
+.electronics-symbol .hardware-secondary { opacity: .45; }
+.electronics-page .electronics-symbol .avionics-sd-card { width: 28px; }
+.electronics-page .electronics-symbol .avionics-ground-hardware { width: 38px; }
+.electronics-architecture { padding: 48px 35px 25px; border: 1px solid var(--line); background: radial-gradient(ellipse at 50% 30%, #21344545, transparent 65%), #070c11; }
+.architecture-inputs { display: flex; justify-content: center; gap: 20px; padding-bottom: 34px; position: relative; }
+.architecture-inputs::after { content: ''; position: absolute; height: 34px; width: 1px; background: #89aec080; bottom: 0; left: 50%; }
+.is-detailed .architecture-inputs { width: min(100%, 500px); margin-inline: auto; }
+.is-detailed .architecture-inputs .architecture-node { flex: 1; position: relative; }
+.is-detailed .architecture-inputs .architecture-node::after { content: ''; position: absolute; top: 100%; left: 50%; height: 17px; width: 1px; background: #89aec080; }
+.is-detailed .architecture-inputs::before { content: ''; position: absolute; bottom: 17px; left: calc(25% - 5px); right: calc(25% - 5px); height: 1px; background: #89aec080; }
+.is-detailed .architecture-inputs::after { height: 17px; }
+.architecture-node { border: 1px solid #a1bdd030; background: #0b131c; padding: 20px 14px; display: flex; align-items: center; flex-direction: column; text-align: center; gap: 8px; }
+.architecture-inputs .architecture-node { flex-direction: row; font: 12px/1.6 var(--engineering-font); gap: 14px; }
+.architecture-core { position: relative; display: flex; flex-direction: column; align-items: center; width: min(100%, 400px); margin: 0 auto 54px; padding: 25px; border: 1px solid #e9975c80; background: #1c1915; text-align: center; }
+.architecture-core strong { font-size: 23px; font-weight: 500; margin-block: 8px; letter-spacing: -.03em; }
+.architecture-core > span:last-child { font-size: 12px; color: var(--muted); }
+.architecture-core::after { content: ''; position: absolute; top: 100%; left: 50%; height: 28px; width: 1px; background: #89aec080; }
+.architecture-branches { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.architecture-branch { position: relative; }
+.architecture-branch::before { content: ''; position: absolute; top: -27px; left: -12px; right: -12px; height: 1px; background: #89aec080; }
+.architecture-branch:first-child::before { left: 50%; }.architecture-branch:last-child::before { right: 50%; }
+.architecture-branch::after { content: ''; position: absolute; top: -27px; left: 50%; width: 1px; height: 27px; background: #89aec080; }
+.architecture-node strong, .architecture-ground strong { font-size: 16px; font-weight: 500; }
+.architecture-node > span:last-child:not(.electronics-symbol), .architecture-ground > span:last-child { font-size: 11px; color: var(--muted); }
+.architecture-ground { position: relative; margin-top: 24px; padding: 16px 8px; border: 1px dashed #abc6d940; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.architecture-ground::before { content: ''; position: absolute; bottom: 100%; left: 50%; height: 24px; width: 1px; background: #89aec080; }
+.electronics-architecture figcaption, .telemetry-visual figcaption, .test-chain figcaption { color: var(--muted); font: 11px/1.8 var(--engineering-font); margin-top: 32px; padding-top: 18px; border-top: 1px solid var(--line); }
+.electronics-computer-layout { display: grid; grid-template-columns: .85fr 1.4fr; gap: 36px; }
+.electronics-processor { padding: 35px; border: 1px solid #e9975c55; background: radial-gradient(ellipse at 50% 20%, #23344466, transparent 70%); }
+.electronics-processor > .avionics-pcb { margin: 35px auto; }
+.electronics-processor h3 { font-size: 32px; }.electronics-processor > p { font-size: 14px; color: var(--muted); }
+.processor-spec { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); display: flex; gap: 20px; justify-content: space-between; align-items: center; }
+.processor-spec strong { font-size: 40px; font-weight: 450; letter-spacing: -.05em; white-space: nowrap; }.processor-spec strong span { font-size: 18px; }
+.processor-spec > span { font: 11px/1.6 var(--engineering-font); color: var(--muted); max-width: 95px; }
+.electronics-processor .processor-part { font: 12px/1.6 var(--engineering-font); color: var(--accent); margin-block: 10px 22px; }
+.electronics-modules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.electronics-module { padding: 28px; border: 1px solid var(--line); }.module-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+.electronics-module h3 { font-size: 26px; }.module-role { display: block; color: var(--accent); font: 11px/1.7 var(--engineering-font); margin-block: 8px 18px; }
+.electronics-module p { font-size: 14px; color: var(--muted); }
+.electronics-requirements { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.electronics-requirements article { padding: 28px 24px 35px; border-top: 1px solid var(--line); border-right: 1px solid var(--line); }.electronics-requirements article:nth-child(4n) { border-right: 0; }
+.electronics-requirements article > div { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }.requirement-id { color: var(--accent); font: 22px var(--engineering-font); }
+.electronics-requirements h3 { font-size: 21px; margin-top: 10px; }.electronics-requirements .engineering-label { font-size: 9px; }
+.telemetry-visual { display: grid; grid-template-columns: 1fr 1.4fr 1fr; align-items: center; padding: 25px 0; }
+.telemetry-endpoint { display: flex; align-items: center; flex-direction: column; gap: 8px; text-align: center; }.telemetry-endpoint > svg { height: 130px; width: 80px; stroke: #adc5d6; margin-bottom: 18px; }.telemetry-endpoint strong { font-size: 17px; font-weight: 500; }.telemetry-endpoint > span { font: 11px/1.6 var(--engineering-font); color: var(--muted); }
+.telemetry-endpoint .electronics-symbol { width: 80px; height: 100px; margin-bottom: 18px; }.electronics-page .telemetry-endpoint .electronics-symbol svg { max-height: 100px; width: 75px; }
+.telemetry-radio { text-align: center; }.telemetry-radio > svg { display: block; width: 100%; margin-block: 22px; stroke: var(--accent); }.telemetry-radio > svg > path { stroke-dasharray: 3 8; stroke: #adc5d640; }.telemetry-radio > span:last-child { font: 11px var(--engineering-font); color: var(--muted); }
+.telemetry-visual figcaption { grid-column: 1 / -1; }
+.electronics-testing { --accent: #a9c8d9; background: linear-gradient(135deg, #101b23, #070b10); }
+.test-instruments { display: grid; grid-template-columns: 1fr 1fr; gap: 65px; margin-bottom: 55px; }.test-instruments article { border-top: 1px solid var(--line); padding-top: 25px; }.test-instruments h3 { font-size: 27px; margin-block: 12px 22px; }.test-instruments p { font-size: 15px; color: var(--muted); }.test-rating strong { font-size: 38px; color: var(--text); font-weight: 450; letter-spacing: -.05em; }
+.test-chain ol { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); padding: 0; margin: 0; list-style: none; border-block: 1px solid var(--line); }.test-chain li { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 24px 25px 24px 0; }.test-chain li strong { font-size: 14px; font-weight: 500; }.test-chain .arrow { position: absolute; right: 15px; top: 50%; color: var(--accent); width: 16px; }
+.euroc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 65px; }.euroc-grid article { padding-block: 32px; border-top: 1px solid var(--line); }.euroc-grid h3 { font-size: 27px; margin-block: 13px 20px; }.euroc-grid ul { list-style: none; padding: 0; margin: 0; }.euroc-grid li { position: relative; padding: 7px 0 7px 20px; color: var(--muted); font-size: 14px; }.euroc-grid li::before { content: '+'; position: absolute; left: 0; color: var(--accent); font-family: var(--engineering-font); }
+.euroc-note { display: flex; gap: 20px; padding: 28px; border-left: 1px solid var(--accent); background: #e9975c07; margin-top: 30px; }.euroc-note > .status-dot { margin-top: 10px; }.euroc-note p { font-size: 15px; }.euroc-note p + p { color: var(--muted); font-size: 12px; margin-top: 14px; }.euroc-note .text-link { margin-top: 12px; }
+.electronics-closing { border-top: 1px solid var(--line); background: radial-gradient(ellipse at 80% 100%, #45302044, transparent 65%); }.electronics-closing h2 { font-size: clamp(3rem, 6vw, 6rem); }.electronics-closing p:not(.eyebrow) { max-width: 650px; font-size: 16px; color: var(--muted); margin-block: 30px; }.electronics-closing .text-link { margin-left: 32px; }
+@media (max-width: 1100px) {
+  .electronics-hero-grid { gap: 35px; }.electronics-editorial { gap: 50px; }
+  .electronics-computer-layout { gap: 20px; grid-template-columns: 1fr 1.4fr; }.electronics-module, .electronics-processor { padding: 22px; }
+  .architecture-branches { gap: 16px; }.architecture-branch::before { left: -8px; right: -8px; }.test-chain li strong { max-width: 90px; }
+}
+@media (max-width: 760px) {
+  .electronics-hero { padding-top: 112px; }.electronics-back { margin-bottom: 30px; }.electronics-hero-grid { grid-template-columns: 1fr; gap: 45px; }.electronics-hero h1 { font-size: clamp(3.3rem, 12vw, 5rem); }.electronics-hero-art { width: 100%; max-width: 500px; justify-self: center; }
+  .electronics-hero-strip { flex-wrap: wrap; gap: 12px 22px; font-size: 9px; }.electronics-editorial { grid-template-columns: 1fr; gap: 28px; margin-bottom: 40px; }
+  .electronics-computer-layout { grid-template-columns: 1fr; }.electronics-processor { padding: 28px; }.electronics-processor > .avionics-pcb { width: 150px; }.processor-spec { justify-content: flex-start; gap: 35px; }
+  .electronics-requirements { grid-template-columns: 1fr 1fr; }.electronics-requirements article { padding-inline: 15px; }.electronics-requirements article:nth-child(2n) { border-right: 0; }.electronics-requirements h3 { font-size: 19px; }
+  .electronics-architecture { padding: 30px 18px 20px; }.architecture-inputs { gap: 10px; }.architecture-inputs .architecture-node { flex-direction: column; font-size: 11px; padding: 15px 10px; }
+  .architecture-core { margin-bottom: 28px; padding: 20px 10px; }.architecture-core strong { font-size: 21px; }.architecture-core::after { height: 28px; }
+  .architecture-branches { grid-template-columns: 1fr; gap: 18px; padding-left: 22px; border-left: 1px solid #89aec080; margin-left: 12px; }.architecture-branch::before, .architecture-branch:first-child::before, .architecture-branch:last-child::before { top: 50px; left: -23px; right: auto; width: 23px; }.architecture-branch::after { display: none; }
+  .architecture-branches::before { content: ''; position: absolute; }.architecture-node { padding: 18px; }.architecture-branch .architecture-node { display: grid; grid-template-columns: 48px 1fr; text-align: left; column-gap: 16px; }.architecture-branch .electronics-symbol { grid-row: span 2; }.architecture-ground { margin-left: 30px; }.architecture-branches { position: relative; }.architecture-branches::before { top: 0; left: 0; width: calc(50% - 6px); height: 1px; background: #89aec080; }
+  .telemetry-visual { grid-template-columns: 1fr; gap: 25px; }.telemetry-radio { width: min(100%, 360px); justify-self: center; }.telemetry-radio > svg { margin-block: 8px; }.telemetry-endpoint > svg { height: 100px; }.telemetry-visual figcaption { margin-top: 10px; }
+  .test-instruments { gap: 25px; }.test-chain ol { grid-template-columns: 1fr; }.test-chain li { flex-direction: row; gap: 24px; padding-block: 23px; border-bottom: 1px solid var(--line); }.test-chain li:last-child { border: 0; }.test-chain li strong { max-width: none; }.test-chain .arrow { transform: rotate(90deg); top: auto; bottom: -10px; right: 12px; }
+  .euroc-grid { gap: 0 30px; }.euroc-grid h3 { font-size: 23px; }.euroc-note { padding: 22px 18px; }.electronics-closing .text-link { display: flex; width: fit-content; margin: 20px 0 0; }
+}
+@media (max-width: 450px) {
+  .electronics-modules, .test-instruments, .euroc-grid { grid-template-columns: 1fr; }.electronics-module { padding: 24px; }.module-top { margin-bottom: 20px; }.electronics-copy { font-size: 15px; }.electronics-page .section-header h2 { font-size: 2.4rem; }.electronics-art-label, .electronics-hero-art figcaption { font-size: 8px; }.euroc-note { gap: 12px; }.euroc-note .text-link { font-size: 11px; gap: 12px; }
+}

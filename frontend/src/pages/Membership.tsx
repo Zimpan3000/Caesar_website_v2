@@ -29,7 +29,7 @@ export default function Membership() {
             <a className="text-link" href="#medlemskap">Upptäck medlemskapet <span aria-hidden="true">↓</span></a>
           </div>
           <figure className="membership-photo">
-            <div><img src={sitePath('assets/team.jpeg')} alt="CAESARs team samlat framför föreningens logotyp" width="1024" height="640" fetchPriority="high" /></div>
+            <div><img src={sitePath('assets/team.jpeg')} alt="CAESARs team samlat framför föreningens logotyp" width="1024" height="640" {...{ fetchpriority: 'high' }} /></div>
             <figcaption><span>CAESAR / Chalmers Aerospace Society</span><span>Göteborg, Sverige</span></figcaption>
           </figure>
         </div>

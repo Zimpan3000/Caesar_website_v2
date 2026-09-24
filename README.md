@@ -62,9 +62,21 @@ with `npx playwright install chromium`, or set `BROWSER_PATH` to an existing
 Chromium/Chrome/Edge executable. Set `CHECK_URL` to check another server.
 Screenshots are written to the ignored `artifacts/` directory.
 
+The header uses a single navigation row. Projekt opens a Phobos dropdown on
+desktop hover, click, or keyboard interaction, and an accordion in the mobile
+menu at the existing 900px breakpoint. Electronics links to its dedicated page;
+the other destinations target the homepage's Phobos scenes. The orange current
+indicator follows the active page or scroll scene. `npm run check:navigation`
+checks keyboard and pointer access, responsive layout, active states, routing,
+reduced motion, and that opening the dropdown does not shift page content.
+Hem uses the same disclosure component and links to all eleven homepage sections,
+including each subteam. Its Electronics link targets the homepage section;
+Projekt → Electronics still opens the dedicated page. Only one dropdown opens at
+a time, and the Hem menu marks the section currently in view.
+
 The opening `RocketScrollExperience` uses GSAP ScrollTrigger and a native CSS
-sticky viewport. The existing 2480svh runway and camera landmarks are preserved.
-`scrub: .25` gives the artwork a short catch-up ease in either scroll direction;
+sticky viewport. A 2000svh section shortens the scroll journey by about 20% while
+preserving camera landmarks. `scrub: .12` keeps artwork catch-up responsive;
 wheel, touch, keyboard, and scrollbar movement remain native, without snapping.
 The camera introduces Electronics,
 Propulsion, Structures, and Marketing in that order, using the supplied team copy
@@ -84,6 +96,15 @@ schematic is visible and respect reduced motion. Phones use a compact schematic;
 short phone screens use the existing static reading layout to keep all content reachable.
 Run `npm run check:avionics` to check subsystem interactions, keyboard access,
 responsive spacing, section visibility, and reduced motion.
+The Electronics callout links to `/electronics` in development and
+`/new/electronics` in production. The dedicated page reuses the shared header,
+footer, typography, hardware illustrations, and scroll reveals. It covers the
+custom flight computer, telemetry, ground testing, and EuRoC design priorities,
+with a dated link to the 2025 requirements. The CATS system is explicitly separate
+from the custom electronics. Local page navigation uses the existing pathname
+routes with React state and the History API; no routing dependency is added.
+Run `npm run check:electronics` for responsive diagrams, homepage CTA access,
+navigation without reloads, history, deep-link refresh, and reduced motion.
 Propulsion uses a separate vertical flow drawing in `HybridPropulsion.tsx` and
 `hybrid-propulsion.css`: tank, valve, injector, paraffin grain, chamber, and nozzle.
 Its four interactive areas explain oxidizer flow, plumbing, hybrid combustion,
@@ -98,14 +119,32 @@ annotations use the supplied project information; Electronics Bay focuses on
 physical integration. The default drawing settles after its entrance, and reduced
 motion shows the completed mechanism without animation. `npm run check:structures`
 checks layout, recovery timing/replay, payload content, keyboard access, and reduced motion.
+The dedicated `/structures` page (`/new/structures` in production) expands this
+into a recovery-led engineering story, with a selectable deployment sequence,
+sectional and cam diagrams, calculation disclosures, and subsystem cross-links.
+It preserves supplied example values and flags the deployment-load discrepancy;
+these are design notes, not verified flight specifications. The two referenced
+recovery photos were not available, so the page uses conceptual SVG illustrations.
+The unspecified iterative volume-ratio equation is omitted by agreement.
+Run `npm run check:structures-page` for responsive layouts, keyboard interactions,
+equation overflow, routing, history, landing CTA clearance, and reduced motion.
+The `/marketing` page (`/new/marketing` in production) uses the existing team
+photographs, Phobos render, CAESAR identity, partner data and social links in an
+editorial layout. Its development timeline describes the story to document,
+not completed milestones. The digital section includes a local homepage capture;
+no test/event photographs, individual biographies or recruitment vacancies are
+invented. Project navigation and the landing callout link to the dedicated page.
+Run `npm run check:marketing-page` for image loading, gallery/timeline layouts,
+cross-links, membership routing, deep links, CTA clearance and reduced motion.
+The existing `npm run check:marketing` still covers the landing outreach network.
 After Marketing, annotations disappear and the whole rocket returns to the exact
 center of the viewport for the mission statement. All four navigation controls
 work with a keyboard, and scrolling backwards reverses the sequence.
 
-The About text and portrait share one 800ms, 20px entrance tween, triggered at the
+The About text and portrait share one 500ms, 20px entrance tween, triggered at the
 same About landmark and reversed together. Short screens use one shared viewport
 trigger for both elements. GSAP owns this composition; the homepage's single
-IntersectionObserver handles only ordinary `data-reveal` sections, with 800ms
+IntersectionObserver handles only ordinary `data-reveal` sections, with 500ms
 opacity/translation easing. Live reduced-motion changes clean up these animations.
 `npm run check:scroll-motion` samples rendered frames to verify native scrolling,
 interpolation, simultaneous image/text timing, reverse motion, and accessibility.
