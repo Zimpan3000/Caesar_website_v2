@@ -69,6 +69,8 @@ a:hover > .arrow, .news-link:hover .news-read .arrow { transform: translateX(3px
 .nav-support > span { color: #a7aeb8; transition: transform 220ms ease-out, color 220ms ease-out; }
 .nav-support:hover > span, .nav-support:focus-visible > span { transform: translate(2px, -2px); color: var(--accent); }
 .main-navigation .language-link { font-size: 11px; display: flex; gap: 8px; }
+.main-navigation .nav-login { padding: 6px 12px; border: 1px solid #e9975c66; color: var(--accent); white-space: nowrap; }
+.main-navigation .nav-login:hover, .main-navigation .nav-login:focus-visible { background: #e9975c14; border-color: var(--accent); }
 .menu-toggle { display: none; }
 
 /* One compact header row; navigation disclosures float above the flight scene. */
@@ -203,6 +205,7 @@ a:hover > .arrow, .news-link:hover .news-read .arrow { transform: translateX(3px
   .main-navigation .navigation-destinations a { font-size: 15px; }
   .main-navigation a { padding-block: 12px; font-size: 19px; }
   .main-navigation .nav-support { margin-block: 14px 10px; align-self: flex-start; font-size: 15px; }
+  .main-navigation .nav-login { margin-top: 12px; align-self: flex-start; font-size: 15px; }
   .main-navigation .language-link { min-height: 44px; align-items: center; }
   .intro-grid { grid-template-columns: 1fr; gap: 28px; }
   .intro-grid h2 { font-size: clamp(38px, 6.8vw, 58px); }

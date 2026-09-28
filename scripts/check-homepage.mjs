@@ -17,7 +17,7 @@ try {
     await page.evaluate(() => document.fonts.ready)
     await page.locator('.archive-project').waitFor()
     assert.equal(await page.locator('h1').count(), 1)
-    assert.equal(await page.locator('.news-card').count(), 3)
+    assert.equal(await page.locator('#senaste, .news-card').count(), 0)
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)
     assert.equal(overflow, false, `Horizontal overflow at ${width}px`)
     for (const image of await page.locator('img').all()) {

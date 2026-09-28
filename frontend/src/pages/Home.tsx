@@ -2,11 +2,7 @@ import { useScrollReveal } from '../useScrollReveal'
 import { useEffect } from 'react'
 import RocketScrollExperience from '../components/RocketScrollExperience'
 import ProjectFeature from '../components/ProjectFeature'
-import SectionHeader from '../components/SectionHeader'
-import NewsCard from '../components/NewsCard'
 import Partners from '../components/Partners'
-import Arrow from '../components/Arrow'
-import { links, news } from '../data/site'
 
 export default function Home() {
   useEffect(() => {
@@ -29,7 +25,6 @@ export default function Home() {
   return <>
     <RocketScrollExperience />
     <ProjectFeature />
-    <section id="senaste" className="news-section section-space" aria-label="Senaste från CAESAR"><div className="container"><SectionHeader label="03 / Från föreningen" title="Senaste från CAESAR"><a className="text-link" href={links.latest}>Alla nyheter <Arrow /></a></SectionHeader><div className="news-grid">{news.map((item) => <NewsCard key={item.url} item={item} />)}</div></div></section>
     <Partners />
   </>
 }

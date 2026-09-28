@@ -10,6 +10,10 @@
     "build": "npm run build --workspace=frontend && npm run build --workspace=backend",
     "start": "node backend/dist/index.js",
     "check:homepage": "node scripts/check-homepage.mjs",
+    "check:members": "node scripts/check-members.mjs",
+    "check:supabase": "node scripts/check-supabase.mjs",
+    "check:supabase:live": "node scripts/check-supabase-live.mjs",
+    "members:create-admin": "npm run build --workspace=backend && node backend/dist/create-admin.js",
     "check:navigation": "node scripts/check-navigation.mjs",
     "check:rocket": "node scripts/check-rocket.mjs",
     "check:avionics": "node scripts/check-avionics.mjs",
@@ -23,6 +27,7 @@
     "check:scroll-motion": "node scripts/check-scroll-motion.mjs"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
     "concurrently": "^8.2.0",
     "playwright": "^1.63.0"
   }

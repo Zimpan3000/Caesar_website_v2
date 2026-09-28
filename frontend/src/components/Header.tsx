@@ -16,7 +16,6 @@ const homeItems = [
   { id: 'vision', label: 'Vår vision' },
   { id: 'om-oss', label: 'Om oss' },
   { id: 'projekt', label: 'Projekt' },
-  { id: 'senaste', label: 'Senaste nytt' },
   { id: 'partners', label: 'Partners' },
   { id: 'kontakt', label: 'Kontakt' },
 ]
@@ -47,7 +46,7 @@ export default function Header({ isMembership = false, isElectronics = false, is
     const update = () => {
       frame = 0
       const readingLine = window.innerHeight * .4
-      for (const id of ['kontakt', 'partners', 'senaste', 'projekt']) {
+      for (const id of ['kontakt', 'partners', 'projekt']) {
         const section = document.getElementById(id)
         if (section && section.getBoundingClientRect().top <= readingLine) {
           selectSection(id)
@@ -152,9 +151,10 @@ export default function Header({ isMembership = false, isElectronics = false, is
           <HeaderDropdown name="home" id="home-sections-navigation" label="Hem" title="STARTSIDAN" description="Hitta till varje del av CAESAR" titleHref={homeSection('#top')} lang="sv" open={openDropdown === 'home'} active={activeHomeSection !== null} onOpenChange={next => changeDropdown('home', next)} items={homeItems.map(item => ({ ...item, href: homeSection(`#${item.id}`), current: activeHomeSection === item.id ? 'location' : undefined }))} />
           <a href={homeSection('#om-oss')}>Om oss</a>
           <HeaderDropdown name="project" id="phobos-navigation" label="Projekt" title="PHOBOS" description="Advanced Rocketry Project" titleHref={homeSection('#projekt')} lang="en" open={openDropdown === 'project'} active={activeMission !== null} onOpenChange={next => changeDropdown('project', next)} items={missionItems.map(item => ({ ...item, href: subteams.some(team => team.id === item.id) ? sitePath(item.id) : homeSection(item.href), current: activeMission === item.id ? (isTeamPage ? 'page' : 'location') : undefined }))} />
-          <a href={homeSection('#senaste')}>Senaste</a><a href={homeSection('#partners')}>Partners</a>
+          <a href={homeSection('#partners')}>Partners</a>
           <a href="#kontakt">Kontakt</a>
           <a href={links.membership} aria-current={isMembership ? 'page' : undefined}>Bli medlem</a>
+          <a className="nav-login" href={sitePath('login')}>Logga in</a>
           <a className="nav-support" href={links.support}>Stöd oss <span aria-hidden="true">↗</span></a>
           <a className="language-link" href={links.english} lang="en" hrefLang="en" aria-label="Read in English">EN</a>
           </div>

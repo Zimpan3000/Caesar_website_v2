@@ -1,5 +1,10 @@
 # Temporary deployment at https://caesar.se/new/
 
+The instructions below cover the public static website. The new members portal
+at `/new/login` requires the Node backend and same-origin `/api/members` proxying;
+see [members deployment](../MEMBERS.md#deployment). A static upload alone cannot
+serve private workspace data or authenticate members.
+
 From the workspace root, run:
 
 ```sh
@@ -55,7 +60,7 @@ The homepage previously fetched `/api/projects`. Uploading only `dist` cannot
 provide the Node API, and requesting that URL on the live domain would go to the
 WordPress site. Production now fetches `/new/data/projects.json`, containing the
 same project record as the current backend. Local development still fetches
-`/api/projects` through Vite's existing proxy; the backend is unchanged.
+`/api/projects` through Vite's existing proxy; this public endpoint is unchanged.
 
 The project's text, links, loading state, error state, and presentation are
 preserved. For this temporary deployment, update `public/data/projects.json` and

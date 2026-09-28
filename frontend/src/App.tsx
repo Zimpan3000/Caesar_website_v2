@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type MouseEvent } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState, type MouseEvent } from 'react'
 import Header from './components/Header'
 import Home from './pages/Home'
 import Membership from './pages/Membership'
@@ -8,6 +8,8 @@ import Structures from './pages/Structures'
 import Marketing from './pages/Marketing'
 import Footer from './components/Footer'
 import { appPathname, sitePath } from './paths'
+
+const MembersApp = lazy(() => import('./members/MembersApp'))
 
 export default function App() {
   const [location, setLocation] = useState(() => window.location.pathname)
@@ -47,6 +49,10 @@ export default function App() {
   }, [legacyProject])
 
   if (legacyProject) return <p className="container redirect-message">Öppnar Deimos… <a href="https://caesar.se/projekt/deimos/">Fortsätt till projektet</a></p>
+
+  if (pathname === '/login' || pathname === '/dashboard' || pathname.startsWith('/dashboard/')) {
+    return <Suspense fallback={<p className="container redirect-message" role="status">Loading workspace…</p>}><MembersApp pathname={pathname} /></Suspense>
+  }
 
   return (
     <div className="app" id="top" onClick={navigate}>

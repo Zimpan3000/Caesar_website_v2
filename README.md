@@ -2,6 +2,12 @@
 
 This workspace contains a lightweight scaffold for a modern CAESAR site.
 
+The internal members portal is available at `/login` and `/dashboard` in development.
+See [MEMBERS.md](MEMBERS.md) for features, authentication, persistence, deployment
+and checks. The portal requires the Node backend; the public site still supports
+its existing static deployment. For individual accounts managed by an admin,
+follow [SUPABASE.md](SUPABASE.md) to connect Supabase and create the first admin.
+
 Quick commands
 
 Install dependencies (root uses npm workspaces):
@@ -33,9 +39,9 @@ The backend serves a minimal API at `/api/projects` during local development.
 
 The redesigned homepage runs at http://localhost:5173. Vite proxies `/api` to the
 existing backend on port 3000. The current frontend production build targets
-`https://caesar.se/new/` as a standalone static upload; the backend is retained
-unchanged and is not required for this deployment. Its existing root-based static
-hosting setup is not configured for the new production base path.
+`https://caesar.se/new/` as a standalone static upload for public pages. The backend
+is optional for that public deployment and also supports hosting the build under
+`/new/`. It is required for the members portal's authentication and private data.
 
 Build the temporary deployment with `npm run build --workspace=frontend` and upload
 the **contents** of `frontend/dist/`, including `.htaccess`, to `httpdocs/new/`.

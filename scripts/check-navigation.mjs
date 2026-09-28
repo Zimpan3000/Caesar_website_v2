@@ -114,7 +114,7 @@ try {
   const sections = [
     ['Översikt', 'top'], ['Electronics', 'electronics'], ['Propulsion', 'propulsion'],
     ['Structures', 'structures'], ['Marketing', 'marketing'], ['Vår vision', 'vision'],
-    ['Om oss', 'om-oss'], ['Projekt', 'projekt'], ['Senaste nytt', 'senaste'],
+    ['Om oss', 'om-oss'], ['Projekt', 'projekt'],
     ['Partners', 'partners'], ['Kontakt', 'kontakt'],
   ]
   for (const [width, height] of [[1440, 1000], [901, 700], [390, 844], [320, 740], [844, 390]]) {
@@ -132,7 +132,7 @@ try {
     }
     const before = await page.locator('.site-header').boundingBox()
     await openHome()
-    assert.equal(await page.locator('.home-destinations a').count(), 11)
+    assert.equal(await page.locator('.home-destinations a').count(), sections.length)
     assert.equal(await page.locator('.home-destinations [aria-current]').count(), 0)
     assert.deepEqual(await page.locator('.site-header').boundingBox(), before)
     if (mobile) await page.locator('.project-toggle').click()
