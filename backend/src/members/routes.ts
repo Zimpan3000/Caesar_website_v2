@@ -59,6 +59,6 @@ membersRouter.all('/:entity/:id?', async (req, res) => {
   const entity = req.params.entity as Entity
   if (!['teams', 'projects', 'goals', 'updates', 'entries'].includes(entity)) { res.status(404).json({ error: 'Not found.' }); return }
   if (!(req.method === 'POST' && !req.params.id) && !(['PUT', 'DELETE'].includes(req.method) && req.params.id)) { res.status(405).json({ error: 'Method not allowed.' }); return }
-  try { res.json(req.method === 'DELETE' ? await repository.remove(entity, req.params.id, res.locals.member.name) : await repository.save(entity, req.body, res.locals.member.name, req.params.id)) }
+  try { res.json(req.method === 'DELETE' ? await repository.remove(entity, req.params.id!, res.locals.member.name) : await repository.save(entity, req.body, res.locals.member.name, req.params.id)) }
   catch (error) { res.status(error instanceof ValidationError ? 400 : 503).json({ error: error instanceof ValidationError ? error.message : 'Changes could not be saved. Please try again.' }) }
 })

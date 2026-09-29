@@ -65,7 +65,7 @@ export default function RocketScrollExperience() {
       const navigation = select('.rocket-progress')[0] as HTMLElement
       const about = select('.about-story')[0] as HTMLElement
       const aboutAnchor = select('.about-anchor')[0] as HTMLElement
-      const aboutLink = about.querySelector<HTMLAnchorElement>('a')!
+      const aboutLinks = Array.from(about.querySelectorAll<HTMLAnchorElement>('a'))
       const composition = select('.about-composition')[0] as HTMLElement
       const buttons = Array.from(section.querySelectorAll<HTMLButtonElement>('[data-stage]'))
       const panels = Array.from(section.querySelectorAll<HTMLElement>('.technical-callout'))
@@ -98,7 +98,7 @@ export default function RocketScrollExperience() {
         navigation.removeAttribute('aria-hidden')
         buttons.forEach(button => { button.removeAttribute('aria-current'); button.removeAttribute('tabindex') })
         about.removeAttribute('aria-hidden')
-        aboutLink.removeAttribute('tabindex')
+        aboutLinks.forEach(link => link.removeAttribute('tabindex'))
         aboutAnchor.removeAttribute('id')
         about.id = 'om-oss'
         setSceneAnchors(false)
@@ -135,7 +135,7 @@ export default function RocketScrollExperience() {
       about.removeAttribute('id')
       aboutAnchor.id = 'om-oss'
       about.setAttribute('aria-hidden', 'true')
-      aboutLink.tabIndex = -1
+      aboutLinks.forEach(link => link.tabIndex = -1)
       gsap.set(rocket, { x: initialX, y: initialY, scale: 1, force3D: true })
       gsap.set(select('.rocket-grid, .rocket-measurements, .technical-callout, .team-effect, .rocket-mission'), { autoAlpha: 0 })
       gsap.set(select('.team-effect'), { xPercent: -50, yPercent: -50, x: 0, y: 0 })
@@ -152,7 +152,7 @@ export default function RocketScrollExperience() {
       // frame. It reverses from its current progress when scrolling back up.
       const aboutReveal = gsap.to(select('.about-copy, .about-portrait'), {
         autoAlpha: 1, y: 0, duration: .5, ease: 'power2.out', paused: true,
-        onComplete: () => { if (aboutVisible) aboutLink.tabIndex = 0 },
+        onComplete: () => { if (aboutVisible) aboutLinks.forEach(link => link.tabIndex = 0) },
       })
       const effectPositions = subteams.map(team => ({
         point: team.point,
@@ -220,7 +220,7 @@ export default function RocketScrollExperience() {
             aboutVisible = showAbout
             about.setAttribute('aria-hidden', String(!showAbout))
             if (showAbout) aboutReveal.play()
-            else { aboutReveal.reverse(); aboutLink.tabIndex = -1 }
+            else { aboutReveal.reverse(); aboutLinks.forEach(link => link.tabIndex = -1) }
           }
         },
       })
@@ -300,24 +300,24 @@ export default function RocketScrollExperience() {
   }, [])
 
   return (
-    <section ref={root} className="rocket-experience" aria-label="Lär känna CAESAR och våra fyra subteam" data-stage="intro">
+    <section ref={root} className="rocket-experience" aria-label="Meet CAESAR and our four subteams" data-stage="intro">
       <span className="about-anchor" aria-hidden="true" style={{ top: `calc(${aboutAnchorPercent}% - ${aboutAnchorPercent}svh)` }} />
       {sceneLinks.map(scene => <span key={scene.id} className="scene-anchor" data-scene-anchor={scene.id} aria-hidden="true" style={{ top: `calc(${scene.time / storyDuration * 100}% - ${scene.time / storyDuration * 100}svh)` }} />)}
       <div className="rocket-viewport">
         <RocketStarfield />
         <div className="rocket-grid" aria-hidden="true" />
         <div className="rocket-camera">
-          <img className="rocket-image" src={sitePath('assets/caesar-rocket.png')} alt="CAESARs svarta raket med silverfärgad noskon och föreningens logotyp" width="1024" height="1536" {...{ fetchpriority: 'high' }} />
+          <img className="rocket-image" src={sitePath('assets/caesar-rocket.png')} alt="Black CAESAR rocket with a silver nose cone and the society’s logo" width="1024" height="1536" {...{ fetchpriority: 'high' }} />
         </div>
         <div className="rocket-intro">
           <div className="rocket-intro-copy">
             <p className="eyebrow rocket-origin" lang="en"><span className="status-dot" /> Chalmers · Gothenburg · Sweden</p>
             <h1 lang="en"><span>Chalmers</span>{' '}<span>Aerospace Society</span>{' '}<span>for Advanced</span>{' '}<span>Rocketry</span></h1>
             <span className="rocket-intro-rule" aria-hidden="true" />
-            <p className="rocket-intro-note">Fyra team. En gemensam riktning.<br />Med sikte på rymden.</p>
+            <p className="rocket-intro-note">Four teams. One shared direction.<br />Bound for space.</p>
           </div>
-          <a className="scroll-prompt" href="#electronics"><span className="scroll-prompt-arrow" aria-hidden="true"><span>↓</span></span><span>Scrolla för att utforska<span className="scroll-prompt-caption">Upptäck raketen och våra fyra team</span></span></a>
-          <a className="skip-experience" href="#om-oss">Till föreningen <span aria-hidden="true">↗</span></a>
+          <a className="scroll-prompt" href="#electronics"><span className="scroll-prompt-arrow" aria-hidden="true"><span>↓</span></span><span>Scroll to explore<span className="scroll-prompt-caption">Discover the rocket and our four teams</span></span></a>
+          <a className="skip-experience" href="#om-oss">Meet CAESAR <span aria-hidden="true">↗</span></a>
         </div>
 
         <div className="rocket-measurements" aria-hidden="true"><span className="measure-top">ONE ROCKET / FOUR TEAMS</span><span className="measure-bottom">CAESAR · PHOBOS</span><span className="measure-cross cross-top">+</span><span className="measure-cross cross-bottom">+</span></div>
@@ -342,7 +342,7 @@ export default function RocketScrollExperience() {
         <EarthTransition />
         <TeamAbout />
         <ScrollProgress onNavigate={navigate} />
-        <div className="rocket-viewport-footer" aria-hidden="true"><span>PHOBOS / PÅGÅENDE PROJEKT</span><span>FRÅN IDÉ TILL UPPSKJUTNING</span></div>
+        <div className="rocket-viewport-footer" aria-hidden="true"><span>PHOBOS / CURRENT PROJECT</span><span>FROM CONCEPT TO LAUNCH</span></div>
       </div>
     </section>
   )

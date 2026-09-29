@@ -184,8 +184,8 @@ try {
     assert.equal(await page.locator('.about-body p').count(), 3)
     assert.ok((await page.locator('.about-lead strong').textContent()).includes('Chalmers Raketgrupp'))
     assert.equal(await page.locator('.about-story').getAttribute('aria-hidden'), 'false')
-    assert.equal(await page.locator('.about-body a').getAttribute('tabindex'), '0')
-    assert.equal(await page.locator('.about-copy h2').textContent(), 'VI ÄR CAESAR.')
+    assert.equal(await page.locator('.about-body a').count(), 0, 'The removed About link stays absent')
+    assert.equal(await page.locator('.about-copy h2').textContent(), 'WE ARE CAESAR.')
     await page.screenshot({ path: 'artifacts/team-settled-' + width + '.png' })
     await scrollTo(1.185)
     assert.deepEqual(await portraitFrame(), emerging, 'Team reveal did not reverse')
@@ -194,7 +194,7 @@ try {
     assert.deepEqual(await earthFrame(), horizon, 'Earth did not reverse deterministically')
     await scrollTo(.99)
     assert.equal((await earthFrame()).rocketOpacity, 1, 'Reverse scrolling did not restore the rocket')
-    assert.equal(await page.locator('.about-body a').getAttribute('tabindex'), '-1')
+    assert.equal(await page.locator('.about-body a').count(), 0)
     console.log(`PASS ${width}px: Earth entrance, simultaneous About reveal, aspect ratio, continuous stars, reverse`)
 
     for (const [team, start, point] of [['electronics', .15, .29], ['propulsion', .35, .92], ['structures', .55, .46], ['marketing', .75, .54]]) {
@@ -234,7 +234,7 @@ try {
     await page.waitForTimeout(250)
     assert.deepEqual(await state(), stable, 'Animation moved without scroll')
 
-    await page.getByRole('button', { name: 'Visa STRUCTURES' }).click()
+    await page.getByRole('button', { name: 'View STRUCTURES' }).click()
     await page.waitForFunction(() => document.querySelector('.rocket-experience').dataset.stage === 'structures')
     console.log(`PASS ${width}px: pinned scene, full image, camera travel, stages, reverse, no autoplay, navigation`)
   }
@@ -275,7 +275,7 @@ try {
   assert.equal(await page.locator('.rocket-mission a').first().getAttribute('tabindex'), null)
   assert.equal(await page.locator('.about-story').getAttribute('id'), 'om-oss')
   assert.equal(await page.locator('.about-story').getAttribute('aria-hidden'), null)
-  assert.equal(await page.locator('.about-body a').getAttribute('tabindex'), null)
+  assert.equal(await page.locator('.about-body a').count(), 0)
   const reduced = await state()
   assert.equal(reduced.sectionHeight, reduced.viewportHeight, 'Reduced motion retained a pinned scroll runway')
   assert.equal(await page.locator('.technical-callout[aria-hidden="true"]').count(), 0, 'Reduced motion hid team content')

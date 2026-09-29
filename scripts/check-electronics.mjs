@@ -50,7 +50,7 @@ try {
     await page.goto(base, { waitUntil: 'networkidle' })
     const cta = page.locator('.electronics-cta')
     assert.equal(await cta.getAttribute('tabindex'), '-1')
-    await page.getByRole('button', { name: 'Visa ELECTRONICS', exact: true }).click()
+    await page.getByRole('button', { name: 'View ELECTRONICS', exact: true }).click()
     await page.waitForTimeout(1500)
     const bounds = await cta.boundingBox()
     assert.ok(bounds.y >= 75 && bounds.y + bounds.height < height, `Homepage CTA clipped at ${width}`)

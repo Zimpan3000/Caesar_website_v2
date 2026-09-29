@@ -10,6 +10,8 @@
     "build": "npm run build --workspace=frontend && npm run build --workspace=backend",
     "start": "node backend/dist/index.js",
     "check:homepage": "node scripts/check-homepage.mjs",
+    "check:support": "node scripts/check-support.mjs",
+    "check:projects": "node scripts/check-projects.mjs",
     "check:members": "node scripts/check-members.mjs",
     "check:supabase": "node scripts/check-supabase.mjs",
     "check:supabase:live": "node scripts/check-supabase-live.mjs",

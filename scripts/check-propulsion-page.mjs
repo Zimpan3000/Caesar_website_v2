@@ -65,7 +65,7 @@ try {
     await page.goto(base, { waitUntil: 'networkidle' })
     const cta = page.locator('.propulsion-cta')
     assert.equal(await cta.getAttribute('tabindex'), '-1')
-    await page.getByRole('button', { name: 'Visa PROPULSION', exact: true }).click()
+    await page.getByRole('button', { name: 'View PROPULSION', exact: true }).click()
     await page.waitForTimeout(1500)
     assert.equal(await cta.getAttribute('tabindex'), '0')
     const bounds = await cta.boundingBox()

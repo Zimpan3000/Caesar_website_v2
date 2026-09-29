@@ -1,6 +1,6 @@
 # Homepage assets
 
-`caesar-website.jpg` is a local browser capture of the CAESAR homepage at
+`caesar-website.jpg` is a local browser capture of the English CAESAR homepage at
 1440 × 1000 with reduced motion enabled, created for the Marketing page’s digital
 presence section. It shows the website, not a photograph of flight hardware.
 The Marketing page uses the existing team photographs, unchanged CAESAR logo,
@@ -29,6 +29,10 @@ This artwork is retained in the news grid. The original Phobos render remains
 in the project showcase; the scroll experience uses the newly supplied rocket.
 
 Inter is locally served from https://rsms.me/inter/font-files/InterVariable.woff2.
+
+`swish-qr.png` is the unchanged, user-supplied CAESAR Swish QR image from
+https://caesar.se/wp-content/uploads/2026/03/swish-qr.png. The support page serves
+it locally and links mobile visitors to the supplied Swish payment URL.
 Its SIL Open Font License is included in `Inter-LICENSE.txt`.
 
 News content and partner links are in `src/data/site.ts`. The three latest Swedish

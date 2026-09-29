@@ -83,7 +83,7 @@ try {
     await page.goto(base, { waitUntil: 'networkidle' })
     const cta = page.locator('.structures-cta')
     assert.equal(await cta.getAttribute('tabindex'), '-1')
-    await page.getByRole('button', { name: 'Visa STRUCTURES', exact: true }).click()
+    await page.getByRole('button', { name: 'View STRUCTURES', exact: true }).click()
     await page.waitForTimeout(1800)
     assert.equal(await cta.getAttribute('tabindex'), '0')
     const bounds = await cta.boundingBox()

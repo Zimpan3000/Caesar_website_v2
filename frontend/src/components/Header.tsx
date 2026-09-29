@@ -11,25 +11,25 @@ const missionItems = [
 ]
 
 const homeItems = [
-  { id: 'top', label: 'Översikt' },
+  { id: 'top', label: 'Overview' },
   ...missionItems.filter(item => !['overview', 'vision'].includes(item.id)),
-  { id: 'vision', label: 'Vår vision' },
-  { id: 'om-oss', label: 'Om oss' },
-  { id: 'projekt', label: 'Projekt' },
+  { id: 'vision', label: 'Our Vision' },
+  { id: 'om-oss', label: 'About Us' },
+  { id: 'projekt', label: 'Projects' },
   { id: 'partners', label: 'Partners' },
-  { id: 'kontakt', label: 'Kontakt' },
+  { id: 'kontakt', label: 'Contact' },
 ]
 
-export default function Header({ isMembership = false, isElectronics = false, isPropulsion = false, isStructures = false, isMarketing = false }: { isMembership?: boolean; isElectronics?: boolean; isPropulsion?: boolean; isStructures?: boolean; isMarketing?: boolean }) {
+export default function Header({ isRocketProject = false, isMembership = false, isSupport = false, isSponsor = false, isElectronics = false, isPropulsion = false, isStructures = false, isMarketing = false }: { isRocketProject?: boolean; isMembership?: boolean; isSupport?: boolean; isSponsor?: boolean; isElectronics?: boolean; isPropulsion?: boolean; isStructures?: boolean; isMarketing?: boolean }) {
   const isTeamPage = isElectronics || isPropulsion || isStructures || isMarketing
-  const homeSection = (hash: string) => isMembership || isTeamPage ? sitePath(hash) : hash
+  const homeSection = (hash: string) => isRocketProject || isMembership || isSupport || isSponsor || isTeamPage ? sitePath(hash) : hash
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<'home' | 'project' | null>(null)
   const toggle = useRef<HTMLButtonElement>(null)
   const header = useRef<HTMLElement>(null)
-  const [activeMission, setActiveMission] = useState<string | null>(isElectronics ? 'electronics' : isPropulsion ? 'propulsion' : isStructures ? 'structures' : isMarketing ? 'marketing' : isMembership ? null : 'overview')
-  const [activeHomeSection, setActiveHomeSection] = useState<string | null>(isMembership || isTeamPage ? null : 'top')
+  const [activeMission, setActiveMission] = useState<string | null>(isRocketProject ? 'phobos' : isElectronics ? 'electronics' : isPropulsion ? 'propulsion' : isStructures ? 'structures' : isMarketing ? 'marketing' : isMembership || isSupport || isSponsor ? null : 'overview')
+  const [activeHomeSection, setActiveHomeSection] = useState<string | null>(isRocketProject || isMembership || isSupport || isSponsor || isTeamPage ? null : 'top')
   const changeDropdown = (name: 'home' | 'project', nextOpen: boolean) => {
     setOpenDropdown(current => nextOpen ? name : current === name ? null : current)
   }
@@ -138,25 +138,28 @@ export default function Header({ isMembership = false, isElectronics = false, is
   return (
     <header ref={header} className={`site-header${scrolled ? ' is-scrolled' : ''}${open ? ' menu-open' : ''}`}>
       <div className="container header-inner">
-        <a className="brand" href={sitePath()} aria-label="CAESAR – startsida"><img src={sitePath('assets/caesar-full.png')} alt="CAESAR" width="2172" height="724" /></a>
+        <a className="brand" href={sitePath()} aria-label="CAESAR home"><img src={sitePath('assets/caesar-full.png')} alt="CAESAR" width="2172" height="724" /></a>
         <button ref={toggle} className="menu-toggle" type="button" aria-controls="main-navigation" aria-expanded={open} onClick={() => { setOpen(!open); setOpenDropdown(null) }}>
-          <span>{open ? 'Stäng' : 'Meny'}</span><span className="menu-icon" aria-hidden="true"><i /><i /></span>
+          <span>{open ? 'Close' : 'Menu'}</span><span className="menu-icon" aria-hidden="true"><i /><i /></span>
         </button>
-        <nav id="main-navigation" className="main-navigation" aria-label="Huvudnavigation" onClick={event => {
+        <nav id="main-navigation" className="main-navigation" aria-label="Main navigation" onClick={event => {
           if ((event.target as Element).closest('a')) { setOpen(false); setOpenDropdown(null) }
         }} onBlur={(event) => {
           if (!header.current?.contains(event.relatedTarget as Node)) { setOpen(false); setOpenDropdown(null) }
         }}>
           <div className="nav-main-links">
-          <HeaderDropdown name="home" id="home-sections-navigation" label="Hem" title="STARTSIDAN" description="Hitta till varje del av CAESAR" titleHref={homeSection('#top')} lang="sv" open={openDropdown === 'home'} active={activeHomeSection !== null} onOpenChange={next => changeDropdown('home', next)} items={homeItems.map(item => ({ ...item, href: homeSection(`#${item.id}`), current: activeHomeSection === item.id ? 'location' : undefined }))} />
-          <a href={homeSection('#om-oss')}>Om oss</a>
-          <HeaderDropdown name="project" id="phobos-navigation" label="Projekt" title="PHOBOS" description="Advanced Rocketry Project" titleHref={homeSection('#projekt')} lang="en" open={openDropdown === 'project'} active={activeMission !== null} onOpenChange={next => changeDropdown('project', next)} items={missionItems.map(item => ({ ...item, href: subteams.some(team => team.id === item.id) ? sitePath(item.id) : homeSection(item.href), current: activeMission === item.id ? (isTeamPage ? 'page' : 'location') : undefined }))} />
+          <HeaderDropdown name="home" id="home-sections-navigation" label="Home" title="HOMEPAGE" description="Explore every part of CAESAR" titleHref={homeSection('#top')} lang="en" open={openDropdown === 'home'} active={activeHomeSection !== null} onOpenChange={next => changeDropdown('home', next)} items={homeItems.map(item => ({ ...item, href: homeSection(`#${item.id}`), current: activeHomeSection === item.id ? 'location' : undefined }))} />
+          <a href={homeSection('#om-oss')}>About Us</a>
+          <HeaderDropdown name="project" id="phobos-navigation" label="Projects" title="PHOBOS" description="Hybrid rocket / Target altitude 3 km" titleHref={links.phobos} lang="en" open={openDropdown === 'project'} active={activeMission !== null} onOpenChange={next => changeDropdown('project', next)} items={[
+            { id: 'projects', label: 'All Projects', href: homeSection('#projekt'), current: activeHomeSection === 'projekt' ? 'location' : undefined },
+            { id: 'phobos', label: 'Phobos', href: links.phobos, current: isRocketProject ? 'page' : undefined },
+            ...missionItems.filter(item => item.id !== 'overview').map(item => ({ ...item, href: subteams.some(team => team.id === item.id) ? sitePath(item.id) : homeSection(item.href), current: activeMission === item.id ? (isTeamPage ? 'page' as const : 'location' as const) : undefined })),
+          ]} />
           <a href={homeSection('#partners')}>Partners</a>
-          <a href="#kontakt">Kontakt</a>
-          <a href={links.membership} aria-current={isMembership ? 'page' : undefined}>Bli medlem</a>
-          <a className="nav-login" href={sitePath('login')}>Logga in</a>
-          <a className="nav-support" href={links.support}>Stöd oss <span aria-hidden="true">↗</span></a>
-          <a className="language-link" href={links.english} lang="en" hrefLang="en" aria-label="Read in English">EN</a>
+          <a href={links.sponsor} aria-current={isSponsor ? 'page' : undefined}>Become a Sponsor</a>
+          <a href="#kontakt">Contact</a>
+          <a href={links.membership} aria-current={isMembership ? 'page' : undefined}>Join Us</a>
+          <a className="nav-support" href={links.support} aria-current={isSupport ? 'page' : undefined}>Support Us <span aria-hidden="true">↗</span></a>
           </div>
         </nav>
       </div>

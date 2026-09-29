@@ -2,6 +2,8 @@ import { sitePath } from '../paths'
 import { useEffect, useState } from 'react'
 import { links } from '../data/site'
 import Arrow from './Arrow'
+import { phobos } from '../data/rocketProjects'
+import { ProjectArtwork, ProjectFacts, ProjectTeams } from './RocketProjectParts'
 
 type Project = { id: string; title: string; summary: string; url: string }
 
@@ -28,16 +30,22 @@ export default function ProjectFeature() {
   }, [])
 
   return (
-    <section id="projekt" className="projects-section section-space" aria-labelledby="project-title">
+    <section id="projekt" className="projects-section project-showcase section-space" aria-labelledby="project-title">
       <div className="container">
-        <div className="project-feature" data-reveal>
-          <div className="project-copy"><p className="eyebrow"><span className="status-dot" /><span lang="en">Current project</span></p><h2 id="project-title">PHOBOS</h2><p className="project-subtitle">Nästa steg mot rymden.</p><p className="muted">Phobos är CAESARs pågående raketprojekt. Vi designar och utvecklar raketer för att ta Chalmers närmare drömmen: en raket som når över Kármánlinjen.</p><a className="button button-outline" href={links.phobos}>Utforska Phobos <Arrow /></a></div>
-          <a className="project-visual" href={links.phobos} aria-label="Utforska raketprojektet Phobos"><div className="project-image-label"><span>CAESAR / PHOBOS</span><Arrow diagonal /></div><img src={sitePath('assets/phobos.png')} alt="Phobos – CAESARs raket med svart kropp och föreningens logotyp" width="1024" height="640" loading="lazy" /><span className="project-image-caption">Raketutveckling på Chalmers <span>01 / PHOBOS</span></span></a>
-        </div>
-        <div className="project-archive" data-reveal><p className="eyebrow">Fler projekt</p><div className="archive-items" aria-live="polite">
-          {state === 'loading' && <p className="muted">Laddar projekt…</p>}
-          {state === 'error' && <p className="muted">Projektlistan kunde inte laddas. <a href={links.projects}>Se alla projekt på caesar.se <span aria-hidden="true">↗</span></a></p>}
-          {state === 'ready' && projects.length === 0 && <a className="text-link" href={links.projects}>Se alla projekt <Arrow /></a>}
+        <header className="rocket-showcase-intro" data-reveal><div><p className="eyebrow">CAESAR / Rocket Engineering</p><h2 id="project-title">Our Projects</h2></div><p>We develop rockets through long-term student engineering projects. Technical teams work together from concept and design through manufacturing and testing, with the goal of a future launch.</p></header>
+        <article className="rocket-featured" aria-labelledby="featured-project-title" data-reveal>
+          <div className="rocket-featured-heading"><p className="eyebrow"><span className="status-dot" /> Current Project</p><span className="rocket-team-index">CAESAR / CHALMERS</span></div>
+          <div className="rocket-featured-grid">
+            <div className="project-copy"><h3 id="featured-project-title">{phobos.name}</h3><p className="rocket-featured-tagline">Building the next step together.</p><p className="muted">{phobos.summary}</p><a className="button button-primary" href={links.phobos}>Explore Phobos <Arrow /></a></div>
+            <a className="rocket-featured-image" href={links.phobos} aria-label="Explore the Phobos rocket project"><ProjectArtwork project={phobos} /></a>
+          </div>
+          <ProjectFacts project={phobos} />
+        </article>
+        <div className="rocket-showcase-teams" data-reveal><div className="rocket-showcase-team-heading"><h3>One project. Many engineering disciplines.</h3><p>Propulsion, Electronics and Structures contribute different systems to the rocket. These are engineering teams working on one shared project.</p></div><ProjectTeams project={phobos} /></div>
+        <div className="project-archive rocket-project-archive" data-reveal><div><p className="eyebrow">Project Archive</p><h3>Previous Projects</h3></div><div className="archive-items" aria-live="polite">
+          {state === 'loading' && <p className="muted">Loading projects…</p>}
+          {state === 'error' && <p className="muted">The project archive could not be loaded. <a href="https://caesar.se/projekt/">Visit the earlier project archive <span aria-hidden="true">↗</span></a></p>}
+          {state === 'ready' && projects.length === 0 && <p className="muted">There are no previous projects to display yet.</p>}
           {projects.map((project) => <a className="archive-project" key={project.id} href={project.url} target="_blank" rel="noreferrer"><span className="archive-project-name">{project.title}</span><span className="muted">{project.summary}</span><Arrow diagonal /></a>)}
         </div></div>
       </div>

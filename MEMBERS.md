@@ -107,6 +107,22 @@ see `SUPABASE.md`. Both integration suites exercise these flows through
 `scripts/check-organization-flows.mjs`, including legacy payload compatibility,
 cycle prevention, anonymous write denial, keyboard controls and mobile layouts.
 
+## Deleting workspace records
+
+Open a record's **Edit** screen and choose **Delete team/project/goal/update/data
+entry**, then confirm. Active members have the same shared permissions for
+deleting as for editing. **Keep** cancels deletion without changing the record;
+**Cancel** closes ordinary edits, and the team editor offers **Discard changes**
+for an unsaved draft.
+
+Deletion removes only the selected record. Teams and projects with linked records
+cannot be deleted until those references are removed or reassigned; the dialog
+lists what remains. Subprojects must be moved or deleted first. The API checks
+this again against the latest workspace revision, so stale screens cannot break
+relationships. Deletion and its activity entry are saved atomically. Activity
+history is retained with no links to deleted items. Saved deletion is permanent;
+the confirmation is explicit. No database migration is needed.
+
 ## Deployment
 
 The existing public static deployment remains supported. **The members portal

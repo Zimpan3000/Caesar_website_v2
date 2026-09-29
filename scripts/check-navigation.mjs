@@ -37,9 +37,9 @@ try {
     }
     assert.equal(await trigger.getAttribute('aria-expanded'), 'true')
     assert.equal(await panel.isVisible(), true)
-    assert.equal(await links.count(), 6)
+    assert.equal(await links.count(), 7)
     assert.equal(await panel.locator('[aria-current="page"]').innerText(), 'Electronics')
-    assert.equal((await links.nth(1).getAttribute('href')), `${new URL(base).pathname}electronics`)
+    assert.equal((await links.getByText('Electronics', { exact: true }).locator('..').getAttribute('href')), `${new URL(base).pathname}electronics`)
     assert.deepEqual(await page.locator('.site-header').boundingBox(), headerBefore, 'Opening changed header layout')
     assert.deepEqual(await page.locator('h1').boundingBox(), headingBefore, 'Opening shifted page content')
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false)
@@ -94,7 +94,7 @@ try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } })
   page.on('pageerror', error => errors.push(error.message))
   await page.goto(base, { waitUntil: 'networkidle' })
-  await page.getByRole('button', { name: 'Visa STRUCTURES', exact: true }).click()
+  await page.getByRole('button', { name: 'View STRUCTURES', exact: true }).click()
   await page.waitForTimeout(1500)
   await page.locator('.project-toggle').hover()
   assert.equal(await page.locator('.project-destinations [aria-current]').innerText(), 'Structures')
@@ -112,10 +112,10 @@ try {
   await page.close()
 
   const sections = [
-    ['Översikt', 'top'], ['Electronics', 'electronics'], ['Propulsion', 'propulsion'],
-    ['Structures', 'structures'], ['Marketing', 'marketing'], ['Vår vision', 'vision'],
-    ['Om oss', 'om-oss'], ['Projekt', 'projekt'],
-    ['Partners', 'partners'], ['Kontakt', 'kontakt'],
+    ['Overview', 'top'], ['Electronics', 'electronics'], ['Propulsion', 'propulsion'],
+    ['Structures', 'structures'], ['Marketing', 'marketing'], ['Our Vision', 'vision'],
+    ['About Us', 'om-oss'], ['Projects', 'projekt'],
+    ['Partners', 'partners'], ['Contact', 'kontakt'],
   ]
   for (const [width, height] of [[1440, 1000], [901, 700], [390, 844], [320, 740], [844, 390]]) {
     const page = await browser.newPage({ viewport: { width, height }, reducedMotion: 'reduce' })
@@ -137,6 +137,7 @@ try {
     assert.deepEqual(await page.locator('.site-header').boundingBox(), before)
     if (mobile) await page.locator('.project-toggle').click()
     else await page.locator('.project-toggle').hover()
+    await page.waitForFunction(() => document.querySelector('.project-toggle').getAttribute('aria-expanded') === 'true')
     assert.equal(await trigger.getAttribute('aria-expanded'), 'false', 'Both dropdowns are open')
     assert.equal(await page.locator('.project-toggle').getAttribute('aria-expanded'), 'true')
     await openHome()
@@ -161,7 +162,7 @@ try {
       assert.equal(await trigger.evaluate(el => el === document.activeElement), true)
     }
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false)
-    console.log(`PASS ${width} × ${height}: all 11 home sections, active indicators, exclusive menus and navigation without reloads`)
+    console.log(`PASS ${width} × ${height}: all ${sections.length} home sections, active indicators, exclusive menus and navigation without reloads`)
     await page.close()
   }
   assert.deepEqual(errors, [], 'Browser runtime errors')
