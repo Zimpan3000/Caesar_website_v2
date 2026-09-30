@@ -26,7 +26,7 @@ try {
         const bounds = selector => document.querySelector(selector).getBoundingClientRect()
         const header = bounds('.site-header')
         const intro = bounds('.rocket-intro')
-        const selectors = ['.rocket-origin', '.rocket-intro h1', '.rocket-intro-note', '.scroll-prompt', '.skip-experience']
+        const selectors = ['.rocket-origin', '.rocket-intro h1', '.scroll-prompt', '.skip-experience']
         const items = selectors.map(selector => ({ selector, rect: bounds(selector) }))
         const overlaps = (a, b) => a.left < b.right - .5 && a.right > b.left + .5 && a.top < b.bottom - .5 && a.bottom > b.top + .5
         for (const { selector, rect } of items) {
