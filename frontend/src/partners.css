@@ -1,0 +1,96 @@
+.partnership-page { --partner-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; padding: 145px 0 100px; background: radial-gradient(ellipse at 85% 9%, #263a4e24, transparent 27%), var(--bg); }
+.partnership-hero { display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 70px; padding-block: 30px 75px; }
+.partnership-intro { min-width: 0; }
+.partnership-page .eyebrow { color: var(--accent); }
+.partnership-hero h1 { font-size: clamp(72px, 8.2vw, 124px); line-height: .98; letter-spacing: -.07em; font-weight: 450; }
+.partnership-period { color: var(--accent); }
+.partnership-lead { max-width: 540px; color: #aeb9c7; font-size: 17px; line-height: 1.85; margin-top: 30px; }
+.partnership-notation { font: 9px/1.6 var(--partner-mono); letter-spacing: .12em; text-transform: uppercase; color: #8494a8; }
+.partnership-orbit { width: 100%; max-width: 480px; justify-self: end; text-align: center; }
+.partnership-orbit svg { display: block; width: 100%; height: auto; }
+.orbit-guide { stroke: #9aaec32b; stroke-dasharray: 2 9; }
+.orbit-guide-inner { stroke-dasharray: none; stroke: #9aaec31c; }
+.orbit-axis { stroke: #9aaec318; }
+.orbit-connections { stroke: #e9975c66; stroke-width: .8; }
+.orbit-core { fill: #080d13; stroke: #e9975c70; }
+.orbit-brand { fill: #f2f3f5; font: 21px Inter, sans-serif; letter-spacing: -.04em; }
+.orbit-small { fill: #96a3b3; font: 6px var(--partner-mono); letter-spacing: .12em; }
+.orbit-node { fill: var(--accent); stroke: #e9975c33; stroke-width: 8; }
+.orbit-label { fill: #b2bdca; font: 8px var(--partner-mono); letter-spacing: .12em; }
+.partnership-index { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid var(--line); }
+.partnership-index a { display: flex; align-items: center; gap: 22px; padding: 27px 26px; border-right: 1px solid var(--line); transition: background .2s; }
+.partnership-index a:first-child { padding-left: 0; }
+.partnership-index a:last-child { border-right: 0; padding-right: 0; }
+.partnership-index a:hover { background: #ffffff04; }
+.partnership-index-number { color: var(--accent); }
+.partnership-index strong { display: block; font-size: 16px; font-weight: 500; }
+.partnership-index small { display: block; font-size: 12px; color: var(--muted); margin-top: 3px; }
+.partnership-index-arrow { margin-left: auto; color: var(--accent); }
+.partnership-story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: 'identity copy'; gap: clamp(45px, 7.5vw, 110px); align-items: center; padding-block: 100px; border-bottom: 1px solid var(--line); scroll-margin-top: 25px; }
+.partnership-story:nth-child(even) { grid-template-areas: 'copy identity'; }
+.partnership-story-copy { grid-area: copy; min-width: 0; }
+.partnership-category { display: flex; gap: 18px; color: var(--accent); font: 10px/1.7 var(--partner-mono); letter-spacing: .07em; text-transform: uppercase; margin-bottom: 23px; }
+.partnership-category > span { color: #8392a3; flex-shrink: 0; }
+.partnership-story h2 { font-size: clamp(36px, 4.1vw, 60px); line-height: 1.08; letter-spacing: -.055em; }
+.partnership-theme { margin-top: 21px; font-size: 22px; line-height: 1.4; color: #e0e4ea; letter-spacing: -.025em; }
+.partnership-description { margin-top: 18px; font-size: 15px; line-height: 1.9; color: #acb7c5; }
+.partnership-context { margin-top: 20px; padding-left: 18px; border-left: 1px solid #e9975c60; color: #8f9dad; font-size: 13px; line-height: 1.8; }
+.partnership-visit { margin-top: 23px; color: var(--accent); }
+.partnership-identity { grid-area: identity; min-width: 0; padding: 22px; border: 1px solid #869ab32e; background: linear-gradient(#7995b208 1px, transparent 1px), linear-gradient(90deg, #7995b208 1px, transparent 1px), #090e14; background-size: 32px 32px; }
+.partnership-plate-meta { display: flex; justify-content: space-between; align-items: center; padding-bottom: 28px; }
+.partnership-plate-meta > span:last-child { font-size: 18px; line-height: 1; color: var(--accent); }
+/* Keep the supplied logos in their original colors, on a neutral light plate. */
+.partnership-logo { display: grid; place-items: center; min-height: 230px; padding: 40px 30px; background: #fff; }
+.partnership-logo img { width: 100%; max-width: 370px; height: auto; max-height: 160px; object-fit: contain; }
+.partnership-identity figcaption { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding-top: 23px; }
+.partnership-identity figcaption > span:last-child { font-size: 12px; color: #bec8d4; }
+.partnership-invitation { display: flex; align-items: center; justify-content: space-between; gap: 50px; padding-top: 90px; }
+.partnership-invitation h2 { font-size: clamp(35px, 4.2vw, 61px); letter-spacing: -.05em; }
+.partnership-invitation p:last-child { margin-top: 23px; color: var(--muted); font-size: 15px; }
+.partnership-invitation .button { flex-shrink: 0; border-color: #e9975c70; color: var(--accent); }
+.partnership-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 1100px) {
+  .partnership-hero { gap: 30px; }
+  .partnership-index a { gap: 15px; padding-inline: 18px; }
+  .partnership-index strong { font-size: 14px; }
+  .partnership-logo { min-height: 200px; padding: 30px 20px; }
+  .partnership-identity { padding: 18px; }
+}
+@media (max-width: 900px) {
+  .partnership-page { padding-top: 115px; }
+  .partnership-hero { gap: 20px; padding-bottom: 55px; }
+  .partnership-hero h1 { font-size: clamp(62px, 9vw, 80px); }
+  .partnership-lead { font-size: 15px; }
+  .partnership-index a { gap: 10px; padding-inline: 12px; }
+  .partnership-index small { font-size: 10px; }
+  .partnership-index-number { display: none; }
+  .partnership-story, .partnership-story:nth-child(even) { grid-template-columns: 1fr; grid-template-areas: 'copy' 'identity'; gap: 35px; padding-block: 65px; }
+  .partnership-story-copy { max-width: 650px; }
+  .partnership-identity { width: 100%; max-width: 580px; }
+  .partnership-story:nth-child(even) .partnership-identity { justify-self: end; }
+  .partnership-logo { min-height: 230px; }
+  .partnership-invitation { align-items: flex-start; flex-direction: column; gap: 30px; padding-top: 65px; }
+}
+@media (max-width: 600px) {
+  .partnership-page { padding: 105px 0 60px; }
+  .partnership-hero { grid-template-columns: 1fr; gap: 20px; padding-block: 20px 35px; }
+  .partnership-hero h1 { font-size: clamp(64px, 16vw, 88px); }
+  .partnership-hero .eyebrow { font-size: 9px; margin-bottom: 24px; }
+  .partnership-lead { margin-top: 23px; }
+  .partnership-orbit { max-width: 290px; justify-self: center; }
+  .partnership-index { grid-template-columns: 1fr; }
+  .partnership-index a, .partnership-index a:first-child, .partnership-index a:last-child { padding: 18px 0; border-right: 0; gap: 20px; }
+  .partnership-index a + a { border-top: 1px solid var(--line); }
+  .partnership-index-number { display: inline; }
+  .partnership-index small { font-size: 11px; }
+  .partnership-story, .partnership-story:nth-child(even) { padding-block: 48px; gap: 28px; }
+  .partnership-category { font-size: 9px; gap: 12px; margin-bottom: 18px; }
+  .partnership-story h2 { font-size: clamp(33px, 9vw, 45px); }
+  .partnership-theme { font-size: 20px; }
+  .partnership-description { font-size: 14px; }
+  .partnership-identity { padding: 16px; }
+  .partnership-logo { min-height: 175px; padding: 30px 20px; }
+  .partnership-plate-meta { padding-bottom: 18px; }
+  .partnership-identity figcaption { padding-top: 18px; }
+  .partnership-notation { font-size: 8px; }
+}

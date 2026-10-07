@@ -35,10 +35,11 @@ https://caesar.se/wp-content/uploads/2026/03/swish-qr.png. The support page serv
 it locally and links mobile visitors to the supplied Swish payment URL.
 Its SIL Open Font License is included in `Inter-LICENSE.txt`.
 
-News content and partner links are in `src/data/site.ts`. The three latest Swedish
-posts were taken from CAESAR's WordPress API. They have no featured images, so
-the homepage uses existing CAESAR imagery as illustrations, not event photos.
-Article links retain the complete original posts. Dates have not been changed.
+`axjo.svg` is the unmodified official Axjo logo, downloaded on 2026-10-05 from
+https://www.axjo.com/hubfs/Axjo%20logo%20red-V01.svg.
+
+Partner and social links are in `src/data/site.ts`. Images are served locally;
+the provenance URLs above are source records, not website navigation links.
 
 The original Phobos page identifies the project and displays its render but has
 no detailed technical copy. The showcase therefore uses the confirmed project

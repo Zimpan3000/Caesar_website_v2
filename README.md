@@ -35,7 +35,7 @@ Build for production:
 npm run build
 ```
 
-The backend serves a minimal API at `/api/projects` during local development.
+The public project content is bundled with the frontend; the backend serves the members portal.
 
 The redesigned homepage runs at http://localhost:5173. Vite proxies `/api` to the
 existing backend on port 3000. The current frontend production build targets
@@ -47,23 +47,21 @@ Build the temporary deployment with `npm run build --workspace=frontend` and upl
 the **contents** of `frontend/dist/`, including `.htaccess`, to `httpdocs/new/`.
 Do not upload anything to the WordPress document root. See
 [frontend/DEPLOYMENT.md](frontend/DEPLOYMENT.md) for Apache/Plesk routing details,
-the production project-data snapshot, and verification commands.
+the production routing, and verification commands.
 
-The homepage uses the supplied CAESAR logo and locally stored imagery from the
-existing website. Other pages remain on caesar.se and are linked directly.
-The existing Deimos redirect remains at `/projects/deimos` in development and
-`/new/projects/deimos` in production, forwarding to the original Deimos page.
-The API's project descriptions and destinations are preserved unchanged.
+The homepage uses the supplied CAESAR logo and locally stored imagery.
+Public navigation stays within the new website, apart from partner websites,
+social profiles, external forms and payment links. Phobos is the public project;
+the former project archive and external redirects have been removed.
 
 Homepage sections live in `frontend/src/components`, with content and external
 links in `frontend/src/data/site.ts` and the visual system in `frontend/src/styles.css`.
 Asset provenance is documented in `frontend/public/assets/README.md`.
-News is a snapshot of the latest Swedish posts retrieved on 2026-09-16.
 
 `npm run build` type-checks the frontend and builds both workspaces.
 With the development servers running, `npm run check:homepage` checks responsive
-layouts, image loading, navigation, reduced motion, scroll reveals, the project
-API failure state, and the legacy Deimos destination. Install a Playwright browser
+layouts, image loading, navigation, reduced motion, scroll reveals, and the absence
+of old website links across public pages. Install a Playwright browser
 with `npx playwright install chromium`, or set `BROWSER_PATH` to an existing
 Chromium/Chrome/Edge executable. Set `CHECK_URL` to check another server.
 Screenshots are written to the ignored `artifacts/` directory.

@@ -40,31 +40,33 @@ state, including browser back/forward, without a full document reload.
 
 Vite rewrites the stylesheet's font URL and generated CSS/JavaScript URLs at build
 time. The HTML font preload uses `%BASE_URL%`. Same-page `#section` links continue
-to work. Links to existing WordPress pages and external forms remain unchanged.
+to work. Public navigation uses the new local pages; partner websites, social
+profiles, external forms and payment links keep their existing destinations.
 
 The existing routes are:
 
 - `/new/`: homepage.
-- `/new/ga-med-i-caesar/`: membership page (also works without the final slash).
+- `/new/partners/`: Partners page.
+- `/new/join-us/`: membership page (also works without the final slash).
+- `/new/become-a-sponsor/`: sponsorship page.
+- `/new/support-us/`: support and donations page.
 - `/new/electronics`: Phobos Electronics page (also works with a final slash).
-- `/new/projects/deimos`: redirects to the original WordPress Deimos page.
+- `/new/projects/phobos/`: Phobos project detail page.
 
-There is currently **no separate React Phobos page**. `/new/projekt/phobos` will
-load the app through the server fallback and display the homepage, preserving the
-app's existing behavior for unrecognized paths. Phobos links still point to
-`https://caesar.se/projekt/phobos/`.
+Previous local Swedish page URLs are replaced in the address bar with their
+English equivalents, preserving query strings and fragments. This works under
+both the development root and the production `/new/` base without leaving the site.
+
+Unrecognized paths retain the existing homepage fallback without redirecting to
+the old website.
 
 ## Static project data
 
-The homepage previously fetched `/api/projects`. Uploading only `dist` cannot
-provide the Node API, and requesting that URL on the live domain would go to the
-WordPress site. Production now fetches `/new/data/projects.json`, containing the
-same project record as the current backend. Local development still fetches
-`/api/projects` through Vite's existing proxy; this public endpoint is unchanged.
-
-The project's text, links, loading state, error state, and presentation are
-preserved. For this temporary deployment, update `public/data/projects.json` and
-rebuild if the project list changes; it does not synchronize with the backend.
+Public project content is bundled from `src/data/rocketProjects.ts` in both
+development and production. The previous archive, its API endpoint, and its JSON
+snapshot have been removed. No backend is needed to display the public projects.
+Remove the obsolete `httpdocs/new/data/projects.json` file when updating a prior
+static deployment; uploading new files alone does not delete old server files.
 
 ## Apache/Plesk: refreshing routes
 
@@ -142,7 +144,7 @@ the fallback; it does not execute Apache directives.
 For a manual preview, run `npm run preview --workspace=frontend` and open
 `http://localhost:4173/new/`.
 
-After upload, check `/new/`, `/new/ga-med-i-caesar/` (including a refresh), and
-`/new/projekt/phobos`. Confirm `/new/assets/` requests succeed, and confirm that
+After upload, check `/new/`, `/new/join-us/` (including a refresh), and
+`/new/projects/phobos`. Confirm `/new/assets/` requests succeed, and confirm that
 `https://caesar.se/` still serves the existing WordPress site. Live rewrite behavior
 must be verified on the host.

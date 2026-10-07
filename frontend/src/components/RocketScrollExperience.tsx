@@ -314,6 +314,7 @@ export default function RocketScrollExperience() {
             <p className="eyebrow rocket-origin" lang="en"><span className="status-dot" /> Chalmers · Gothenburg · Sweden</p>
             <h1 lang="en"><span>Chalmers</span>{' '}<span>Aerospace Society</span>{' '}<span>for Advanced</span>{' '}<span>Rocketry</span></h1>
             <span className="rocket-intro-rule" aria-hidden="true" />
+            <p className="rocket-intro-note">Four teams. One shared direction.<br />Bound for space.</p>
           </div>
           <a className="scroll-prompt" href="#electronics"><span className="scroll-prompt-arrow" aria-hidden="true"><span>↓</span></span><span>Scroll to explore<span className="scroll-prompt-caption">Discover the rocket and our four teams</span></span></a>
           <a className="skip-experience" href="#om-oss">Meet CAESAR <span aria-hidden="true">↗</span></a>

@@ -9,17 +9,6 @@ app.use('/api/members', express.json({ limit: '1mb' }), membersRouter)
 app.use(express.json())
 app.use(cors())
 
-app.get('/api/projects', (_req, res) => {
-  res.json([
-    {
-      id: 'deimos',
-      title: 'Deimos',
-      summary: 'A student-built cubesat project by Chalmers.',
-      url: 'https://caesar.se/projekt/deimos/'
-    }
-  ])
-})
-
 // In production, serve the built frontend
 if (process.env.NODE_ENV === 'production') {
   const staticPath = path.join(__dirname, '..', '..', 'frontend', 'dist')

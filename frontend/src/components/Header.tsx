@@ -20,16 +20,17 @@ const homeItems = [
   { id: 'kontakt', label: 'Contact' },
 ]
 
-export default function Header({ isRocketProject = false, isMembership = false, isSupport = false, isSponsor = false, isElectronics = false, isPropulsion = false, isStructures = false, isMarketing = false }: { isRocketProject?: boolean; isMembership?: boolean; isSupport?: boolean; isSponsor?: boolean; isElectronics?: boolean; isPropulsion?: boolean; isStructures?: boolean; isMarketing?: boolean }) {
+export default function Header({ isRocketProject = false, isMembership = false, isSupport = false, isSponsor = false, isPartners = false, isContact = false, isElectronics = false, isPropulsion = false, isStructures = false, isMarketing = false }: { isRocketProject?: boolean; isMembership?: boolean; isSupport?: boolean; isSponsor?: boolean; isPartners?: boolean; isContact?: boolean; isElectronics?: boolean; isPropulsion?: boolean; isStructures?: boolean; isMarketing?: boolean }) {
   const isTeamPage = isElectronics || isPropulsion || isStructures || isMarketing
-  const homeSection = (hash: string) => isRocketProject || isMembership || isSupport || isSponsor || isTeamPage ? sitePath(hash) : hash
+  const isContentPage = isRocketProject || isMembership || isSupport || isSponsor || isPartners || isContact || isTeamPage
+  const homeSection = (hash: string) => isContentPage ? sitePath(hash) : hash
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<'home' | 'project' | null>(null)
   const toggle = useRef<HTMLButtonElement>(null)
   const header = useRef<HTMLElement>(null)
-  const [activeMission, setActiveMission] = useState<string | null>(isRocketProject ? 'phobos' : isElectronics ? 'electronics' : isPropulsion ? 'propulsion' : isStructures ? 'structures' : isMarketing ? 'marketing' : isMembership || isSupport || isSponsor ? null : 'overview')
-  const [activeHomeSection, setActiveHomeSection] = useState<string | null>(isRocketProject || isMembership || isSupport || isSponsor || isTeamPage ? null : 'top')
+  const [activeMission, setActiveMission] = useState<string | null>(isRocketProject ? 'phobos' : isElectronics ? 'electronics' : isPropulsion ? 'propulsion' : isStructures ? 'structures' : isMarketing ? 'marketing' : isContentPage ? null : 'overview')
+  const [activeHomeSection, setActiveHomeSection] = useState<string | null>(isContentPage ? null : 'top')
   const changeDropdown = (name: 'home' | 'project', nextOpen: boolean) => {
     setOpenDropdown(current => nextOpen ? name : current === name ? null : current)
   }
@@ -155,9 +156,9 @@ export default function Header({ isRocketProject = false, isMembership = false, 
             { id: 'phobos', label: 'Phobos', href: links.phobos, current: isRocketProject ? 'page' : undefined },
             ...missionItems.filter(item => item.id !== 'overview').map(item => ({ ...item, href: subteams.some(team => team.id === item.id) ? sitePath(item.id) : homeSection(item.href), current: activeMission === item.id ? (isTeamPage ? 'page' as const : 'location' as const) : undefined })),
           ]} />
-          <a href={homeSection('#partners')}>Partners</a>
+          <a href={links.partners} aria-current={isPartners ? 'page' : undefined}>Partners</a>
           <a href={links.sponsor} aria-current={isSponsor ? 'page' : undefined}>Become a Sponsor</a>
-          <a href="#kontakt">Contact</a>
+          <a href={links.contact} aria-current={isContact ? 'page' : undefined}>Contact</a>
           <a href={links.membership} aria-current={isMembership ? 'page' : undefined}>Join Us</a>
           <a className="nav-support" href={links.support} aria-current={isSupport ? 'page' : undefined}>Support Us <span aria-hidden="true">↗</span></a>
           </div>

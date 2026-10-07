@@ -101,7 +101,7 @@ try {
   await page.setViewportSize({ width: 390, height: 844 })
   assert.equal(await page.locator('.project-toggle').getAttribute('aria-expanded'), 'false')
   assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'), 'false')
-  await page.goto(`${base}ga-med-i-caesar/`, { waitUntil: 'networkidle' })
+  await page.goto(`${base}join-us/`, { waitUntil: 'networkidle' })
   assert.equal(await page.locator('.project-toggle.is-active').count(), 0)
   await page.locator('.menu-toggle').click()
   await page.locator('.project-toggle').click()

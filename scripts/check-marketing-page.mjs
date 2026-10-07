@@ -19,7 +19,7 @@ try {
     await page.evaluate(() => document.fonts.ready)
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Overflow at ${width}px`)
     assert.deepEqual(await page.locator('a[href^="#"]').evaluateAll(links => links.filter(link => !document.getElementById(link.hash.slice(1))).map(link => link.hash)), [])
-    assert.deepEqual(await page.locator('.marketing-partners .partner-logos img').evaluateAll(images => images.map(image => image.alt)), ['Chalmers tekniska högskola', 'Astronomisk Ungdom', 'Tranemo Workwear'])
+    assert.deepEqual(await page.locator('.marketing-partners .partner-logos img').evaluateAll(images => images.map(image => image.alt)), ['Chalmers tekniska högskola', 'Astronomisk Ungdom', 'Tranemo Workwear', 'Axjo'])
     const socialUrls = ['https://www.instagram.com/caesarchalmers/', 'https://www.linkedin.com/company/caesar-chalmers', 'https://www.facebook.com/ChalmersCAESAR', 'https://www.tiktok.com/@caesarchalmers']
     assert.deepEqual(await page.locator('#digital .marketing-socials a').evaluateAll(links => links.map(link => link.href)), socialUrls)
     assert.deepEqual(await page.locator('.marketing-closing .marketing-socials a').evaluateAll(links => links.map(link => link.href)), socialUrls)
@@ -54,7 +54,7 @@ try {
     }
     assert.equal(await page.evaluate(() => window.__marketingMarker), true, 'Cross-link reloaded the page')
     await page.locator('#get-involved').getByRole('link', { name: 'Join CAESAR', exact: true }).click()
-    await page.waitForURL(`${base}ga-med-i-caesar/`)
+    await page.waitForURL(`${base}join-us/`)
     assert.equal(await page.title(), 'Join Us | CAESAR')
     if (width <= 900) await page.locator('.menu-toggle').click()
     await page.locator('.project-toggle').focus()

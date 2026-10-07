@@ -81,26 +81,9 @@
 .structures-architecture-groups > div:not(:last-child)::after { content: '→'; position: absolute; left: calc(100% + 17px); top: 61px; color: var(--accent); }
 .structures-architecture-groups > div:last-child li:last-child { border-color: #e9975c70; color: var(--accent); }
 
-.structures-equation { display: flex; align-items: center; flex-wrap: wrap; gap: .15em .3em; font: 27px/1.9 Georgia, 'Times New Roman', serif; color: var(--text); margin-block: 18px; }
-.structures-equation sub, .structures-equation sup { font-size: .6em; line-height: 0; }
-.structures-equation > sub, .structures-equation > sup { margin-left: -.35em; }
-.structures-equation > sub { align-self: center; transform: translateY(.55em); }
-.structures-equation > sup { align-self: center; transform: translateY(-.65em); }
-.structures-fraction { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; line-height: 1.4; margin-inline: .18em; }
-.structures-fraction > span { padding: 3px 8px; }
-.structures-fraction > span:first-child { border-bottom: 1px solid #a9bfce80; }
-.structures-radicand { border-top: 1px solid var(--structures-steel); margin-left: -.4em; padding-top: 4px; }
-.structures-formula-story { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; border-block: 1px solid var(--line); padding-block: 30px; }
-.structures-formula-story .structures-equation { font-size: clamp(22px, 2.3vw, 32px); }
 .structures-variables { gap: 22px; }
 .structures-variables dd { font-size: 12px; color: var(--muted); line-height: 1.7; margin-top: 4px; letter-spacing: 0; }
 .structures-variables dt { color: var(--structures-steel); text-transform: none; }
-.structures-formula-story + .structures-variables { grid-template-columns: repeat(6, minmax(0, 1fr)); margin-top: 22px; }
-.structures-sizing-example { display: grid; grid-template-columns: 1.3fr 1fr; gap: 80px; align-items: center; padding-block: 55px; }
-.structures-area-results { border-left: 1px solid #e9975c60; padding-left: 45px; }
-.structures-area-results > div + div { margin-top: 38px; }
-.structures-area-results strong { display: block; font-size: clamp(42px, 5vw, 65px); font-weight: 400; letter-spacing: -.05em; line-height: 1.4; }
-.structures-area-results small { color: var(--accent); font-size: .46em; }
 .structures-load-callout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 70px; align-items: center; border-block: 1px solid var(--line); padding-block: 38px; }
 .structures-load-callout h3 { font-size: 27px; margin-bottom: 20px; }
 .structures-load-callout p:not(.eyebrow) { color: var(--muted); font-size: 13px; line-height: 1.85; }
@@ -108,12 +91,23 @@
 .structures-load-number > strong { font-size: clamp(38px, 4.5vw, 60px); font-weight: 400; letter-spacing: -.05em; }
 .structures-load-number small { color: var(--accent); font-size: .5em; }
 .structures-load-number > span:not(.structures-label) { color: var(--muted); font-size: 15px; }
-.structures-pressure-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; }
-.structures-pressure-equations { min-width: 0; }
-.structures-equation-pair { display: flex; flex-wrap: wrap; gap: 16px 40px; }
-.structures-pressure-equations > .structures-label { margin-top: 26px; }
-.structures-pressure-equations > .structures-equation { font-size: 25px; }
-.structures-pressure-example { border: 1px solid var(--line); padding: 30px; background: #a9bfce04; }
+.structures-ejection-schematic { padding: 0 28px 22px; border: 1px solid var(--line); background: #a9bfce04; }
+.structures-ejection-schematic .structures-plate-heading { border-top: 0; }
+.structures-ejection-stages { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; list-style: none; margin: 0; padding: 28px 0; }
+.structures-ejection-stages li { position: relative; min-width: 0; }
+.structures-ejection-stages .structures-label { color: var(--accent); }
+.structures-ejection-stages svg { max-height: 230px; margin-block: 10px 20px; }
+.structures-ejection-stages h3 { font-size: 18px; line-height: 1.4; margin-bottom: 12px; }
+.structures-ejection-stages p { color: var(--muted); font-size: 13px; line-height: 1.85; }
+.structures-ejection-arrow { position: absolute; top: 132px; right: -30px; color: var(--accent); font: 23px/1 var(--structures-mono); }
+@media (max-width: 900px) {
+  .structures-ejection-schematic { padding-inline: 22px; }
+  .structures-ejection-stages { grid-template-columns: 1fr; gap: 44px; }
+  .structures-ejection-stages li { display: grid; grid-template-columns: minmax(100px, .8fr) minmax(0, 1fr); column-gap: 22px; align-content: center; }
+  .structures-ejection-stages svg { grid-column: 1; grid-row: 1 / 4; margin: 0; align-self: center; }
+  .structures-ejection-stages h3 { margin-top: 10px; }
+  .structures-ejection-arrow { top: auto; bottom: -32px; right: calc(50% - 12px); transform: rotate(90deg); }
+}
 .structures-calculations { border-block: 1px solid var(--line); margin-top: 42px; }
 .structures-calculations summary { cursor: pointer; padding-block: 24px; font-size: 14px; }
 .structures-calculations summary::marker { color: var(--accent); }
@@ -122,8 +116,7 @@
 .structures-cam-plate svg { max-height: 420px; }
 .structures-cam-profile { stroke: var(--accent); fill: #e9975c0a; }
 .structures-cam-plate figcaption { padding-bottom: 20px; }
-.structures-cam-notes { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 40px; }
-.structures-cam-notes > .structures-variables { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.structures-cam-notes { margin-top: 40px; }
 .structures-payload-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 100px; align-items: center; }
 .structures-payload-layout .structures-copy { margin-block: 30px; }
 .structures-payload-plate svg { max-height: 340px; }
@@ -144,8 +137,9 @@
 .structures-engineering-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 75px; }
 .structures-engineering-pair article { border-top: 1px solid var(--line); padding-top: 25px; }
 .structures-engineering-pair h3 { font-size: 29px; margin-block: 24px 20px; }
+.structures-engineering-pair .structures-variables { margin-top: 22px; }
 .structures-engineering-pair p { color: var(--muted); font-size: 14px; line-height: 1.9; }
-.structures-engineering-pair .structures-equation { min-height: 95px; font-size: 34px; }
+
 .structures-integration { padding: 40px; border: 1px solid var(--line); }
 .structures-integration-grid { display: grid; grid-template-columns: 1fr 1.5fr 1fr; grid-template-areas: '. aero .' 'prop core elec' '. recovery .' '. payload .'; gap: 28px; align-items: center; padding-bottom: 32px; }
 .structures-integration-grid > * { position: relative; border: 1px solid var(--line); padding: 22px 15px; background: #a9bfce05; text-align: center; font-size: 16px; }
@@ -166,11 +160,11 @@
 
 @media (max-width: 1100px) {
   .structures-hero-grid { gap: 35px; }.structures-hero h1 { font-size: clamp(52px, 6.8vw, 76px); }
-  .structures-editorial, .structures-recovery-sequence, .structures-sizing-example, .structures-pressure-layout, .structures-payload-layout, .structures-aero-study, .structures-engineering-pair, .structures-cam-notes { gap: 40px; }
+  .structures-editorial, .structures-recovery-sequence, .structures-payload-layout, .structures-aero-study, .structures-engineering-pair { gap: 40px; }
   .structures-hero-metrics > div { padding-inline: 17px; }.structures-hero-metrics dd { font-size: 27px; }
   .structures-responsibilities { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; }
   .structures-bay-priorities { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .structures-area-results { padding-left: 30px; }.structures-load-callout { gap: 35px; }
+  .structures-load-callout { gap: 35px; }
   .structures-architecture { padding: 25px; }.structures-architecture-groups { gap: 35px; }.structures-architecture-groups > div:not(:last-child)::after { left: calc(100% + 9px); }
   .structures-integration { padding: 25px; }.structures-integration-core strong { font-size: 26px; }
 }
@@ -180,19 +174,16 @@
   .structures-lead { font-size: 15px; }.structures-section-art svg { max-height: 440px; }.structures-section-plate { max-width: 500px; width: 100%; margin: auto; }
   .structures-hero-metrics { grid-template-columns: 1fr 1fr; row-gap: 30px; }.structures-hero-metrics > div { padding-inline: 20px 0; }.structures-hero-metrics > div:nth-child(odd) { padding-left: 0; }.structures-hero-metrics > div:nth-child(even) { border: 0; }
   .structures-hero-metrics dd { font-size: 29px; }.structures-hero-metrics small { display: block; margin-top: 4px; }
-  .structures-editorial, .structures-recovery-sequence, .structures-sizing-example, .structures-load-callout, .structures-pressure-layout, .structures-cam-notes, .structures-payload-layout, .structures-aero-study, .structures-engineering-pair { grid-template-columns: 1fr; gap: 32px; }
+  .structures-editorial, .structures-recovery-sequence, .structures-load-callout, .structures-payload-layout, .structures-aero-study, .structures-engineering-pair { grid-template-columns: 1fr; gap: 32px; }
   .structures-editorial { margin-bottom: 35px; }.structures-copy, .structures-intro { font-size: 15px; }
   .structures-responsibilities { grid-template-columns: 1fr 1fr; gap: 30px; }.structures-responsibilities h3 { margin-top: 15px; }
   .structures-recovery-visual { position: static; }.structures-recovery-visual svg { max-height: 390px; }.structures-recovery-visual figcaption { min-height: 0; }
   .structures-deployment-steps button { padding: 20px 12px; gap: 12px; }.structures-deployment-steps strong { font-size: 17px; }
   .structures-architecture-groups { grid-template-columns: 1fr; gap: 0; }.structures-architecture-groups ol { margin-bottom: 35px; }
   .structures-architecture-groups > div:not(:last-child)::after { content: '↓'; top: auto; bottom: 6px; left: calc(50% - 5px); }
-  .structures-formula-story { grid-template-columns: 1fr; gap: 22px; }.structures-formula-story > div + div { padding-top: 20px; border-top: 1px solid var(--line); }.structures-formula-story .structures-equation { font-size: 29px; }
-  .structures-formula-story + .structures-variables { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px 12px; }
-  .structures-sizing-example { padding-block: 40px; }.structures-area-results { border: 0; padding: 28px 0 0; border-top: 1px solid #e9975c60; display: flex; flex-wrap: wrap; gap: 25px 50px; }.structures-area-results > div + div { margin: 0; }.structures-area-results strong { font-size: 45px; }
+
   .structures-load-number > strong { font-size: 51px; }.structures-load-callout { padding-block: 30px; }
-  .structures-pressure-example { padding: 22px; }.structures-pressure-equations > .structures-equation { font-size: 23px; }.structures-equation { font-size: 24px; }.structures-equation-pair { gap: 0 25px; }
-  .structures-cam-plate { padding: 0; }.structures-cam-notes > .structures-variables { grid-template-columns: 1fr 1fr; }
+  .structures-cam-plate { padding: 0; }
   .structures-payload-plate { max-width: 450px; margin: auto; }.structures-bay-priorities h3 { font-size: 21px; }
   .structures-aero-number > strong { font-size: 130px; }.structures-aero-lines svg { max-height: 160px; }.structures-aero-study h3 { font-size: 27px; }
   .structures-integration { padding: 22px; }.structures-integration-grid { grid-template-columns: 1fr; grid-template-areas: 'aero' 'core' 'prop' 'elec' 'recovery' 'payload'; }
@@ -204,8 +195,7 @@
   .structures-hero h1 { font-size: 48px; }.structures-hero-metrics dt { font-size: 9px; }.structures-hero-metrics dd { font-size: 25px; }
   .structures-responsibilities, .structures-bay-priorities { grid-template-columns: 1fr; }.structures-responsibilities article + article { border-top: 1px solid var(--line); }
   .structures-plate-heading { font-size: 8px; gap: 12px; }.structures-section-plate figcaption { flex-wrap: wrap; gap: 5px; }
-  .structures-pressure-example .structures-values { grid-template-columns: 1fr; }.structures-pressure-equations > .structures-equation { font-size: 21px; }
-  .structures-equation { font-size: 21px; }.structures-values dd { font-size: 19px; }.structures-variables dd { font-size: 12px; }
+  .structures-values dd { font-size: 19px; }.structures-variables dd { font-size: 12px; }
   .structures-hero-metrics dd { font-size: 25px; }.structures-architecture { padding: 20px; }.structures-integration { padding: 17px; }
 }
 @media (prefers-reduced-motion: reduce) {

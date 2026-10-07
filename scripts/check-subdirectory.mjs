@@ -4,6 +4,7 @@ import { readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium } from 'playwright'
+import { assertEnglishRoutes } from './assert-english-routes.mjs'
 
 const root = fileURLToPath(new URL('../frontend/dist/', import.meta.url))
 const html = await readFile(path.join(root, 'index.html'), 'utf8')
@@ -63,10 +64,9 @@ try {
   for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 950 })
     await page.goto(`${origin}/new/`, { waitUntil: 'networkidle' })
-    await page.locator('.archive-project').waitFor()
+    await page.locator('.rocket-featured').waitFor()
     assert.equal(await page.locator('h1').count(), 1)
-    assert.equal(await page.locator('.archive-project-name').textContent(), 'Deimos')
-    assert.equal(await page.locator('.archive-project').getAttribute('href'), 'https://caesar.se/projekt/deimos/')
+    assert.equal(await page.locator('.project-archive').count(), 0)
     await page.locator('img').evaluateAll(images => Promise.all(images.map(image => {
       image.loading = 'eager'
       return image.decode()
@@ -79,8 +79,8 @@ try {
     assert.equal(await page.locator('.brand').first().getAttribute('href'), '/new/')
 
     if (width <= 900) await page.locator('.menu-toggle').click()
-    await page.locator('.nav-main-links a[href="/new/ga-med-i-caesar/"]').click()
-    await page.waitForURL('**/new/ga-med-i-caesar/')
+    await page.locator('.nav-main-links a[href="/new/join-us/"]').click()
+    await page.waitForURL('**/new/join-us/')
     await page.reload({ waitUntil: 'networkidle' })
     assert.equal(await page.title(), 'Join Us | CAESAR')
     assert.equal(await page.locator('.membership-back').getAttribute('href'), '/new/')
@@ -102,7 +102,7 @@ try {
     await page.waitForFunction(() => Math.abs(document.getElementById('partners').getBoundingClientRect().top) < 200)
   }
 
-  await page.goto(`${origin}/new/ga-med-i-caesar`, { waitUntil: 'networkidle' })
+  await page.goto(`${origin}/new/join-us`, { waitUntil: 'networkidle' })
   assert.equal(await page.title(), 'Join Us | CAESAR')
   await page.goto(`${origin}/new/`, { waitUntil: 'networkidle' })
   await page.evaluate(() => { window.__routeMarker = true })
@@ -143,25 +143,29 @@ try {
   await page.getByRole('link', { name: 'Explore the Phobos project', exact: true }).click()
   await page.waitForURL(`${origin}/new/#projekt`)
   await page.waitForFunction(() => Math.abs(document.getElementById('projekt')?.getBoundingClientRect().top ?? Infinity) < 250)
-  await page.goto(`${origin}/new/projekt/phobos`, { waitUntil: 'networkidle' })
+  await page.goto(`${origin}/new/projects/phobos`, { waitUntil: 'networkidle' })
   await page.reload({ waitUntil: 'networkidle' })
   assert.equal(await page.locator('.rocket-project-page').count(), 1, 'Phobos has an internal detail page')
   assert.equal(await page.title(), 'PHOBOS | CAESAR')
   await page.goto(`${origin}/new/unknown-route`, { waitUntil: 'networkidle' })
   assert.equal(await page.locator('.rocket-experience').count(), 1, 'Preserve existing unknown-route homepage fallback')
-  await page.route('https://caesar.se/projekt/deimos/', route => route.fulfill({
-    contentType: 'text/html', body: '<h1>Existing WordPress Deimos page</h1>',
-  }))
-  await page.goto(`${origin}/new/projects/deimos`)
-  await page.waitForURL('https://caesar.se/projekt/deimos/')
+  for (const route of ['', 'partners/', 'projects/phobos/', 'electronics', 'propulsion', 'structures', 'marketing', 'join-us/', 'become-a-sponsor/', 'support-us/']) {
+    await page.goto(`${origin}/new/${route}`, { waitUntil: 'networkidle' })
+    assert.equal(await page.getByText(/deimos/i).count(), 0)
+    const oldLinks = await page.locator('a[href]').evaluateAll(anchors => anchors.map(a => new URL(a.href)).filter(url => /^https?:$/.test(url.protocol) && /^(www\.)?caesar\.se$/.test(url.hostname) && !url.pathname.startsWith('/new/')).map(url => url.href))
+    assert.deepEqual(oldLinks, [], `Old website links on ${route}`)
+    assert.ok((await page.locator('.site-footer').getByRole('link', { name: 'About Us', exact: true }).getAttribute('href')).startsWith('/new/#om-oss'))
+  }
   assert.equal((await fetch(`${origin}/new/assets/missing.js`)).status, 404)
+  await assertEnglishRoutes(page, `${origin}/new/`)
   assert.equal((await fetch(`${origin}/api/projects`)).status, 404)
-  assert.ok(requests.has('/new/data/projects.json'))
+  assert.equal(requests.has('/new/data/projects.json'), false)
+  assert.equal(requests.has('/api/projects'), false)
   assert.ok(requests.has('/new/assets/inter-variable.woff2'))
   assert.deepEqual(escapedRequests, [], 'App requests must stay under /new/')
   assert.deepEqual(badResponses, [], 'Production asset or data failures')
   assert.deepEqual(errors, [], 'Browser runtime errors')
-  console.log('PASS deep-link refresh, legacy redirect, scoped requests and no runtime errors')
+  console.log('PASS deep-link refresh, no old website links, scoped requests and no runtime errors')
 } finally {
   await browser?.close()
   await new Promise(resolve => server.close(resolve))

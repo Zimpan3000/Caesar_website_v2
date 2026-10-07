@@ -1,7 +1,7 @@
 # Public project showcase
 
 The homepage project section is at `/#projekt`. Phobos has an internal detail
-page at `/projekt/phobos/`. Production routes are prefixed with `/new/` through
+page at `/projects/phobos/`. Production routes are prefixed with `/new/` through
 `sitePath`; the existing deployment fallback also handles direct loads.
 
 `frontend/src/data/rocketProjects.ts` holds the public editorial project data.
@@ -14,10 +14,10 @@ description to the project's `updates` array. Until then, the page displays an
 empty state. The development process does not imply completed milestones.
 
 To add another rocket project, add an entry to `rocketProjects` using the
-`RocketProject` type. The app resolves `/projekt/{slug}/` and renders the shared
+`RocketProject` type. The app resolves `/projects/{slug}/` and renders the shared
 detail page, image, facts, status and team components. Add a showcase/navigation
 link when that project is ready to be published. The homepage currently features
-Phobos explicitly; archived projects retain their existing API/static feed.
+Phobos explicitly. There is no separate project archive or archive API feed.
 
 This public content does not read or write private Supabase workspace projects,
 members, permissions or parent/child relationships.
@@ -30,7 +30,7 @@ Validation:
   of the production build under `/new/`.
 
 The browser check covers the showcase, internal detail routes, team navigation,
-responsive layouts, keyboard navigation, reduced motion and archive failure.
+responsive layouts, keyboard navigation, reduced motion and independence from the backend.
 It uses an installed Chrome/Edge or a Playwright browser; set `BROWSER_PATH` if
 needed. Production preview checks do not replace checking the live host's
 Apache fallback after deployment.

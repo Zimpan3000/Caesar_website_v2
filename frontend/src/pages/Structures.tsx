@@ -1,14 +1,10 @@
 import { useEffect, type ReactNode } from 'react'
 import Arrow from '../components/Arrow'
 import SectionHeader from '../components/SectionHeader'
-import { StructureSectionDrawing, RecoverySequence, CamDrawing, PayloadDrawing } from '../components/StructuresDiagrams'
+import { StructureSectionDrawing, RecoverySequence, EjectionSchematic, CamDrawing, PayloadDrawing } from '../components/StructuresDiagrams'
 import { sitePath } from '../paths'
 import { useScrollReveal } from '../useScrollReveal'
 import '../structures.css'
-
-function Equation({ label, children }: { label: string; children: ReactNode }) {
-  return <div className="structures-equation" role="math" aria-label={label}>{children}</div>
-}
 
 function Values({ items, className = '' }: { items: [string, ReactNode][]; className?: string }) {
   return <dl className={`structures-values ${className}`}>{items.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
@@ -79,38 +75,14 @@ export default function Structures() {
 
     <section id="descent" className="structures-band section-space" aria-label="Parachute sizing"><div className="container">
       <div className="structures-editorial" data-reveal><div><p className="eyebrow">04 / Parachute engineering</p><h2>Designing<br />the descent.</h2></div><p className="structures-copy">Parachute sizing balances drag against gravity. At terminal descent, the two forces are equal; the target descent velocity sets the required parachute area.</p></div>
-      <div className="structures-formula-story" data-reveal>
-        <div><span className="structures-label">DRAG FORCE</span><Equation label="F equals one half C d rho A v squared">F = ½ C<sub>d</sub> ρ A v<sup>2</sup></Equation></div>
-        <div><span className="structures-label">TERMINAL DESCENT</span><Equation label="m g equals one half C d rho A v squared">mg = ½ C<sub>d</sub> ρ A v<sup>2</sup></Equation></div>
-        <div><span className="structures-label">REQUIRED AREA</span><Equation label="A equals 2 m g divided by C d rho v squared">A = <span className="structures-fraction"><span>2mg</span><span>C<sub>d</sub> ρ v<sup>2</sup></span></span></Equation></div>
-      </div>
-      <Values className="structures-variables" items={[
-        ['m', 'Rocket mass'], ['g', 'Gravitational acceleration'], ['Cd', 'Drag coefficient'], ['ρ', 'Air density'], ['A', 'Parachute area'], ['v', 'Descent velocity'],
-      ]} />
-      <div className="structures-sizing-example" data-reveal>
-        <div><p className="eyebrow">Design calculation / supplied example</p><Values items={[
-          ['Rocket mass', '20 kg'], ['Assumed Cd', '1'], ['Drogue descent velocity', '40 m/s'], ['Main descent velocity', '9 m/s'], ['Air density at 3000 m', '0.905 kg/m³'], ['Air density at ground', '1.225 kg/m³'],
-        ]} /><p className="structures-note">C<sub>d</sub> = 1 is the conservative simplifying assumption used in the supplied calculations. These are design examples, not measured parachute performance.</p></div>
-        <div className="structures-area-results"><div><span className="structures-label">DROGUE AREA</span><strong>≈ 0.27 <small>m²</small></strong></div><div><span className="structures-label">MAIN PARACHUTE AREA</span><strong>≈ 3.96 <small>m²</small></strong></div></div>
-      </div>
-      <aside className="structures-load-callout" data-reveal><div><p className="eyebrow">Deployment load / supplied estimate</p><h3>The opening is a load case.</h3><p>With C<sub>d</sub> = 1, ρ = 1.225 kg/m³, A = 3.75 m² and v = 40 m/s, the supplied drag-force calculation records the estimates shown here. Recovery loads must be considered as part of the structural design.</p><p className="structures-note">The stated inputs do not reproduce the recorded force exactly. These estimates are retained from the design notes and need reconciliation; they are not verified final flight loads. Actual velocity and atmospheric density change during descent.</p></div><div className="structures-load-number"><strong>≈ 3880 <small>N</small></strong><span>≈ 19.8 g / 20 kg rocket</span><span className="structures-label">SUPPLIED EXAMPLE · NOT A TEST RESULT</span></div></aside>
+      <aside className="structures-load-callout" data-reveal><div><p className="eyebrow">Deployment load / supplied estimate</p><h3>The opening is a load case.</h3><p>With a drag coefficient of 1, air density of 1.225 kg/m³, parachute area of 3.75 m² and velocity of 40 m/s, the supplied drag-force calculation records the estimates shown here. Recovery loads must be considered as part of the structural design.</p><p className="structures-note">The stated inputs do not reproduce the recorded force exactly. These estimates are retained from the design notes and need reconciliation; they are not verified final flight loads. Actual velocity and atmospheric density change during descent.</p></div><div className="structures-load-number"><strong>≈ 3880 <small>N</small></strong><span>≈ 19.8 g / 20 kg rocket</span><span className="structures-label">SUPPLIED EXAMPLE · NOT A TEST RESULT</span></div></aside>
     </div></section>
 
     <section id="ejection" className="section-space" aria-label="Pressure-actuated ejection"><div className="container">
       <div className="structures-editorial" data-reveal><div><p className="eyebrow">05 / Pressure-actuated ejection</p><h2>A pressure change.<br />A planned separation.</h2></div><p className="structures-copy">CO₂ pressurizes the sealed parachute bay. The design calculations use the pressure difference between ground level and altitude as a basis for determining the required ejection pressure and shear load.</p></div>
-      <div className="structures-pressure-layout" data-reveal><div className="structures-pressure-equations">
-        <div className="structures-equation-pair"><Equation label="P equals F divided by A">P = F / A</Equation><Equation label="Area equals pi r squared">A = πr<sup>2</sup></Equation></div>
-        <span className="structures-label">ATMOSPHERIC PRESSURE APPROXIMATION</span><Equation label="P a equals 101325 times the quantity 1 minus 2.25577 times 10 to the minus 5 times h, raised to 5.25588"><span>P<sub>a</sub> = 101325</span><span>(1 − 2.25577×10<sup>−5</sup>h)<sup>5.25588</sup></span></Equation>
-        <Equation label="Delta P equals P zero minus P a">ΔP = P<sub>0</sub> − P<sub>a</sub></Equation>
-        <p className="structures-note">P<sub>a</sub> is atmospheric pressure at altitude h; P<sub>0</sub> is ground-level pressure. P<sub>e</sub> denotes the ejection pressure in the supplied model.</p>
-      </div><div className="structures-pressure-example"><p className="eyebrow">Supplied example / r = 0.06 m · h = 3000 m</p><Values items={[
-        ['Cross-sectional area · A', '≈ 0.011 m²'], ['Atmospheric pressure · Pa', '≈ 70,109 Pa'], ['Ejection pressure · Pe', '≈ 194,974 Pa'], ['Force · F', '≈ 706 N'],
-      ]} /><p className="structures-note">Recorded design-example outputs. The ejection pressure and force depend on the model’s additional pressure and shear-load assumptions; they are not determined by ΔP alone or verified flight values.</p></div></div>
+      <EjectionSchematic />
       <details className="structures-calculations"><summary>View calculation details</summary><div>
         <p className="structures-copy">The supplied ideal-gas / adiabatic approximation relates the volume ratio to cartridge and ejection pressures, then estimates the CO₂ temperature and mixed-gas temperature.</p>
-        <Equation label="V ratio equals P c minus P e divided by P e minus P zero">V<sub>ratio</sub> = <span className="structures-fraction"><span>P<sub>c</sub> − P<sub>e</sub></span><span>P<sub>e</sub> − P<sub>0</sub></span></span></Equation>
-        <Equation label="T CO2 equals T zero times 1 over V ratio raised to gamma minus 1">T<sub>CO₂</sub> = T<sub>0</sub> (1 / V<sub>ratio</sub>)<sup>γ − 1</sup></Equation>
-        <Equation label="T equals P zero over P e times T zero plus the quantity 1 minus P zero over P e times T CO2"><span>T = (P<sub>0</sub>/P<sub>e</sub>)T<sub>0</sub></span><span>+ (1 − P<sub>0</sub>/P<sub>e</sub>)T<sub>CO₂</sub></span></Equation>
         <p className="structures-note">P<sub>c</sub>: cartridge pressure · T<sub>0</sub>: initial temperature · γ: ratio of specific heats. These approximations document the design approach; no final cartridge size is specified.</p>
       </div></details>
     </div></section>
@@ -119,13 +91,11 @@ export default function Structures() {
       <SectionHeader label="06 / CO₂ puncture mechanism" title="Turning torque into deployment." />
       <p className="structures-intro">Puncturing the CO₂ cartridge requires substantial linear force. A servo drives a cam, converting torque and rotation into movement of the puncture mechanism.</p>
       <div data-reveal><CamDrawing /></div>
-      <div className="structures-cam-notes" data-reveal><div><p className="structures-label">RELATIONSHIPS AS RECORDED IN THE DESIGN NOTES</p><div className="structures-equation-pair"><Equation label="T equals F r d theta">T = F r dθ</Equation><Equation label="Theta equals l F divided by T">θ = lF / T</Equation></div><p className="structures-note">These simplified relationships need verification for the physical mechanism. Friction is not represented and must be considered in the design.</p></div><Values className="structures-variables" items={[
-        ['T', 'Servo torque'], ['F', 'Required puncture force'], ['r', 'Cam radius'], ['θ', 'Cam rotation'], ['l', 'Required needle displacement'],
-      ]} /></div>
+      <div className="structures-cam-notes" data-reveal><p className="structures-label">DESIGN NOTES</p><p className="structures-note">The simplified design model needs verification for the physical mechanism. Friction is not represented and must be considered in the design.</p></div>
     </div></section>
 
     <section id="payload" className="section-space" aria-label="Payload bay"><div className="container structures-payload-layout">
-      <div data-reveal><p className="eyebrow">07 / Payload bay</p><h2>Four passengers.<br />One compartment.</h2><p className="structures-copy">Phobos carries four PocketSats. The current plan is to use non-deployable dummy payloads, with a configuration originating from the EuRoC requirements for which Phobos was originally designed.</p><Values items={[
+      <div data-reveal><p className="eyebrow">07 / Payload bay</p><h2>Four passengers.<br />One compartment.</h2><p className="structures-copy">Phobos carries four PocketSats. The current plan is to use non-deployable dummy payloads.</p><Values items={[
         ['Payload', '4 × PocketSat'], ['Size / each', '50 × 50 × 50 mm'], ['Mass / each', '250 g'], ['Total payload mass', '1 kg'],
       ]} /></div><div data-reveal><PayloadDrawing /></div>
     </div></section>
@@ -143,10 +113,8 @@ export default function Structures() {
     <section id="structural-engineering" className="structures-band section-space" aria-label="Structural pressure and shear bolts"><div className="container">
       <SectionHeader label="10 / Structural engineering" title="Hold together. Release by design." />
       <div className="structures-engineering-pair">
-        <article data-reveal><span className="structures-label">01 / CYLINDRICAL PRESSURE LOADS</span><h3>Pressure in the wall.</h3><p>For a sufficiently thin cylindrical wall, with wall thickness small relative to radius, pressure capability can be estimated using a hoop-stress model.</p><Equation label="P equals sigma yield times t divided by safety factor times r">P = <span className="structures-fraction"><span>σ<sub>yield</sub> t</span><span>SF · r</span></span></Equation><Values className="structures-variables" items={[
-          ['σyield', 'Material yield strength'], ['t', 'Wall thickness'], ['SF', 'Safety factor'], ['r', 'Cylinder radius'],
-        ]} /><p className="structures-note">Material strength can depend on temperature and must be considered for the expected operating conditions. No material properties or safety factor are specified here.</p></article>
-        <article data-reveal><span className="structures-label">02 / SHEAR BOLTS</span><h3>A deliberate release point.</h3><p>The bolts hold the rocket sections together during normal flight. They are intentionally designed to fail when the recovery bay reaches the required pressure.</p><Equation label="d equals the square root of 4 F divided by pi tau">d = √<span className="structures-radicand"><span className="structures-fraction"><span>4F</span><span>π τ</span></span></span></Equation><Values className="structures-variables" items={[
+        <article data-reveal><span className="structures-label">01 / CYLINDRICAL PRESSURE LOADS</span><h3>Pressure in the wall.</h3><p>For a sufficiently thin cylindrical wall, with wall thickness small relative to radius, pressure capability can be estimated using a hoop-stress model.</p><p className="structures-note">Material strength can depend on temperature and must be considered for the expected operating conditions. No material properties or safety factor are specified here.</p></article>
+        <article data-reveal><span className="structures-label">02 / SHEAR BOLTS</span><h3>A deliberate release point.</h3><p>The bolts hold the rocket sections together during normal flight. They are intentionally designed to fail when the recovery bay reaches the required pressure.</p><Values className="structures-variables" items={[
           ['d', 'Required bolt diameter'], ['F', 'Shear force'], ['τ', 'Shear strength / yield value in the model'],
         ]} /><p className="structures-note">Design theory for a homogeneous solid bolt in single shear. This model documents the engineering principle, not a final bolt specification or fabrication instruction.</p></article>
       </div>

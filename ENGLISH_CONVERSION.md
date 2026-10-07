@@ -2,12 +2,13 @@
 
 All application-owned frontend copy is in English, including navigation,
 metadata, accessibility text and public loading/error/empty states. The former
-EN language link has been removed. Existing routes and anchor IDs are unchanged.
+EN language link has been removed. Public page URLs use English, with local
+redirects for previous Swedish URLs. Existing section anchor IDs are unchanged.
 
 ## Changed frontend files
 
 - `frontend/index.html`: document language, default title and description.
-- `frontend/src/App.tsx`: skip link and legacy Deimos redirect message.
+- `frontend/src/App.tsx`: skip link and public page routing.
 - `frontend/src/components/Header.tsx`: desktop/mobile navigation, dropdowns,
   accessible labels and removal of the language link.
 - `frontend/src/components/Footer.tsx`: navigation, contact and invitation copy.
@@ -17,12 +18,11 @@ EN language link has been removed. Existing routes and anchor IDs are unchanged.
   to the previously removed About link; link handling now supports an empty list.
 - `frontend/src/components/MissionTransition.tsx`: mission copy and calls to action.
 - `frontend/src/components/ScrollProgress.tsx`: accessible team navigation labels.
-- `frontend/src/components/NewsCard.tsx`: English date formatting and link text.
 - `frontend/src/components/Partners.tsx`: partner copy and calls to action.
-- `frontend/src/components/ProjectFeature.tsx`: project showcase and archive states.
+- `frontend/src/components/ProjectFeature.tsx`: project showcase.
 - `frontend/src/components/RocketProjectParts.tsx`: shared project labels/team links.
 - `frontend/src/data/rocketProjects.ts`: Phobos editorial content.
-- `frontend/src/data/site.ts`: news titles, summaries and image descriptions.
+- `frontend/src/data/site.ts`: public navigation, partner and social links.
 - `frontend/src/pages/RocketProject.tsx`: project detail sections and empty state.
 - `frontend/src/pages/Membership.tsx`: membership information and application links.
 - `frontend/src/pages/Support.tsx`: donation instructions, metadata and Open Swish.
@@ -43,7 +43,7 @@ empty states, API error fallbacks and shared team-documentation labels.
 
 ## Intentionally preserved
 
-- Proper names, including CAESAR, Phobos, Deimos, Chalmers Raketgrupp,
+- Proper names, including CAESAR, Phobos, Chalmers Raketgrupp,
   Chalmers tekniska högskola, Astronomisk Ungdom and Göteborg.
 - URLs, email addresses, route paths, anchor IDs and technical identifiers.
 - The original Swish QR image and exact payment URL, including its encoded

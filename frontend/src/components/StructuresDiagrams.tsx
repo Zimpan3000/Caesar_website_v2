@@ -68,6 +68,53 @@ export function RecoverySequence() {
   </div>
 }
 
+const ejectionStages = [
+  { title: 'Ejection activates', copy: 'The recovery command releases CO₂ into the parachute bay.' },
+  { title: 'Sections separate', copy: 'Pressure opens the separation joint, releasing the upper section.' },
+  { title: 'Parachute deploys', copy: 'The drag chute deploys, followed by the main parachute.' },
+  { title: 'Controlled descent', copy: 'The parachute slows the rocket’s return to the ground.' },
+]
+
+export function EjectionSchematic() {
+  return <figure className="structures-ejection-schematic" data-reveal aria-label="Rocket ejection and recovery sequence">
+    <div className="structures-plate-heading"><span>EJECTION / RECOVERY</span><span>SEQUENCE STUDY</span></div>
+    <ol className="structures-ejection-stages">
+      {ejectionStages.map((stage, index) => <li key={stage.title}>
+        <span className="structures-label">0{index + 1} /</span>
+        <svg viewBox="0 0 220 250" fill="none" aria-hidden="true">
+          <path className="structures-datum" d="M110 10 V238" />
+          {index < 2 ? <>
+            <g transform={index === 1 ? 'translate(0 -24)' : undefined}>
+              <path d="M87 112 V67 Q89 45 110 26 Q131 45 133 67 V112 Z M87 67 H133" />
+              <path className="structures-highlight" d="M97 78 H123 V99 H97 Z M97 78 L123 99 M97 99 L123 78" />
+            </g>
+            <path d="M87 120 H133 V207 H87 Z M87 178 L72 207 V217 L87 209 M133 178 L148 207 V217 L133 209 M99 207 V215 H121 V207" />
+            {index === 0 ? <>
+              <rect className="structures-highlight" x="103" y="137" width="14" height="29" rx="5" />
+              <path className="structures-highlight" d="M110 137 V117 M105 123 L110 117 L115 123 M96 135 L92 124 M92 130 V124 L98 127 M124 135 L128 124 M122 127 L128 124 V130" />
+              <path className="structures-leader" d="M119 152 H158" /><text x="165" y="156">CO₂</text>
+            </> : <>
+              <path className="structures-highlight" d="M73 112 V90 M68 96 L73 90 L78 96 M147 94 V116 M142 110 L147 116 L152 110" />
+              <path className="structures-long-line" d="M101 88 Q85 104 103 120" />
+            </>}
+          </> : <>
+            <path className="structures-highlight" d="M51 75 Q110 -2 169 75 Q154 66 140 75 Q125 66 110 75 Q95 66 80 75 Q66 66 51 75 Z M110 37 Q83 47 80 75 M110 37 Q137 47 140 75 M51 75 L110 137 L169 75 M80 75 L110 137 L140 75" />
+            <path d="M110 137 V156 M97 156 H123 V218 H97 Z M97 197 L86 217 V225 L97 219 M123 197 L134 217 V225 L123 219" />
+            <path d="M110 145 Q79 138 72 162 M62 180 V164 Q64 152 72 146 Q80 152 82 164 V180 Z" />
+            {index === 2 ? <path className="structures-highlight" d="M183 143 V108 M178 114 L183 108 L188 114" /> : <>
+              <path className="structures-highlight" d="M170 154 V192 M164 186 L170 192 L176 186" />
+              <path className="structures-leader" d="M45 236 H175 M57 236 L51 243 M80 236 L74 243 M103 236 L97 243 M126 236 L120 243 M149 236 L143 243 M172 236 L166 243" />
+            </>}
+          </>}
+        </svg>
+        <h3>{stage.title}</h3><p>{stage.copy}</p>
+        {index < ejectionStages.length - 1 && <span className="structures-ejection-arrow" aria-hidden="true">→</span>}
+      </li>)}
+    </ol>
+    <figcaption>Conceptual sequence · not to scale. The recovery stages are simplified here; the deployment study above shows the full sequence.</figcaption>
+  </figure>
+}
+
 export function CamDrawing() {
   return <figure className="structures-cam-plate">
     <div className="structures-plate-heading"><span>ROTATION → LINEAR MOVEMENT</span><span>MECHANISM STUDY</span></div>

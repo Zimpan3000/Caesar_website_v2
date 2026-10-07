@@ -38,10 +38,9 @@ try {
     await details.locator('summary').focus()
     await page.keyboard.press('Enter')
     assert.equal(await details.getAttribute('open'), '')
-    assert.equal(await details.getByRole('math').count(), 3)
-    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Expanded equations overflow at ${width}px`)
-    const clippedEquations = await page.getByRole('math').evaluateAll(nodes => nodes.filter(node => node.scrollWidth > node.clientWidth + 1).map(node => node.textContent))
-    assert.deepEqual(clippedEquations, [], `Clipped equations at ${width}px`)
+    assert.equal(await page.getByRole('math').count(), 0)
+    assert.doesNotMatch(await page.locator('.structures-page').innerText(), /[=√]/, 'Structures still contains a formula')
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Expanded details overflow at ${width}px`)
     await page.evaluate(() => document.activeElement?.blur())
     await page.screenshot({ path: `artifacts/structures-page-${width}.png`, fullPage: true })
     await details.locator('summary').press('Enter')
@@ -74,7 +73,7 @@ try {
     await page.goForward()
     await page.locator('.structures-page').waitFor()
     assert.equal(await page.locator('.structures-page').evaluate(el => el.getAnimations({ subtree: true }).length), 0)
-    console.log(`PASS ${width} × ${height}: diagrams, keyboard sequence, equations, layout, navigation, refresh, history and reduced motion`)
+    console.log(`PASS ${width} × ${height}: diagrams, keyboard sequence, no formulas, layout, navigation, refresh, history and reduced motion`)
     await page.close()
   }
   for (const [width, height] of [[1440, 1000], [1024, 768], [390, 844], [320, 740]]) {

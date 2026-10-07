@@ -1,6 +1,7 @@
 import { chromium } from 'playwright'
 import assert from 'node:assert/strict'
 import { mkdir } from 'node:fs/promises'
+import { assertEnglishRoutes } from './assert-english-routes.mjs'
 
 // Set BROWSER_PATH to an installed Chromium/Chrome/Edge executable, or install
 // Playwright Chromium with `npx playwright install chromium`.
@@ -15,7 +16,7 @@ try {
     await page.setViewportSize({ width, height })
     await page.goto(baseURL, { waitUntil: 'networkidle' })
     await page.evaluate(() => document.fonts.ready)
-    await page.locator('.archive-project').waitFor()
+    await page.locator('.rocket-featured').waitFor()
     assert.equal(await page.locator('h1').count(), 1)
     assert.equal(await page.locator('#senaste, .news-card').count(), 0)
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)
@@ -48,24 +49,23 @@ try {
     }
     await page.screenshot({ path: `artifacts/home-${width}.png`, fullPage: true })
     if (width === 1440 || width === 390) await page.screenshot({ path: `artifacts/hero-${width}.png` })
-    console.log(`PASS ${width}px: layout, images, anchors, API${width <= 900 ? ', mobile menu' : ''}`)
+    console.log(`PASS ${width}px: layout, images, anchors${width <= 900 ? ', mobile menu' : ''}`)
   }
-  await page.route('**/api/projects', route => route.fulfill({ status: 503, body: '{}' }))
-  await page.goto(baseURL, { waitUntil: 'networkidle' })
-  assert.equal(await page.getByText('The project archive could not be loaded.', { exact: false }).count(), 1)
-  assert.equal(await page.locator('.project-copy').getByRole('link', { name: 'Explore Phobos', exact: true }).isVisible(), true)
-  console.log('PASS project API failure: visible fallback and Phobos link')
-  await page.unroute('**/api/projects')
+  for (const path of ['', 'partners/', 'projects/phobos/', 'electronics', 'propulsion', 'structures', 'marketing', 'join-us/', 'become-a-sponsor/', 'support-us/']) {
+    await page.goto(`${baseURL.replace(/\/$/, '')}/${path}`, { waitUntil: 'networkidle' })
+    assert.equal(await page.getByText(/deimos/i).count(), 0, `Removed project on ${path}`)
+    const oldLinks = await page.locator('a[href]').evaluateAll(anchors => anchors.map(a => new URL(a.href)).filter(url => /^(www\.)?caesar\.se$/.test(url.hostname) && /^https?:$/.test(url.protocol) && !url.pathname.startsWith('/new/')).map(url => url.href))
+    assert.deepEqual(oldLinks, [], `Old website links on ${path}`)
+    assert.equal(await page.locator('.project-archive').count(), 0)
+  }
+  console.log('PASS all public pages: no removed project, archive or old website links')
+  await assertEnglishRoutes(page, baseURL)
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.setViewportSize({ width: 1440, height: 1000 })
   await page.goto(baseURL, { waitUntil: 'networkidle' })
   await page.locator('#partners').scrollIntoViewIfNeeded()
   await page.waitForFunction(() => !document.querySelector('#partners [data-reveal]').classList.contains('reveal-pending'))
   console.log('PASS scroll reveal')
-  await page.route('https://caesar.se/projekt/deimos/', route => route.fulfill({ contentType: 'text/html', body: '<h1>Deimos</h1>' }))
-  await page.goto(`${baseURL}/projects/deimos`)
-  await page.waitForURL('https://caesar.se/projekt/deimos/')
-  console.log('PASS preserved Deimos route')
   assert.deepEqual(errors, [], 'Browser runtime errors')
   console.log('PASS no browser runtime errors')
 } finally { await browser.close() }

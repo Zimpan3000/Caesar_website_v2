@@ -10,6 +10,7 @@
     "build": "npm run build --workspace=frontend && npm run build --workspace=backend",
     "start": "node backend/dist/index.js",
     "check:homepage": "node scripts/check-homepage.mjs",
+    "check:partners": "node scripts/check-partners.mjs",
     "check:hero-layout": "node scripts/check-hero-layout.mjs",
     "check:support": "node scripts/check-support.mjs",
     "check:projects": "node scripts/check-projects.mjs",
