@@ -11,14 +11,14 @@ export default function HybridEngineDrawing({ selected = null }: { selected?: 'o
           </defs>
           <path className="hybrid-axis" d="M60 8 V350" />
           <g className={`hybrid-part hybrid-tank${selected === 'oxidizer' ? ' is-selected' : ''}`}>
-            <rect className="hybrid-outline" x="36" y="18" width="48" height="78" rx="22" pathLength="1" />
-            <path className="hybrid-liquid" d="M38 57 Q60 62 82 57 V74 Q82 94 60 94 Q38 94 38 74 Z" />
-            <path className="hybrid-level" d="M38 57 Q60 62 82 57" />
+            <rect className="hybrid-outline" x="36" y="8" width="48" height="132" rx="22" pathLength="1" />
+            <path className="hybrid-liquid" d="M38 74 Q60 79 82 74 V118 Q82 138 60 138 Q38 138 38 118 Z" />
+            <path className="hybrid-level" d="M38 74 Q60 79 82 74" />
           </g>
           <g className={`hybrid-part hybrid-plumbing${selected === 'fluid' || selected === 'oxidizer' ? ' is-selected' : ''}`}>
-            <path className="hybrid-feed hybrid-outline" d="M60 96 V208" pathLength="1" />
-            <path className="hybrid-valve" d="M52 132 L68 148 V132 L52 148 Z M68 140 H77 V132" />
-            <path className="hybrid-extra-plumbing" d="M60 116 H25 V107 M21 107 H29 M60 170 H89 M89 163 A7 7 0 1 1 88.9 163 M60 184 H51 L60 193 L69 184 M51 195 H69" />
+            <path className="hybrid-feed hybrid-outline" d="M60 140 V208" pathLength="1" />
+            <path className="hybrid-valve" d="M52 156 L68 172 V156 L52 172 Z M68 164 H77 V156" />
+            <path className="hybrid-extra-plumbing" d="M60 150 H25 V141 M21 141 H29 M60 182 H89 M89 175 A7 7 0 1 1 88.9 175 M60 190 H51 L60 199 L69 190 M51 201 H69" />
             <path className="hybrid-injector" d="M38 205 H82 M38 210 H82 M45 211 V217 M55 211 V217 M65 211 V217 M75 211 V217" />
           </g>
           <g className={`hybrid-part hybrid-chamber${selected === 'combustion' ? ' is-selected' : ''}`}>
@@ -31,7 +31,7 @@ export default function HybridEngineDrawing({ selected = null }: { selected?: 'o
             <path className="hybrid-outline" d="M48 302 Q57 310 53 318 L40 336 H80 L67 318 Q63 310 72 302" pathLength="1" />
             <g className="hybrid-vectors"><path d="M48 341 L39 357 M60 341 V360 M72 341 L81 357" /></g>
           </g>
-          <path className="hybrid-flow-pulse" d="M60 84 V135 M60 146 V205 M60 216 V292" pathLength="1" />
+          <path className="hybrid-flow-pulse" d="M60 128 V159 M60 170 V205 M60 216 V292" pathLength="1" />
         </svg>
   )
 }

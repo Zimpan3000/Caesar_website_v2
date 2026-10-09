@@ -28,8 +28,8 @@
 .hybrid-node::before { content: ''; position: absolute; right: calc(100% + 10px); width: 26px; height: 1px; background: #819db664; }
 .hybrid-node > i { width: 5px; height: 5px; flex: 0 0 5px; border: 1px solid #9ab3c6; border-radius: 50%; }
 .hybrid-node small { display: block; margin-top: 3px; color: #8ba0b2; font-size: 8px; letter-spacing: .08em; }
-.hybrid-node--oxidizer { top: 16%; }
-.hybrid-node--fluid { top: 41%; }
+.hybrid-node--oxidizer { top: 20.6%; }
+.hybrid-node--fluid { top: 45.6%; }
 .hybrid-node--combustion { top: 70%; }
 .hybrid-node--performance { top: 94%; }
 .hybrid-node.is-selected { color: #fff0e3; }

@@ -215,6 +215,7 @@
 
 /* Keep the lower team CTAs clear of both the diagrams and scene navigation. */
 @media (max-width: 380px) {
+  .callout-propulsion .subteam-description { font-size: 12px; line-height: 1.4; }
   .callout-structures .subteam-description, .callout-marketing .subteam-description { font-size: 12px; line-height: 1.55; margin-top: 12px; }
   .callout-structures .subteam-cta, .callout-marketing .subteam-cta { min-height: 40px; margin-top: 8px; }
 }

@@ -45,7 +45,7 @@ try {
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false)
       if (name === 'COMBUSTION') assert.equal(await drawing.locator('.hybrid-fuel-grain').evaluate(node => getComputedStyle(node).opacity), '1')
       if (name === 'PERFORMANCE') {
-        assert.deepEqual(await drawing.locator('.hybrid-parameters dd').allTextContents(), ['30 BAR', '6.0', '~1 kN', '~10 s', '235.98 s'])
+        assert.deepEqual(await drawing.locator('.hybrid-parameters dd').allTextContents(), ['30 BAR', '6.0', '~1000 N', '~10 s', '235.98 s'])
         assert.equal(await drawing.locator('.hybrid-flow-pulse').evaluate(node => getComputedStyle(node).animationName), 'none')
       }
       await page.screenshot({ path: `artifacts/propulsion-${name.toLowerCase().replaceAll(' ', '-')}-${width}.png` })

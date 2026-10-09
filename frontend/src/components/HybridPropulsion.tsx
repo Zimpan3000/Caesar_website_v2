@@ -7,7 +7,7 @@ type Area = typeof areas[number]
 const labels: Record<Area, string> = { oxidizer: 'OXIDIZER', fluid: 'FLUID SYSTEM', combustion: 'COMBUSTION', performance: 'PERFORMANCE' }
 // Initial sizing supplied by CAESAR; these are not measured flight results.
 const parameters = [
-  ['CHAMBER PRESSURE', '30 BAR'], ['O/F RATIO', '6.0'], ['DESIGN THRUST', '~1 kN'],
+  ['CHAMBER PRESSURE', '30 BAR'], ['O/F RATIO', '6.0'], ['DESIGN THRUST', '~1000 N'],
   ['BURN TIME', '~10 s'], ['SPECIFIC IMPULSE', '235.98 s'],
 ]
 
