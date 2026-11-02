@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 export function useScrollReveal() {
   useEffect(() => {
     if (!('IntersectionObserver' in window)) return
-    const preference = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce), (max-width: 900px)')
     const elements = document.querySelectorAll<HTMLElement>('[data-reveal]')
     let observer: IntersectionObserver | undefined
     const configure = () => {

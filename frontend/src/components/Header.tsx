@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import HeaderDropdown from './HeaderDropdown'
 import { links } from '../data/site'
 import { subteams } from '../data/subteams'
+import { useCompactLayout } from '../useCompactLayout'
 
 const missionItems = [
   { id: 'overview', href: '#top', label: 'Overview' },
@@ -21,6 +22,7 @@ const homeItems = [
 ]
 
 export default function Header({ isRocketProject = false, isMembership = false, isSupport = false, isSponsor = false, isPartners = false, isContact = false, isElectronics = false, isPropulsion = false, isStructures = false, isMarketing = false }: { isRocketProject?: boolean; isMembership?: boolean; isSupport?: boolean; isSponsor?: boolean; isPartners?: boolean; isContact?: boolean; isElectronics?: boolean; isPropulsion?: boolean; isStructures?: boolean; isMarketing?: boolean }) {
+  const compact = useCompactLayout()
   const isTeamPage = isElectronics || isPropulsion || isStructures || isMarketing
   const isContentPage = isRocketProject || isMembership || isSupport || isSponsor || isPartners || isContact || isTeamPage
   const homeSection = (hash: string) => isContentPage ? sitePath(hash) : hash
@@ -104,7 +106,21 @@ export default function Header({ isRocketProject = false, isMembership = false, 
 
   useEffect(() => {
     if (!open) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const background = Array.from(document.querySelectorAll<HTMLElement>('#main, .site-footer'))
+    const previousInert = background.map(element => element.inert)
+    background.forEach(element => { element.inert = true })
     const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Tab') {
+        const items = Array.from(header.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') || [])
+          .filter(element => element.getClientRects().length && !element.closest('[hidden]'))
+        const first = items[0]
+        const last = items[items.length - 1]
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus() }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus() }
+        return
+      }
       if (event.key !== 'Escape') return
       setOpen(false)
       setOpenDropdown(null)
@@ -116,6 +132,8 @@ export default function Header({ isRocketProject = false, isMembership = false, 
     document.addEventListener('keydown', onKey)
     document.addEventListener('pointerdown', onOutside)
     return () => {
+      document.body.style.overflow = previousOverflow
+      background.forEach((element, index) => { element.inert = previousInert[index] })
       document.removeEventListener('keydown', onKey)
       document.removeEventListener('pointerdown', onOutside)
     }
@@ -139,7 +157,7 @@ export default function Header({ isRocketProject = false, isMembership = false, 
   return (
     <header ref={header} className={`site-header${scrolled ? ' is-scrolled' : ''}${open ? ' menu-open' : ''}`}>
       <div className="container header-inner">
-        <a className="brand" href={sitePath()} aria-label="CAESAR home"><img src={sitePath('assets/caesar-full.png')} alt="CAESAR" width="2172" height="724" /></a>
+        <a className="brand" href={sitePath()} aria-label="CAESAR home"><img src={sitePath(compact ? 'assets/caesar-logo-mobile.webp' : 'assets/caesar-full.png')} alt="CAESAR" width="2172" height="724" /></a>
         <button ref={toggle} className="menu-toggle" type="button" aria-controls="main-navigation" aria-expanded={open} onClick={() => { setOpen(!open); setOpenDropdown(null) }}>
           <span>{open ? 'Close' : 'Menu'}</span><span className="menu-icon" aria-hidden="true"><i /><i /></span>
         </button>

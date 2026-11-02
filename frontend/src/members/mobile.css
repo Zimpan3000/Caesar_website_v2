@@ -1,0 +1,34 @@
+/* Portal controls use the same touch sizes without changing desktop styles. */
+@media (max-width: 900px) {
+  .members-app :is(input, select, textarea) { font-size: 16px; }
+  .members-app :is(.m-button, .m-icon-button, .m-menu-button, .m-password button, .m-member button, .m-format-bar button) { min-height: 44px; min-width: 44px; }
+  .members-app :is(.m-text-link, .m-back-link) { display: inline-flex; align-items: center; min-height: 44px; }
+  .members-app :is(.m-card, .m-panel, .m-page-heading, .m-topbar > div, .m-team-document-section) { min-width: 0; }
+  .members-app :is(h1, h2, h3, a, strong) { overflow-wrap: anywhere; }
+}
+@media (max-width: 700px) {
+  .members-app .m-sidebar.is-open { position: fixed; z-index: 25; inset: 65px 0 0; overflow-y: auto; overscroll-behavior: contain; }
+  .members-app .m-topbar { position: sticky; top: 0; z-index: 26; background: var(--m-bg); }
+  .members-app .m-sidebar nav a { min-height: 48px; }
+  .members-app .m-form-grid { grid-template-columns: minmax(0, 1fr); }
+  .members-app .m-dialog-actions { flex-wrap: wrap; }
+  .members-app .m-dialog-actions > button { flex: 1; }
+  .members-app .m-filters { flex-wrap: wrap; }
+  .members-app .m-team-page-nav { gap: 12px; flex-wrap: wrap; }
+  .members-app .m-login-story { min-height: 200px; }
+  .members-app .m-login-copy { padding-top: 28px; }
+  .members-app .m-login-form { min-height: 0; padding-bottom: 32px; }
+  .members-app .m-status-counts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .members-app .m-project-node { margin-left: min(calc(var(--project-depth) * 8px), 24px); }
+  /* Read every data field vertically instead of panning a desktop table. */
+  .members-app .m-table-scroll { overflow: visible; }
+  .members-app .m-data-table, .members-app .m-data-table tbody { display: block; }
+  .members-app .m-data-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .members-app .m-data-table tr:not([hidden]) { display: block; padding: 20px; border-top: 1px solid var(--m-border); }
+  .members-app .m-data-table tbody th { display: block; min-width: 0; max-width: none; padding: 0 0 12px; border: 0; }
+  .members-app .m-record-title { min-height: 44px; font-size: 14px !important; }
+  .members-app .m-data-table td { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 8px 0; border: 0; white-space: normal; overflow-wrap: anywhere; }
+  .members-app .m-data-table td[data-label]::before { content: attr(data-label); flex: 0 0 64px; font: 11px/1.5 Inter, sans-serif; color: var(--m-muted); }
+  .members-app .m-data-table .m-category { white-space: normal; }
+  .members-app .m-data-table .m-data-detail td { display: block; }
+}

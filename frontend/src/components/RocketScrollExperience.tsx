@@ -9,6 +9,8 @@ import SubteamHighlights from './SubteamHighlights'
 import RocketStarfield from './RocketStarfield'
 import EarthTransition from './EarthTransition'
 import TeamAbout from './TeamAbout'
+import MobileDiagram from './MobileDiagram'
+import { useCompactLayout } from '../useCompactLayout'
 import FlightComputer from './FlightComputer'
 import HybridPropulsion from './HybridPropulsion'
 import VehicleArchitecture from './VehicleArchitecture'
@@ -30,6 +32,7 @@ const sceneLinks = [
 ]
 
 export default function RocketScrollExperience() {
+  const compact = useCompactLayout()
   const root = useRef<HTMLElement>(null)
   const [avionicsVisible, setAvionicsVisible] = useState(false)
   const [propulsionVisible, setPropulsionVisible] = useState(false)
@@ -54,7 +57,7 @@ export default function RocketScrollExperience() {
       desktop: '(min-width: 901px)',
       mobile: '(max-width: 900px)',
       reduced: '(prefers-reduced-motion: reduce)',
-      static: '(prefers-reduced-motion: reduce), (max-height: 600px), (max-width: 900px) and (max-height: 720px)',
+      static: '(prefers-reduced-motion: reduce), (max-height: 600px), (max-width: 900px)',
     }, (context) => {
       const { mobile, reduced, static: staticMode } = context.conditions!
       const select = gsap.utils.selector(section)
@@ -118,7 +121,7 @@ export default function RocketScrollExperience() {
         })
         // Short viewports use normal document flow. One trigger owns both halves
         // of the About composition; reduced motion keeps them immediately visible.
-        if (!reduced) {
+        if (!reduced && !mobile) {
           gsap.fromTo(select('.about-copy, .about-portrait'), { autoAlpha: 0, y: 20 }, {
             autoAlpha: 1, y: 0, duration: .5, ease: 'power2.out',
             scrollTrigger: { trigger: about, start: 'top 85%', toggleActions: 'play none none reverse' },
@@ -297,7 +300,7 @@ export default function RocketScrollExperience() {
     }, section)
 
     return () => media.revert()
-  }, [])
+  }, [compact])
 
   return (
     <section ref={root} className="rocket-experience" aria-label="Meet CAESAR and our four subteams" data-stage="intro">
@@ -307,7 +310,7 @@ export default function RocketScrollExperience() {
         <RocketStarfield />
         <div className="rocket-grid" aria-hidden="true" />
         <div className="rocket-camera">
-          <img className="rocket-image" src={sitePath('assets/caesar-rocket.png')} alt="Black CAESAR rocket with a silver nose cone and the society’s logo" width="1024" height="1536" {...{ fetchpriority: 'high' }} />
+          <img className="rocket-image" src={sitePath(compact ? 'assets/caesar-rocket-mobile.webp' : 'assets/caesar-rocket.png')} alt="Black CAESAR rocket with a silver nose cone and the society’s logo" width="1024" height="1536" {...{ fetchpriority: 'high' }} />
         </div>
         <div className="rocket-intro">
           <div className="rocket-intro-copy">
@@ -324,23 +327,23 @@ export default function RocketScrollExperience() {
         <SubteamHighlights />
         <div className="subteam-panels">{subteams.map((team, index) => team.id === 'electronics' ? (
           <div className="electronics-scene" key={team.id}>
-            <TechnicalCallout team={team} index={index} />
-            <FlightComputer visible={avionicsVisible} />
+            <TechnicalCallout team={team} index={index} compact={compact} />
+            {compact ? <MobileDiagram label="Explore the flight computer"><FlightComputer visible /></MobileDiagram> : <FlightComputer visible={avionicsVisible} />}
           </div>
         ) : team.id === 'propulsion' ? (
           <div className="propulsion-scene" key={team.id}>
-            <TechnicalCallout team={team} index={index} />
-            <HybridPropulsion visible={propulsionVisible} />
+            <TechnicalCallout team={team} index={index} compact={compact} />
+            {compact ? <MobileDiagram label="Explore the hybrid engine"><HybridPropulsion visible /></MobileDiagram> : <HybridPropulsion visible={propulsionVisible} />}
           </div>
         ) : team.id === 'structures' ? (
           <div className="structures-scene" key={team.id}>
-            <TechnicalCallout team={team} index={index} />
-            <VehicleArchitecture visible={structuresVisible} />
+            <TechnicalCallout team={team} index={index} compact={compact} />
+            {compact ? <MobileDiagram label="Explore the vehicle"><VehicleArchitecture visible /></MobileDiagram> : <VehicleArchitecture visible={structuresVisible} />}
           </div>
-        ) : <div className="marketing-scene" key={team.id}><TechnicalCallout team={team} index={index} /><MarketingOutreach visible={marketingVisible} /></div>)}</div>
+        ) : <div className="marketing-scene" key={team.id}><TechnicalCallout team={team} index={index} compact={compact} />{compact ? <MobileDiagram label="Explore our outreach"><MarketingOutreach visible /></MobileDiagram> : <MarketingOutreach visible={marketingVisible} />}</div>)}</div>
         <MissionTransition />
-        <EarthTransition />
-        <TeamAbout />
+        {!compact && <EarthTransition />}
+        <TeamAbout compact={compact} />
         <ScrollProgress onNavigate={navigate} />
         <div className="rocket-viewport-footer" aria-hidden="true"><span>PHOBOS / CURRENT PROJECT</span><span>FROM CONCEPT TO LAUNCH</span></div>
       </div>

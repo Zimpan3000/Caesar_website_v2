@@ -221,7 +221,7 @@
 }
 
 /* The accessible static version keeps every team description in reading order. */
-@media (prefers-reduced-motion: reduce), (max-height: 600px), (max-width: 900px) and (max-height: 720px) {
+@media (prefers-reduced-motion: reduce), (max-height: 600px), (max-width: 900px) {
   .about-anchor, .scene-anchor { display: none; }
   .earth-story { position: relative; height: 65svh; min-height: 360px; overflow: clip; }
   .earth-visual { top: 0; opacity: 1; visibility: visible; will-change: auto; }
@@ -243,7 +243,7 @@
   .rocket-progress, .rocket-measurements, .subteam-highlights, .callout-line, .rocket-grid, .rocket-viewport-footer { display: none; }
   .rocket-starfield { transform: none; }
 }
-@media (max-width: 900px) and (prefers-reduced-motion: reduce), (max-width: 900px) and (max-height: 720px) {
+@media (max-width: 900px) {
   .about-copy { width: calc(100% - 48px); }
   .subteam-panels, .rocket-mission { width: calc(100% - 48px); }
   .rocket-mission { padding-block: 55px; }

@@ -1,14 +1,29 @@
 import { chromium } from 'playwright'
 import assert from 'node:assert/strict'
+import { existsSync } from 'node:fs'
 
-const browser = await chromium.launch({ executablePath: process.env.BROWSER_PATH || undefined, headless: true })
+const installed = ['C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'].find(existsSync)
+const browser = await chromium.launch({ executablePath: process.env.BROWSER_PATH || installed, headless: true })
 const errors = []
 try {
   for (const [width, height] of [[1440, 1000], [390, 844], [375, 667]]) {
     const page = await browser.newPage({ viewport: { width, height }, reducedMotion: 'no-preference' })
     page.on('pageerror', error => errors.push(error.message))
     await page.goto(process.env.CHECK_URL || 'http://localhost:5173', { waitUntil: 'networkidle' })
-    await page.locator('.about-portrait img').evaluate(image => image.decode())
+    await page.locator('.about-portrait img').evaluate(image => { image.loading = 'eager'; return image.decode() })
+    if (width <= 900) {
+      assert.equal(await page.locator('.rocket-experience').getAttribute('data-mode'), 'static')
+      for (const selector of ['.about-copy', '.about-portrait', '.technical-callout', '.rocket-mission']) {
+        for (const node of await page.locator(selector).all()) assert.equal(await node.evaluate(el => getComputedStyle(el).opacity), '1')
+      }
+      assert.equal(await page.locator('.reveal-pending').count(), 0)
+      await page.emulateMedia({ reducedMotion: 'reduce' })
+      await page.emulateMedia({ reducedMotion: 'no-preference' })
+      assert.equal(await page.locator('.rocket-experience').getAttribute('data-mode'), 'static')
+      console.log(`PASS ${width} × ${height}: native mobile flow, immediately readable content, live motion preferences`)
+      await page.close()
+      continue
+    }
     const sample = (progress, duration = 1200) => page.evaluate(({ progress, duration }) => new Promise(resolve => {
       const root = document.querySelector('.rocket-experience')
       const viewport = root.querySelector('.rocket-viewport')

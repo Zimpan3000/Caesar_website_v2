@@ -1,0 +1,112 @@
+/* Mobile and portrait tablet presentation. Desktop rules remain in their original files. */
+@media (max-width: 900px) {
+  html { scroll-padding-top: 90px; }
+  .app { --mobile-gutter: clamp(20px, 4vw, 36px); }
+  .app .container { width: calc(100% - var(--mobile-gutter) * 2); }
+  .app :is(h1, h2, h3, p, figcaption, a) { overflow-wrap: break-word; }
+  .app :is(section, article, figure, [class$="-grid"]) > * { min-width: 0; }
+  .app .section-space { padding-block: 64px; }
+  .app .eyebrow { font-size: 10px; margin-bottom: 20px; }
+  .app .button { min-height: 48px; max-width: 100%; }
+  .app .text-link { min-height: 48px; }
+  .site-header, .site-header.is-scrolled, .site-header.menu-open { background: #080e16; backdrop-filter: none; }
+  .header-inner { min-height: 72px; }
+  .main-navigation { top: 72px; max-height: calc(100dvh - 72px); padding: 16px var(--mobile-gutter) max(24px, env(safe-area-inset-bottom)); overscroll-behavior: contain; }
+  .main-navigation a, .navigation-toggle { min-height: 48px; }
+  .main-navigation .nav-support { width: 100%; justify-content: space-between; padding: 12px 16px; background: #e9975c15; border-color: #e9975c60; }
+  .menu-toggle { min-width: 78px; }
+  .footer-main nav a { display: flex; align-items: center; min-height: 44px; }
+
+  /* Native document flow: introduction, team cards, vision, and the society. */
+  .rocket-experience .rocket-viewport { display: flex; flex-direction: column; }
+  .rocket-experience .rocket-intro { order: 0; min-height: 0; padding: 120px var(--mobile-gutter) 20px; gap: 14px; }
+  .rocket-experience .rocket-intro h1 { font-size: clamp(31px, 6.8vw, 54px); line-height: 1.1; }
+  .rocket-experience .rocket-origin { font-size: 9px; letter-spacing: .08em; margin-bottom: 24px; }
+  .rocket-intro-rule { margin-block: 24px 16px; }
+  .rocket-experience .rocket-intro-note { max-width: none; font-size: 15px; color: #b1bdca; }
+  .rocket-experience .scroll-prompt { position: static; width: 100%; flex-direction: row; align-items: center; gap: 16px; margin: 4px 0 0; font-size: 11px; }
+  .rocket-experience .skip-experience { min-height: 44px; display: inline-flex; align-items: center; font-size: 13px; }
+  .rocket-experience .rocket-camera { order: 1; position: relative; inset: auto; transform: none; width: 100%; height: 300px; aspect-ratio: auto; margin: -12px 0 24px; display: flex; justify-content: center; overflow: hidden; }
+  .rocket-experience .rocket-image { height: 100%; width: auto; max-width: 100%; transform: none; object-fit: contain; }
+  .rocket-experience .subteam-panels { order: 2; width: calc(100% - var(--mobile-gutter) * 2); }
+  .rocket-experience :is(.electronics-scene, .propulsion-scene, .structures-scene, .marketing-scene) { display: block; padding-block: 32px; border-top: 1px solid var(--line); }
+  .rocket-experience .technical-callout { border: 0; padding: 0; }
+  .rocket-experience .technical-callout h2 { font-size: clamp(28px, 6vw, 40px); }
+  .rocket-experience .subteam-description { font-size: 16px; line-height: 1.75; max-width: 600px; }
+  .rocket-experience .technical-index { margin-bottom: 16px; }
+  .rocket-experience .subteam-keywords { gap: 8px 12px; margin-top: 18px; }
+  .rocket-experience .subteam-keywords li { font-size: 9px; }
+  .rocket-experience .subteam-cta { width: 100%; justify-content: space-between; min-height: 48px; margin-top: 24px; font-size: 13px; }
+  .mobile-diagram { margin-top: 16px; border-bottom: 1px solid var(--line); }
+  .mobile-diagram summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding-block: 12px; font-size: 13px; color: var(--muted); cursor: pointer; list-style: none; }
+  .mobile-diagram summary::-webkit-details-marker { display: none; }
+  .mobile-diagram summary > span { color: var(--accent); font-size: 22px; }
+  .mobile-diagram[open] summary > span { transform: rotate(45deg); }
+  .mobile-diagram-content { padding-block: 20px; }
+  .mobile-diagram :is(.avionics, .hybrid-propulsion, .vehicle-architecture, .marketing-outreach) { display: block; max-width: 520px; margin-block: 0 20px; }
+  .mobile-diagram :is(button, a) { min-height: 44px; }
+  .mobile-diagram :is(.avionics-inspector, .hybrid-inspector, .architecture-inspector, .outreach-inspector) { position: static; width: 100%; max-width: none; min-height: 0; padding-top: 20px; }
+  .mobile-diagram :is(.avionics-detail li, .hybrid-explanation, .hybrid-chain li, .architecture-requirements li, .outreach-detail li) { font-size: 13px; }
+  .mobile-diagram :is(.avionics-diagram, .outreach-network) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; height: auto; }
+  .mobile-diagram :is(.avionics-core, .outreach-source) { position: relative; inset: auto; transform: none; grid-column: 1 / -1; justify-self: center; width: 120px; height: 100px; margin: 12px 0 28px; }
+  .mobile-diagram :is(.avionics-node, .outreach-node) { position: static; transform: none; width: 100%; min-width: 0; display: flex; gap: 8px; justify-content: flex-start; padding: 10px 6px; border: 1px solid var(--line); font-size: 11px; }
+  .mobile-diagram :is(.avionics-wires, .outreach-wires, .outreach-orbits) { display: none; }
+  .mobile-diagram .avionics-storage { position: static; transform: none; grid-column: 1 / -1; margin-top: 8px; }
+  .mobile-diagram .avionics-ground-visual { position: static; width: 100%; margin-top: 16px; }
+  .mobile-diagram :is(.hybrid-drawing, .architecture-drawing) { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 16px; height: auto; }
+  .mobile-diagram :is(.hybrid-engine, .architecture-cutaway) { position: static; grid-column: 1; grid-row: 1 / 5; width: 90px; height: 300px; }
+  .mobile-diagram :is(.hybrid-node, .architecture-callout) { display: flex; position: static; transform: none; grid-column: 2; width: 100%; padding: 8px; border: 1px solid var(--line); font-size: 11px; }
+  .mobile-diagram .architecture-cutaway { grid-row: 1 / 6; }
+  .mobile-diagram :is(.hybrid-node, .architecture-callout)::before { display: none; }
+  .mobile-diagram :is(.hybrid-n2o, .hybrid-nozzle-label, .hybrid-flow-label) { display: none; }
+  .rocket-experience .rocket-mission { order: 3; width: calc(100% - var(--mobile-gutter) * 2); padding-block: 48px; border-top: 1px solid var(--line); }
+  .rocket-experience .rocket-mission h2 { font-size: clamp(36px, 8vw, 60px); }
+  .rocket-experience .mission-statement { font-size: 16px; max-width: 600px; }
+  .rocket-experience .mission-continue { min-height: 44px; font-size: 13px; }
+  .rocket-experience .about-story { order: 4; padding-block: 48px 64px; background: #0a0e13; }
+  .rocket-experience .about-composition { top: auto; }
+  .rocket-experience .about-copy { width: calc(100% - var(--mobile-gutter) * 2); }
+  .rocket-experience .about-copy h2 { font-size: clamp(36px, 8vw, 60px); }
+  .rocket-experience .about-body { font-size: 16px; line-height: 1.75; text-shadow: none; }
+  .rocket-experience .about-label { font-size: 10px; }
+  .rocket-experience .about-portrait { width: calc(100% - var(--mobile-gutter) * 2); margin-top: 28px; }
+  .rocket-experience .about-portrait figcaption { margin-inline: 0; font-size: 9px; }
+  .rocket-experience *, .rocket-experience *::before, .rocket-experience *::after { animation: none !important; }
+  .propulsion-engine-plate *, .structures-page svg *, .marketing-page svg * { animation: none !important; }
+
+  /* Avoid narrow two-column editorial layouts on portrait tablets as well. */
+  .app :is(.electronics-hero-grid, .electronics-editorial, .electronics-computer-layout,
+    .propulsion-hero-grid, .propulsion-editorial, .structures-hero-grid, .structures-editorial,
+    .structures-recovery-sequence, .marketing-hero-grid, .marketing-editorial,
+    .membership-hero-grid, .rocket-featured-grid, .rocket-editorial, .rocket-showcase-intro,
+    .rocket-showcase-team-heading, .rocket-target) { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .app :is(.electronics-hero-art, .propulsion-engine-plate, .structures-section-plate, .marketing-cover, .membership-photo) { width: 100%; max-width: 540px; margin-inline: auto; }
+  .structures-recovery-visual { position: static; }
+  .rocket-project-sections { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding-block: 20px; }
+  .rocket-project-sections a { display: flex; align-items: center; min-height: 48px; padding: 10px 12px; border: 1px solid var(--line); font-size: 13px; }
+  .support-payment { display: flex; flex-direction: column; }
+  .support-payment-heading { order: 0; }
+  .support-payment .support-open-swish { order: 1; margin: 0 0 24px; }
+  .support-qr { order: 2; }
+  .support-number { order: 3; }
+  .support-payment-note { order: 4; }
+  .app :is(.structures-calculations, .structures-deployment-steps) button, .app summary { min-height: 48px; }
+}
+
+@media (max-width: 600px) {
+  .app h2 { font-size: clamp(29px, 8vw, 42px); }
+  .app :is(.electronics-hero, .propulsion-hero, .structures-hero, .marketing-hero, .membership-hero) h1 { font-size: clamp(38px, 11vw, 60px); line-height: 1.08; }
+  .app :is(.electronics-requirements, .marketing-responsibilities, .structures-responsibilities, .structures-bay-priorities) { grid-template-columns: minmax(0, 1fr); }
+  .electronics-requirements article { border-right: 0; padding: 24px 0; }
+  .app :is(.electronics-copy, .propulsion-copy, .structures-copy, .marketing-copy, .membership-copy, .contact-lead, .support-lead) { font-size: 16px; line-height: 1.75; }
+  .app :is(.propulsion-architecture-heading, .structures-plate-heading) { flex-wrap: wrap; gap: 8px; }
+  .app .structures-values > div { min-width: 0; }
+  .structures-ejection-stages li { grid-template-columns: minmax(0, 1fr); }
+  .structures-ejection-stages svg { grid-row: auto; width: 100%; max-height: 220px; margin-bottom: 20px; }
+  .rocket-project-title-row h1 { font-size: clamp(56px, 17vw, 80px); }
+  .app .footer-invitation h2 { font-size: clamp(32px, 9vw, 43px); }
+  .footer-invitation .button { width: 100%; justify-content: space-between; }
+  .app .footer-main { column-gap: 16px; }
+  .app .footer-main a { overflow-wrap: anywhere; }
+  .app .partners-heading h2 { font-size: clamp(32px, 9vw, 43px); }
+}

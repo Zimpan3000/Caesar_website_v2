@@ -9,7 +9,7 @@ export default function RocketStarfield() {
     const context = canvas.getContext('2d', { alpha: true })
     if (!context) return
     const viewport = canvas.parentElement!
-    const motion = window.matchMedia('(prefers-reduced-motion: reduce), (max-height: 600px)')
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce), (max-height: 600px), (max-width: 900px)')
     let width = 0
     let height = 0
     let frame = 0

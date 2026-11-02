@@ -15,6 +15,7 @@ import RecordEditor from './RecordEditor'
 import UsersPage from './UsersPage'
 import './members.css'
 import './team-documentation.css'
+import './mobile.css'
 const TeamEditor = lazy(() => import('./TeamEditor'))
 
 export default function MembersApp({ pathname }: { pathname: string }) {
