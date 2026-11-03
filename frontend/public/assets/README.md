@@ -38,6 +38,11 @@ Its SIL Open Font License is included in `Inter-LICENSE.txt`.
 `axjo.svg` is the unmodified official Axjo logo, downloaded on 2026-10-05 from
 https://www.axjo.com/hubfs/Axjo%20logo%20red-V01.svg.
 
+`rs-components.png` is the unmodified 512 × 512 official RS logo, downloaded on
+2026-11-03 from https://se.rs-online.com/static/webassets/ico/android-chrome-512x512.png.
+The RS Sweden homepage identifies this image as its organization logo. It is
+served locally on the Partners page and links to https://se.rs-online.com/web/.
+
 Partner and social links are in `src/data/site.ts`. Images are served locally;
 the provenance URLs above are source records, not website navigation links.
 

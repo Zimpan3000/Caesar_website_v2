@@ -17,8 +17,8 @@
 .orbit-small { fill: #96a3b3; font: 6px var(--partner-mono); letter-spacing: .12em; }
 .orbit-node { fill: var(--accent); stroke: #e9975c33; stroke-width: 8; }
 .orbit-label { fill: #b2bdca; font: 8px var(--partner-mono); letter-spacing: .12em; }
-.partnership-index { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid var(--line); }
-.partnership-index a { display: flex; align-items: center; gap: 22px; padding: 27px 26px; border-right: 1px solid var(--line); transition: background .2s; }
+.partnership-index { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-block: 1px solid var(--line); }
+.partnership-index a { display: flex; align-items: center; gap: 12px; padding: 27px 18px; border-right: 1px solid var(--line); transition: background .2s; }
 .partnership-index a:first-child { padding-left: 0; }
 .partnership-index a:last-child { border-right: 0; padding-right: 0; }
 .partnership-index a:hover { background: #ffffff04; }
@@ -51,7 +51,9 @@
 .partnership-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 @media (max-width: 1100px) {
   .partnership-hero { gap: 30px; }
-  .partnership-index a { gap: 15px; padding-inline: 18px; }
+  .partnership-index { grid-template-columns: 1fr; }
+  .partnership-index a, .partnership-index a:first-child, .partnership-index a:last-child { padding: 18px 0; border-right: 0; gap: 20px; }
+  .partnership-index a + a { border-top: 1px solid var(--line); }
   .partnership-index strong { font-size: 14px; }
   .partnership-logo { min-height: 200px; padding: 30px 20px; }
   .partnership-identity { padding: 18px; }

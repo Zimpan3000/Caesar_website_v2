@@ -15,8 +15,14 @@ try {
     await page.evaluate(() => document.fonts.ready)
     assert.equal(await page.title(), 'Our Partners | CAESAR')
     assert.equal(await page.locator('h1').count(), 1)
-    assert.deepEqual(await page.locator('.partnership-story h2').allTextContents(), ['Tranemo', 'Astronomisk Ungdom', 'Chalmers', 'Axjo'])
-    assert.equal(await page.locator('.partnership-story').count(), 4)
+    assert.deepEqual(await page.locator('.partnership-story h2').allTextContents(), ['Tranemo', 'Astronomisk Ungdom', 'Chalmers', 'Axjo', 'RS Components (RS Online)'])
+    assert.equal(await page.locator('.partnership-story').count(), 5)
+    const rsPartner = page.locator('#rs-components')
+    assert.match(await rsPartner.locator('.partnership-category').textContent(), /Equipment Partner/)
+    assert.equal(await rsPartner.locator('.partnership-description').textContent(), 'RS Components supports CAESAR by providing equipment and technical components that help us develop and build our rockets. Their contribution supports our practical engineering work and allows our team to turn ideas into reality.')
+    assert.equal(await rsPartner.locator('a.partnership-logo').getAttribute('href'), 'https://se.rs-online.com/web/')
+    assert.equal(await rsPartner.locator('.partnership-visit').getAttribute('href'), 'https://se.rs-online.com/web/')
+    assert.equal(await rsPartner.locator('img').getAttribute('src'), new URL('assets/rs-components.png', base).pathname)
     assert.equal(await page.locator('.nav-main-links > a[aria-current="page"]').textContent(), 'Partners')
     for (const image of await page.locator('.partnership-logo img').all()) {
       await image.scrollIntoViewIfNeeded()
@@ -46,7 +52,7 @@ try {
       return issues
     })
     assert.deepEqual(issues, [], `Layout at ${width}x${height}`)
-    for (const id of ['tranemo', 'astronomisk-ungdom', 'chalmers', 'axjo']) {
+    for (const id of ['tranemo', 'astronomisk-ungdom', 'chalmers', 'axjo', 'rs-components']) {
       await page.locator(`.partnership-index a[href="#${id}"]`).click()
       const title = await page.locator(`#${id} h2`).boundingBox()
       const header = await page.locator('.site-header').boundingBox()

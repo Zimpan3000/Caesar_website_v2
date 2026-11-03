@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import Arrow from '../components/Arrow'
 import { links, partners } from '../data/site'
+import { sitePath } from '../paths'
 import { useScrollReveal } from '../useScrollReveal'
 import '../partners.css'
 
@@ -25,6 +26,12 @@ const contributions = [
     id: 'axjo', name: 'Axjo', asset: 'axjo.svg',
     category: 'Storage Solutions Partner', theme: 'A place for every component.', detail: 'Storage solutions & boxes',
     copy: 'Axjo develops packaging and storage solutions for industry. They support CAESAR by providing storage solutions and storage boxes for our equipment and components, helping us keep our workspace and technical material organized.',
+  },
+  {
+    id: 'rs-components', name: 'RS Components (RS Online)', asset: 'rs-components.png',
+    url: 'https://se.rs-online.com/web/',
+    category: 'Equipment Partner', theme: 'Turning ideas into reality.', detail: 'Equipment & components',
+    copy: 'RS Components supports CAESAR by providing equipment and technical components that help us develop and build our rockets. Their contribution supports our practical engineering work and allows our team to turn ideas into reality.',
   },
 ]
 
@@ -80,7 +87,9 @@ export default function Partners() {
 
       <div className="partnership-stories">
         {contributions.map((partner, index) => {
-          const identity = partners.find(item => item.image.endsWith(`/${partner.asset}`))!
+          const identity = partner.url
+            ? { url: partner.url, image: sitePath(`assets/${partner.asset}`) }
+            : partners.find(item => item.image.endsWith(`/${partner.asset}`))!
           return <section key={partner.id} id={partner.id} className={`partnership-story partnership-story-${partner.id}`} aria-labelledby={`${partner.id}-title`}>
             <div className="partnership-story-copy" data-reveal>
               <p className="partnership-category"><span aria-hidden="true">0{index + 1} /</span> {partner.category}</p>
@@ -92,7 +101,9 @@ export default function Partners() {
             </div>
             <figure className="partnership-identity" data-reveal>
               <div className="partnership-plate-meta partnership-notation"><span>CAESAR / PARTNER 0{index + 1}</span><span aria-hidden="true">+</span></div>
-              <div className="partnership-logo"><img src={identity.image} alt={`${partner.name} logo`} loading="lazy" /></div>
+              {partner.url
+                ? <a className="partnership-logo" href={identity.url} target="_blank" rel="noreferrer" aria-label={`Visit ${partner.name} (opens in a new tab)`}><img src={identity.image} alt={`${partner.name} logo`} loading="lazy" /></a>
+                : <div className="partnership-logo"><img src={identity.image} alt={`${partner.name} logo`} loading="lazy" /></div>}
               <figcaption><span className="partnership-notation">Enabling the mission</span><span>{partner.detail}</span></figcaption>
             </figure>
           </section>
