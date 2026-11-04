@@ -5,7 +5,6 @@ export default function TeamAbout({ compact = false }: { compact?: boolean }) {
     <section id="om-oss" className="about-story" aria-labelledby="about-title">
       <div className="about-composition">
         <div className="about-copy">
-          <p className="about-label"><span aria-hidden="true" />WHO WE ARE</p>
           <h2 id="about-title">WE ARE CAESAR<span>.</span></h2>
           <div className="about-body">
             <p className="about-lead"><strong>CAESAR was founded in 2021 as Chalmers Raketgrupp by Chalmers students with a shared interest in space and aerospace engineering.</strong></p>

@@ -75,6 +75,7 @@ a:hover > .arrow, .news-link:hover .news-read .arrow { transform: translateX(3px
 .navigation-disclosure { position: relative; }
 .navigation-toggle { display: flex; align-items: center; gap: 7px; min-height: 44px; padding: 8px 0; border: 0; background: transparent; color: #c5cad3; font-size: 12px; transition: color 180ms ease-out; }
 .navigation-toggle.is-active, .navigation-toggle:hover, .navigation-toggle:focus-visible, .navigation-disclosure.is-open .navigation-toggle { color: var(--accent); }
+.main-navigation .nav-main-links > a[aria-current], .navigation-toggle.is-active { color: var(--accent); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 7px; }
 .navigation-chevron { stroke: currentColor; stroke-width: 1.2; transition: transform 180ms ease-out; }
 .navigation-disclosure.is-open .navigation-chevron { transform: rotate(180deg); }
 .navigation-dropdown { position: absolute; z-index: 2; top: 100%; left: -24px; width: 306px; padding-top: 16px; }

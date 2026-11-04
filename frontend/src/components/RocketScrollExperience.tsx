@@ -314,7 +314,6 @@ export default function RocketScrollExperience() {
         </div>
         <div className="rocket-intro">
           <div className="rocket-intro-copy">
-            <p className="eyebrow rocket-origin" lang="en"><span className="status-dot" /> Chalmers · Gothenburg · Sweden</p>
             <h1 lang="en"><span>Chalmers</span>{' '}<span>Aerospace Society</span>{' '}<span>for Advanced</span>{' '}<span>Rocketry</span></h1>
             <span className="rocket-intro-rule" aria-hidden="true" />
             <p className="rocket-intro-note">Four teams. One shared direction.<br />Bound for space.</p>

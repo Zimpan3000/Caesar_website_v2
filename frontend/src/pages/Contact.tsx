@@ -24,7 +24,6 @@ export default function Contact() {
       <a className="text-link contact-back" href={sitePath()}><span aria-hidden="true">←</span> Back to home</a>
       <header className="contact-hero">
         <div>
-          <p className="eyebrow"><span className="status-dot" /> Contact / CAESAR</p>
           <h1 id="contact-title">Get in<br /><span>touch.</span></h1>
           <p className="contact-lead">Have a question about CAESAR, our projects or what we do? We’d like to hear from you.</p>
           <p className="contact-location">Chalmers Aerospace Society for Advanced Rocketry<br />Göteborg, Sweden</p>

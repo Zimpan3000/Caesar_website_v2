@@ -66,7 +66,7 @@ export default function HeaderDropdown({ name, id, label, title, description, ti
     }}>{label} <svg className="navigation-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m3 4.5 3 3 3-3" /></svg></button>
     <div id={id} className={`navigation-dropdown ${name}-dropdown`} hidden={!open}>
       <div className={`navigation-dropdown-inner ${name}-dropdown-inner`} lang={lang}>
-        <a className={`navigation-heading ${name}-heading`} href={titleHref}><span>{title} <span>// 01</span></span><span>{description}</span></a>
+        <a className={`navigation-heading ${name}-heading`} href={titleHref}><span>{title}</span><span>{description}</span></a>
         <div className={`navigation-destinations ${name}-destinations`}>
           {items.map(item => <a key={item.id} href={item.href} aria-current={item.current}><span>{item.label}</span><Arrow /></a>)}
         </div>

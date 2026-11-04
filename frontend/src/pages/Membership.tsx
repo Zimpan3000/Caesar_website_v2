@@ -23,7 +23,6 @@ export default function Membership() {
         <a className="text-link membership-back" href={sitePath()}><span aria-hidden="true">←</span> Back to home</a>
         <div className="membership-hero-grid">
           <div>
-            <p className="eyebrow"><span className="status-dot" /> Join CAESAR</p>
             <h1 id="membership-title">Your place on<br />the journey<br /><span>to space.</span></h1>
             <p className="membership-lead">Shared curiosity. Greater ambition.<br />Become part of CAESAR.</p>
             <a className="text-link" href="#medlemskap">Explore membership <span aria-hidden="true">↓</span></a>
@@ -44,7 +43,6 @@ export default function Membership() {
     <section id="medlemskap" className="membership-section section-space" aria-labelledby="membership-apply-title">
       <div className="container membership-content-grid">
         <div>
-          <p className="eyebrow">01 / Membership</p>
           <h2 id="membership-apply-title">Apply for<br />membership<span className="blue-period">.</span></h2>
         </div>
         <div className="membership-copy">
@@ -60,7 +58,6 @@ export default function Membership() {
     <section className="membership-projects section-space" aria-labelledby="membership-project-title">
       <div className="container membership-content-grid">
         <div>
-          <p className="eyebrow">02 / Take the next step</p>
           <h2 id="membership-project-title">Project Members<span className="blue-period">.</span></h2>
         </div>
         <div className="membership-copy">

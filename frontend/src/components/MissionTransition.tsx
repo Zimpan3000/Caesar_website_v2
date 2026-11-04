@@ -5,7 +5,6 @@ export default function MissionTransition() {
   return (
     <div id="vision" className="rocket-mission" aria-hidden="true">
       <div className="mission-title">
-        <p className="eyebrow"><span className="status-dot" /> CAESAR</p>
         <h2>Chalmers<br />bound for space<span className="mission-period">.</span></h2>
       </div>
       <div className="mission-details">
