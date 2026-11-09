@@ -1,6 +1,7 @@
 import { sitePath } from '../paths'
 export const links = {
   about: sitePath('#om-oss'),
+  board: sitePath('board-of-directors/'),
   projects: sitePath('#projekt'),
   phobos: sitePath('projects/phobos/'),
   partners: sitePath('partners/'),

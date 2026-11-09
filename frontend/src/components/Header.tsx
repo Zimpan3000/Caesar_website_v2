@@ -21,10 +21,10 @@ const homeItems = [
   { id: 'kontakt', label: 'Contact' },
 ]
 
-export default function Header({ isRocketProject = false, isMembership = false, isSupport = false, isSponsor = false, isPartners = false, isContact = false, isElectronics = false, isPropulsion = false, isStructures = false, isMarketing = false }: { isRocketProject?: boolean; isMembership?: boolean; isSupport?: boolean; isSponsor?: boolean; isPartners?: boolean; isContact?: boolean; isElectronics?: boolean; isPropulsion?: boolean; isStructures?: boolean; isMarketing?: boolean }) {
+export default function Header({ isRocketProject = false, isMembership = false, isSupport = false, isSponsor = false, isPartners = false, isContact = false, isBoard = false, isElectronics = false, isPropulsion = false, isStructures = false, isMarketing = false }: { isRocketProject?: boolean; isMembership?: boolean; isSupport?: boolean; isSponsor?: boolean; isPartners?: boolean; isContact?: boolean; isBoard?: boolean; isElectronics?: boolean; isPropulsion?: boolean; isStructures?: boolean; isMarketing?: boolean }) {
   const compact = useCompactLayout()
   const isTeamPage = isElectronics || isPropulsion || isStructures || isMarketing
-  const isContentPage = isRocketProject || isMembership || isSupport || isSponsor || isPartners || isContact || isTeamPage
+  const isContentPage = isRocketProject || isMembership || isSupport || isSponsor || isPartners || isContact || isBoard || isTeamPage
   const homeSection = (hash: string) => isContentPage ? sitePath(hash) : hash
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
@@ -169,6 +169,7 @@ export default function Header({ isRocketProject = false, isMembership = false, 
           <div className="nav-main-links">
           <HeaderDropdown name="home" id="home-sections-navigation" label="Home" title="HOMEPAGE" description="Explore every part of CAESAR" titleHref={homeSection('#top')} lang="en" open={openDropdown === 'home'} active={activeHomeSection !== null && !['om-oss', 'projekt'].includes(activeHomeSection)} onOpenChange={next => changeDropdown('home', next)} items={homeItems.map(item => ({ ...item, href: homeSection(`#${item.id}`), current: activeHomeSection === item.id ? 'location' : undefined }))} />
           <a href={homeSection('#om-oss')} aria-current={activeHomeSection === 'om-oss' ? 'location' : undefined}>About Us</a>
+          <a href={links.board} aria-current={isBoard ? 'page' : undefined}>Board</a>
           <HeaderDropdown name="project" id="phobos-navigation" label="Projects" title="PHOBOS" description="Hybrid rocket / Target altitude 3 km" titleHref={links.phobos} lang="en" open={openDropdown === 'project'} active={isRocketProject || isTeamPage || activeHomeSection === 'projekt'} onOpenChange={next => changeDropdown('project', next)} items={[
             { id: 'phobos', label: 'Phobos', href: links.phobos, current: isRocketProject ? 'page' : undefined },
             ...missionItems.filter(item => item.id !== 'overview').map(item => ({ ...item, href: subteams.some(team => team.id === item.id) ? sitePath(item.id) : homeSection(item.href), current: activeMission === item.id ? (isTeamPage ? 'page' as const : 'location' as const) : undefined })),

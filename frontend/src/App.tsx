@@ -6,6 +6,7 @@ import Support from './pages/Support'
 import Sponsor from './pages/Sponsor'
 import Partners from './pages/Partners'
 import Contact from './pages/Contact'
+import Board from './pages/Board'
 import RocketProject from './pages/RocketProject'
 import { rocketProjects } from './data/rocketProjects'
 import Electronics from './pages/Electronics'
@@ -26,6 +27,7 @@ export default function App() {
   const isSponsor = pathname === '/become-a-sponsor'
   const isPartners = pathname === '/partners'
   const isContact = pathname === '/contact'
+  const isBoard = pathname === '/board-of-directors'
   const isElectronics = pathname === '/electronics'
   const isPropulsion = pathname === '/propulsion'
   const isStructures = pathname === '/structures'
@@ -51,7 +53,7 @@ export default function App() {
     if (url.origin !== window.location.origin || url.pathname === window.location.pathname) return
     if (!url.pathname.startsWith(sitePath())) return
     const destination = canonicalAppPathname(appPathname(url.pathname))
-    if (!['/', '/electronics', '/propulsion', '/structures', '/marketing', '/join-us', '/support-us', '/become-a-sponsor', '/partners', '/contact', ...rocketProjects.map(project => `/projects/${project.slug}`)].includes(destination)) return
+    if (!['/', '/electronics', '/propulsion', '/structures', '/marketing', '/join-us', '/support-us', '/become-a-sponsor', '/partners', '/contact', '/board-of-directors', ...rocketProjects.map(project => `/projects/${project.slug}`)].includes(destination)) return
     if (destination !== appPathname(url.pathname)) url.pathname = sitePath(`${destination}/`)
     event.preventDefault()
     window.history.pushState(null, '', url)
@@ -66,9 +68,9 @@ export default function App() {
   return (
     <div className="app" id="top" onClick={navigate}>
       <a className="skip-link" href="#main">Skip to content</a>
-      <Header key={pathname} isRocketProject={!!rocketProject} isMembership={isMembership} isSupport={isSupport} isSponsor={isSponsor} isPartners={isPartners} isContact={isContact} isElectronics={isElectronics} isPropulsion={isPropulsion} isStructures={isStructures} isMarketing={isMarketing} />
+      <Header key={pathname} isRocketProject={!!rocketProject} isMembership={isMembership} isSupport={isSupport} isSponsor={isSponsor} isPartners={isPartners} isContact={isContact} isBoard={isBoard} isElectronics={isElectronics} isPropulsion={isPropulsion} isStructures={isStructures} isMarketing={isMarketing} />
       <main id="main" tabIndex={-1}>
-        {rocketProject ? <RocketProject key={rocketProject.slug} project={rocketProject} /> : isContact ? <Contact /> : isPartners ? <Partners /> : isSponsor ? <Sponsor /> : isSupport ? <Support /> : isMembership ? <Membership /> : isElectronics ? <Electronics /> : isPropulsion ? <Propulsion /> : isStructures ? <Structures /> : isMarketing ? <Marketing /> : <Home />}
+        {rocketProject ? <RocketProject key={rocketProject.slug} project={rocketProject} /> : isBoard ? <Board /> : isContact ? <Contact /> : isPartners ? <Partners /> : isSponsor ? <Sponsor /> : isSupport ? <Support /> : isMembership ? <Membership /> : isElectronics ? <Electronics /> : isPropulsion ? <Propulsion /> : isStructures ? <Structures /> : isMarketing ? <Marketing /> : <Home />}
       </main>
       <Footer />
     </div>

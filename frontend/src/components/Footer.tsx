@@ -8,7 +8,7 @@ export default function Footer() {
     <footer id="kontakt" className="site-footer"><div className="container">
       <div className="footer-main">
         <div className="footer-brand"><a className="brand" href={sitePath()} aria-label="CAESAR home"><img src={sitePath(compact ? 'assets/caesar-logo-mobile.webp' : 'assets/caesar-full.png')} alt="CAESAR" width="2172" height="724" loading="lazy" /></a><p>Chalmers Aerospace Society<br />for Advanced Rocketry</p><span>Göteborg, Sweden</span></div>
-        <nav aria-label="Footer navigation"><h3>CAESAR</h3><a href={sitePath()}>Home</a><a href={links.about}>About Us</a></nav>
+        <nav aria-label="Footer navigation"><h3>CAESAR</h3><a href={sitePath()}>Home</a><a href={links.about}>About Us</a><a href={links.board}>Board of Directors</a></nav>
         <nav aria-label="Projects and involvement"><h3>Explore</h3><a href={links.projects}>All Projects</a><a href={links.phobos}>Phobos</a><a href={links.partners}>Our Partners</a><a href={links.sponsor}>Become a Sponsor</a><a href={links.support}>Support Us <span aria-hidden="true">↗</span></a><a href={links.membership}>Membership</a></nav>
         <nav aria-label="Contact and social media"><h3>Stay in Touch</h3><a href={links.contact}>Contact</a><a href="mailto:info@caesar.se">info@caesar.se <span aria-hidden="true">↗</span></a>{socials.map((social) => <a key={social.name} href={social.url} target="_blank" rel="noreferrer">{social.name} <span aria-hidden="true">↗</span></a>)}<a href={links.newsletter} target="_blank" rel="noreferrer">Newsletter <span aria-hidden="true">↗</span></a></nav>
       </div>
